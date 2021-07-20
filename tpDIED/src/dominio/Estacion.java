@@ -1,10 +1,13 @@
-package clases;
+package dominio;
 
 import java.time.Instant;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class EstacionMultimodal {
+import enums.Estado;
+import estructuras.Ruta;
+
+public class Estacion {
 	private String nombre;
     private Instant horarioApertura;
     private Instant horarioCierre;

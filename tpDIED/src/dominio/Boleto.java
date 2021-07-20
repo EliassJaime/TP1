@@ -1,4 +1,4 @@
-package clases;
+package dominio;
 
 import java.time.Instant;
 
@@ -10,7 +10,7 @@ public class Boleto {
 	private Instant fechaDeVenta;
 	private String nombreEstacionOrigen;
 	private String nombreEstacionDestino;
-	private Camino camino;
+	private Trayecto camino;
 	private Integer costoBol;
 	public Integer getNumBoleto() {
 		return numBoleto;
@@ -48,10 +48,10 @@ public class Boleto {
 	public void setNombreEstacionDestino(String nombreEstacionDestino) {
 		this.nombreEstacionDestino = nombreEstacionDestino;
 	}
-	public Camino getCamino() {
+	public Trayecto getCamino() {
 		return camino;
 	}
-	public void setCamino(Camino camino) {
+	public void setCamino(Trayecto camino) {
 		this.camino = camino;
 	}
 	public Integer getCostoBol() {

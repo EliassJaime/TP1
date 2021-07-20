@@ -1,4 +1,4 @@
-package clases;
+package dominio;
 
 import java.time.Instant;
 

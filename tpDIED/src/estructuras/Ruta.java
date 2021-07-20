@@ -1,4 +1,4 @@
-package clases;
+package estructuras;
 
 import java.time.Duration;
 
