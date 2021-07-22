@@ -8,6 +8,7 @@ import enums.Estado;
 import estructuras.Ruta;
 
 public class Estacion {
+	int nqv;
 	private Integer id;
 	private String nombre;
     private Instant horarioApertura;
