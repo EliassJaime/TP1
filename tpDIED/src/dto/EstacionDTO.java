@@ -1,20 +1,25 @@
 package dto;
 
 public class EstacionDTO {
-	public int id;
-	public String nombre;
-	public String tipo;
-	public int valorPagerank;
 	
-	public EstacionDTO(int id, String nombre, String tipo) {
-  this.id=id;
-this.nombre=nombre;
-this.tipo=tipo;
+	
+	private Integer id;
+	private String nombre;
+	private String estado;
+	private String horarioApertura;
+	private String horarioCierre;
+	
+	public EstacionDTO(Integer id, String nombre, String estado, String horarioApertura, String horarioCierre) {
+		this.id = id;
+		this.nombre = nombre;
+		this.estado = estado;
+		this.horarioApertura = horarioApertura;
+		this.horarioCierre = horarioCierre;
 	}
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getNombre() {
@@ -23,18 +28,24 @@ this.tipo=tipo;
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getTipo() {
-		return tipo;
+	public String getEstado() {
+		return estado;
 	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
-	public int getValorPagerank() {
-		return valorPagerank;
+	public String getHorarioApertura() {
+		return horarioApertura;
 	}
-	public void setValorPagerank(int valorPagerank) {
-		this.valorPagerank = valorPagerank;
+	public void setHorarioApertura(String horarioApertura) {
+		this.horarioApertura = horarioApertura;
 	}
-	
+	public String getHorarioCierre() {
+		return horarioCierre;
+	}
+	public void setHorarioCierre(String horarioCierre) {
+		this.horarioCierre = horarioCierre;
+	}
+
 	
 }

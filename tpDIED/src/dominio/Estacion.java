@@ -3,20 +3,21 @@ package dominio;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
-import enums.Estado;
+import enums.EstadoEstacion;
 import estructuras.Ruta;
 
 public class Estacion {
+	
 	int nqv;
 	private Integer id;
 	private String nombre;
     private Instant horarioApertura;
     private Instant horarioCierre;
-    private Estado estado;
-    private ArrayList<Ruta> rutas;
+    private EstadoEstacion estado;
     private ArrayList<Mantenimiento> mantenimientos;
-    private Boleto boleto;
+ 
+    
+    
 	public String getNombre() {
 		return nombre;
 	}
@@ -35,30 +36,20 @@ public class Estacion {
 	public void setHorarioCierre(Instant horarioCierre) {
 		this.horarioCierre = horarioCierre;
 	}
-	public Estado getEstado() {
+	public EstadoEstacion getEstado() {
 		return estado;
 	}
-	public void setEstado(Estado estado) {
+	public void setEstado(EstadoEstacion estado) {
 		this.estado = estado;
 	}
-	public ArrayList<Ruta> getRutas() {
-		return rutas;
-	}
-	public void setRutas(ArrayList<Ruta> rutas) {
-		this.rutas = rutas;
-	}
+
 	public ArrayList<Mantenimiento> getMantenimientos() {
 		return mantenimientos;
 	}
 	public void setMantenimientos(ArrayList<Mantenimiento> mantenimientos) {
 		this.mantenimientos = mantenimientos;
 	}
-	public Boleto getBoleto() {
-		return boleto;
-	}
-	public void setBoleto(Boleto boleto) {
-		this.boleto = boleto;
-	}
+
 	public Integer getId() {
 		return id;
 	}

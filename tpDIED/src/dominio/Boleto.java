@@ -1,64 +1,63 @@
 package dominio;
 
 import java.time.Instant;
+import java.util.List;
+
+import estructuras.Vertice;
 
 public class Boleto {
 	
-	private Integer numBoleto;
-	private String correoElectronico;
-	private String nombreCliente;
+	private Integer idBoleto;
+	private Cliente cliente;
 	private Instant fechaDeVenta;
-	private String nombreEstacionOrigen;
-	private String nombreEstacionDestino;
-	private Trayecto camino;
-	private Integer costoBol;
-	public Integer getNumBoleto() {
-		return numBoleto;
+	private Estacion origen;
+	private Estacion destino;
+	private List<Vertice<Estacion>> camino;
+	private Double costoBol;
+	
+	
+	public Integer getidBoleto() {
+		return idBoleto;
 	}
-	public void setNumBoleto(Integer numBoleto) {
-		this.numBoleto = numBoleto;
+	public void setidBoleto(Integer idBoleto) {
+		this.idBoleto = idBoleto;
 	}
-	public String getCorreoElectronico() {
-		return correoElectronico;
-	}
-	public void setCorreoElectronico(String correoElectronico) {
-		this.correoElectronico = correoElectronico;
-	}
-	public String getNombreCliente() {
-		return nombreCliente;
-	}
-	public void setNombreCliente(String nombreCliente) {
-		this.nombreCliente = nombreCliente;
-	}
+	
 	public Instant getFechaDeVenta() {
 		return fechaDeVenta;
 	}
 	public void setFechaDeVenta(Instant fechaDeVenta) {
 		this.fechaDeVenta = fechaDeVenta;
 	}
-	public String getNombreEstacionOrigen() {
-		return nombreEstacionOrigen;
+	public Estacion getOrigen() {
+		return origen;
 	}
-	public void setNombreEstacionOrigen(String nombreEstacionOrigen) {
-		this.nombreEstacionOrigen = nombreEstacionOrigen;
+	public void setOrigen(Estacion origen) {
+		this.origen = origen;
 	}
-	public String getNombreEstacionDestino() {
-		return nombreEstacionDestino;
+	public Estacion getDestino() {
+		return destino;
 	}
-	public void setNombreEstacionDestino(String nombreEstacionDestino) {
-		this.nombreEstacionDestino = nombreEstacionDestino;
+	public void setDestino(Estacion destino) {
+		this.destino = destino;
 	}
-	public Trayecto getCamino() {
-		return camino;
-	}
-	public void setCamino(Trayecto camino) {
-		this.camino = camino;
-	}
-	public Integer getCostoBol() {
+	public Double getCostoBol() {
 		return costoBol;
 	}
-	public void setCostoBol(Integer costoBol) {
+	public void setCostoBol(Double costoBol) {
 		this.costoBol = costoBol;
+	}
+	public List<Vertice<Estacion>> getCamino() {
+		return camino;
+	}
+	public void setCamino(List<Vertice<Estacion>> camino) {
+		this.camino = camino;
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
 	

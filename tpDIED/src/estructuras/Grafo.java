@@ -21,11 +21,11 @@ public class Grafo<Estacion> {
 	
 	private static Grafo GRAFO;
 	
-	private List<Ruta<Estacion>> rutas;
+	private List<Ruta> rutas;
 	private List<Vertice<Estacion>> vertices;
 
 	
-	 public Grafo(List<Ruta<Estacion>> rutas, List<Vertice<Estacion>> vertices) {
+	 public Grafo(List<Ruta> rutas, List<Vertice<Estacion>> vertices) {
 		// TODO Auto-generated constructor stub
 		 this.rutas=rutas;
 		 this.vertices=vertices;
@@ -49,7 +49,7 @@ public class Grafo<Estacion> {
 	
 	
 	public Grafo(){
-		this.rutas = new ArrayList<Ruta<Estacion>>();
+		this.rutas = new ArrayList<Ruta>();
 		this.vertices = new ArrayList<Vertice<Estacion>>();
 	}
 	
@@ -69,12 +69,13 @@ public class Grafo<Estacion> {
 		this.conectar(getNodo(n1), getNodo(n2), 1.0, 1.0, 1.0);
 	}
 
-	public void conectar(Estacion n1,Estacion n2,double distancia, double duracionRecorrido, double CantidadMaxPasajeros){
+	public void conectar(Estacion n1,Estacion n2,Double distancia, Double duracionRecorrido, Double CantidadMaxPasajeros){
 		this.conectar(getNodo(n1), getNodo(n2), distancia, duracionRecorrido, CantidadMaxPasajeros);
 	}
 
-	private void conectar(Vertice<Estacion> nodo1,Vertice<Estacion> nodo2, double distancia, double duracionRecorrido, double CantidadMaxPasajeros){
-		this.rutas.add(new Ruta<Estacion>(nodo1,nodo2, distancia, duracionRecorrido, CantidadMaxPasajeros));
+	public void conectar(Vertice<Estacion> nodo1,Vertice<Estacion> nodo2, Double distancia, Double duracionRecorrido, 
+			Double CantidadMaxPasajeros) {
+		this.rutas.add(new Ruta(nodo1, nodo2, distancia, duracionRecorrido,CantidadMaxPasajeros));
 	}
 	
 	public Vertice<Estacion> getNodo(Estacion valor){
@@ -93,9 +94,9 @@ public class Grafo<Estacion> {
 	public List<Estacion> getAdyacentes(Estacion valor){ 
 		Vertice<Estacion> unNodo = this.getNodo(valor);
 		List<Estacion> salida = new ArrayList<Estacion>();
-		for(Ruta<Estacion> enlace : this.rutas){
+		for(Ruta enlace : this.rutas){
 			if( enlace.getOrigen().equals(unNodo)){
-				salida.add(enlace.getDestino().getValor());
+				salida.add((Estacion) enlace.getDestino().getValor());
 			}
 		}
 		return salida;
@@ -104,7 +105,7 @@ public class Grafo<Estacion> {
 
 	public List<Vertice<Estacion>> getAdyacentes(Vertice<Estacion> unNodo){  //funciona
 		List<Vertice<Estacion>> salida = new ArrayList<Vertice<Estacion>>();
-		for(Ruta<Estacion> enlace : this.rutas){
+		for(Ruta enlace : this.rutas){
 			if( enlace.getOrigen().equals(unNodo)){
 				salida.add(enlace.getDestino());
 			}
@@ -119,7 +120,7 @@ public class Grafo<Estacion> {
 
 	public Integer gradoEntrada(Vertice<Estacion> vertice){
 		Integer res =0;
-		for(Ruta<Estacion> arista : this.rutas){
+		for(Ruta arista : this.rutas){
 			if(arista.getDestino().equals(vertice)) ++res;
 		}
 		return res;
@@ -127,7 +128,7 @@ public class Grafo<Estacion> {
 
 	public Integer gradoSalida(Vertice<Estacion> vertice){
 		Integer res =0;
-		for(Ruta<Estacion> arista : this.rutas){
+		for(Ruta arista : this.rutas){
 			if(arista.getOrigen().equals(vertice)) ++res;
 		}
 		return res;

@@ -1,26 +1,26 @@
 package estructuras;
 
-import java.time.Duration;
-
 import dominio.Estacion;
+import enums.EstadoRuta;
 
 
 
 public class Ruta<Estacion> {
 	
+	private Integer idRuta;
 	private Vertice<Estacion> origen;
 	private Vertice<Estacion> destino;
 	private Double distancia;
 	private Double duracionDelViaje;
-	private Double cantidadMaxPasajeros;
-	private String estado;
-	private Integer costo;
+	private Integer cantidadMaxPasajeros;
+	private EstadoRuta estado;
+	private Double costo;
 	
 
 	public Ruta(){
 		distancia=1.0;
 		duracionDelViaje=1.0;
-		cantidadMaxPasajeros=1.0;
+		cantidadMaxPasajeros=1;
 	} 
 	
 	public Ruta(Vertice<Estacion> ini,Vertice<Estacion> destino){
@@ -29,14 +29,15 @@ public class Ruta<Estacion> {
 		this.destino = destino;
 	}
 
-	public Ruta(Vertice<Estacion> ini,Vertice<Estacion> destino,double distancia, double duracionDelViaje, double cantidadMaxPasajeros){
-		this(ini,destino);
-		this.distancia=  distancia;
-		this.duracionDelViaje=  duracionDelViaje;
-		this.cantidadMaxPasajeros= cantidadMaxPasajeros;
+	public Ruta(Vertice<Estacion> nodo1, Vertice<Estacion> nodo2, Double distancia, Double duracionDelViaje,
+			Integer cantidadMaxPasajeros) {
+		this.origen = nodo1;
+		this.destino = nodo2;
+		this.distancia = distancia;
+		this.duracionDelViaje = duracionDelViaje;
+		this.cantidadMaxPasajeros = cantidadMaxPasajeros;
 	}
-	
-	
+
 	public Vertice<Estacion> getOrigen() {
 		return origen;
 	}
@@ -69,27 +70,27 @@ public class Ruta<Estacion> {
 		this.duracionDelViaje = duracionDelViaje;
 	}
 
-	public Double getCantidadMaxPasajeros() {
+	public Integer getCantidadMaxPasajeros() {
 		return cantidadMaxPasajeros;
 	}
 
-	public void setCantidadMaxPasajeros(Double cantidadMaxPasajeros) {
+	public void setCantidadMaxPasajeros(Integer cantidadMaxPasajeros) {
 		this.cantidadMaxPasajeros = cantidadMaxPasajeros;
 	}
 
-	public String getEstado() {
+	public EstadoRuta getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(EstadoRuta estado) {
 		this.estado = estado;
 	}
 
-	public Integer getCosto() {
+	public Double getCosto() {
 		return costo;
 	}
 
-	public void setCosto(Integer costo) {
+	public void setCosto(Double costo) {
 		this.costo = costo;
 	}
 
@@ -111,6 +112,14 @@ public class Ruta<Estacion> {
 	public Double getDuracionRecorrido() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Integer getIdRuta() {
+		return idRuta;
+	}
+
+	public void setIdRuta(Integer idRuta) {
+		this.idRuta = idRuta;
 	}
 }
 	

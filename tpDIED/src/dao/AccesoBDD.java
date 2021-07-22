@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 
 public class AccesoBDD {
-	private static final String URL = "jdbc:mysql://db4free.net:3306/tpdied2020";
-	private static final String USER = "died2020";
-	private static final String PASS = "tpdied2020";
+	private static final String URL = "jdbc:mysql://localhost:3306/tpdied";
+	private static final String USER = "root";
+	private static final String PASS = "";
 	
 	private static Connection conn;
 	
@@ -46,7 +46,7 @@ public class AccesoBDD {
 
 	public static Connection getConn(){
 	    try{
-	    	Class.forName("com.mysql.cj.jdbc.Driver");
+	    	Class.forName("com.mysql.jdbc.Connection");
 	        return DriverManager.getConnection(URL, USER, PASS);
 	    }catch(Exception ex){
 	        System.out.println(ex.getMessage());
