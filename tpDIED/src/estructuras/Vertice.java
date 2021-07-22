@@ -19,6 +19,7 @@ public class Vertice<T> extends Object{
 		return this.valor;
 	}
 	
+	//RARETE
 	@Override
 	public int hashCode() {
 		final int prime = 31;

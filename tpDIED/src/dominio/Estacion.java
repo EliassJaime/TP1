@@ -8,6 +8,7 @@ import enums.Estado;
 import estructuras.Ruta;
 
 public class Estacion {
+	private Integer id;
 	private String nombre;
     private Instant horarioApertura;
     private Instant horarioCierre;
@@ -56,6 +57,16 @@ public class Estacion {
 	}
 	public void setBoleto(Boleto boleto) {
 		this.boleto = boleto;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Object getTipo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
     
     
