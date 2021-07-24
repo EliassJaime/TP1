@@ -3,27 +3,25 @@ package dominio;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import dao.AccesoBDD;
+import dao.BoletoDAO;
+import dao.EstacionDAO;
+import dto.BoletoDTO;
+import dto.EstacionDTO;
+import enums.EstadoEstacion;
 
 public class Probando123 {
 
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
 
-		
-		
-		AccesoBDD conexion=AccesoBDD.getInstance();
-		Connection con=null;
-		con=AccesoBDD.getConn();
-		Statement sentencia;
-		
-	
-		sentencia = con.createStatement();
-		sentencia.executeUpdate("INSERT INTO cliente(id,nombre,correo)"
-					+ "VALUES (1,'elia','daisbid@homiafa')"); 
+    
 
-	
+System.out.println(EstadoEstacion.EnMantenimiento.toString());
+    	 
+		
 	
 
 	

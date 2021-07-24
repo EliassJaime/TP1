@@ -16,6 +16,9 @@ public class EstacionDTO {
 		this.horarioApertura = horarioApertura;
 		this.horarioCierre = horarioCierre;
 	}
+	public EstacionDTO() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getId() {
 		return id;
 	}
@@ -45,6 +48,10 @@ public class EstacionDTO {
 	}
 	public void setHorarioCierre(String horarioCierre) {
 		this.horarioCierre = horarioCierre;
+	}
+	public void setValorPagerank(int pageRank) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

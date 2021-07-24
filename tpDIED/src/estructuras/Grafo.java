@@ -11,7 +11,7 @@ import java.util.Stack;
 import java.util.stream.Collectors;
 
 import dto.EstacionDTO;
-import gestores.GestorEstaciones;
+import gestores.GestorEstacion;
 import gestores.GestorRuta;
 
 
@@ -36,7 +36,7 @@ public class Grafo<Estacion> {
 		 if (GRAFO==null) {
 			 
 			 ArrayList<Vertice<dominio.Estacion>> listaVertices = new ArrayList<Vertice<dominio.Estacion>>();
-			 ArrayList<dominio.Estacion> Estaciones = GestorEstaciones.buscarTodasLasEstacions();
+			 ArrayList<dominio.Estacion> Estaciones = GestorEstacion.buscarTodasLasEstaciones();
 			 
 			 for(dominio.Estacion p : Estaciones) 
 				 
@@ -66,15 +66,15 @@ public class Grafo<Estacion> {
 	}
 	
 	public void conectar(Estacion n1,Estacion n2){
-		this.conectar(getNodo(n1), getNodo(n2), 1.0, 1.0, 1.0);
+		this.conectar(getNodo(n1), getNodo(n2), 1.0, 1.0, 15);
 	}
 
-	public void conectar(Estacion n1,Estacion n2,Double distancia, Double duracionRecorrido, Double CantidadMaxPasajeros){
+	public void conectar(Estacion n1,Estacion n2,Double distancia, Double duracionRecorrido, Integer CantidadMaxPasajeros){
 		this.conectar(getNodo(n1), getNodo(n2), distancia, duracionRecorrido, CantidadMaxPasajeros);
 	}
 
 	public void conectar(Vertice<Estacion> nodo1,Vertice<Estacion> nodo2, Double distancia, Double duracionRecorrido, 
-			Double CantidadMaxPasajeros) {
+			Integer CantidadMaxPasajeros) {
 		this.rutas.add(new Ruta(nodo1, nodo2, distancia, duracionRecorrido,CantidadMaxPasajeros));
 	}
 	
@@ -220,9 +220,9 @@ public class Grafo<Estacion> {
     public void actualizarGrafo() {
     	
     	 ArrayList<Vertice<Estacion>> listaVertices = new ArrayList<Vertice<Estacion>>();
-		 ArrayList<Estacion> Estacions = (ArrayList<Estacion>) GestorEstaciones.buscarTodasLasEstacions();
+		 ArrayList<Estacion> Estaciones = (ArrayList<Estacion>) GestorEstacion.buscarTodasLasEstaciones();
 		 
-		 for(Estacion p : Estacions) 
+		 for(Estacion p : Estaciones) 
 			 
 			 listaVertices.add(new Vertice<Estacion>(p));
 		 
@@ -420,6 +420,51 @@ public class Grafo<Estacion> {
 		return retorno;
 	}
 
+	//ANDA A SABER SI ANDA -REEVER 46MIL VECEES
+	public List<String> caminoMinimoCosto(Estacion Origen,Estacion Destino){
+		List<String> retorno = this.caminoMinimoCosto(new Vertice<Estacion>(Origen), new Vertice<Estacion>(Destino));
+		return retorno;
+	}
+	public List<String> caminoMinimoCosto(Vertice<Estacion> Origen, Vertice<Estacion> Destino) {
+		
+		List<String> retorno = new ArrayList<String>();
+		
+    	List<Vertice<Estacion>> listaAdyOrigen =  this.getAdyacentes(Origen); 
+    	
+    	List<List<Vertice<Estacion>>> caminos = getRecorridos(listaAdyOrigen,Origen, Destino);
+    	
+    	Double costoMinimo=null;
+    	for(int j=0;j<caminos.size();j++) {
+    		
+    		List<Vertice<Estacion>> c = caminos.get(j);
+    		Double costoMinimoAux = costoCamino(caminos.get(j));
+    	
+    		
+    		if(costoMinimo==null) {
+    			costoMinimo = costoMinimoAux;
+    			retorno.addAll(listaNombresEstacions(c));
+    			retorno.add(costoMinimo.toString());
+    			
+    			
+    		}else if(costoMinimo > costoMinimoAux){
+    			costoMinimo = costoMinimoAux;
+    			retorno.clear();
+    			retorno.addAll(listaNombresEstacions(c));
+    			retorno.add(costoMinimo.toString());
+    			
+    		}else if(costoMinimo == costoMinimoAux){
+    			retorno.addAll(listaNombresEstacions(c));
+    			retorno.add(costoMinimo.toString());
+    			
+    		}
+    		
+    	}
+		
+		return retorno;
+	}
+	
+	
+	
 	public List<String> listaNombresEstacions(List<Vertice<Estacion>> listVertices) {
 		List<String> ret = new ArrayList<String>();
 		for(Vertice<Estacion> v : listVertices)
@@ -461,6 +506,23 @@ public class Grafo<Estacion> {
 		
 		return duracionMinima;
 	}
+private Double costoCamino(List<Vertice<Estacion>> list) {
+		
+		Double costo=null;
+		
+		for(int i = 0; i<list.size(); i++) {
+			if(i != 0) {
+				Ruta ruta= rutaEntreDosEstacions(list.get(i-1), list.get(i));
+				if(costo==null) {
+					costo=ruta.getCosto();
+				}else {
+					costo=costo + ruta.getCosto();
+				}
+			}
+		}
+		
+		return costo;
+	}
 	
 	public int getPageRank(Estacion nodo){
 		return this.getPageRank(new Vertice<Estacion>(nodo));
@@ -484,7 +546,7 @@ public class Grafo<Estacion> {
 		for(Vertice<Estacion> v : vertices) {
 			
 			EstacionDTO Estacion = new EstacionDTO(0, ((dominio.Estacion) v.getValor()).getNombre(),
-					((dominio.Estacion) v.getValor()).getTipo().toString());
+					null, null, null);
 			
 			Estacion.setValorPagerank(getPageRank(v));
 			

@@ -8,7 +8,7 @@ import estructuras.Ruta;
 
 public class Estacion {
 	
-	int nqv;
+
 	private Integer id;
 	private String nombre;
     private Instant horarioApertura;
@@ -18,6 +18,15 @@ public class Estacion {
  
     
     
+	public Estacion(Integer id, String nombre, Instant horarioApertura, Instant horarioCierre, EstadoEstacion estado) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.horarioApertura = horarioApertura;
+		this.horarioCierre = horarioCierre;
+		this.estado = estado;
+		mantenimientos= new ArrayList<>();
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -46,8 +55,8 @@ public class Estacion {
 	public ArrayList<Mantenimiento> getMantenimientos() {
 		return mantenimientos;
 	}
-	public void setMantenimientos(ArrayList<Mantenimiento> mantenimientos) {
-		this.mantenimientos = mantenimientos;
+	public void addMantenimiento(Mantenimiento m) {
+		this.mantenimientos.add(m);
 	}
 
 	public Integer getId() {
@@ -56,9 +65,11 @@ public class Estacion {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Object getTipo() {
-		// TODO Auto-generated method stub
-		return null;
+
+	@Override
+	public String toString() {
+		return "Estacion [id=" + id + ", nombre=" + nombre + ", horarioApertura=" + horarioApertura + ", horarioCierre="
+				+ horarioCierre + ", estado=" + estado + ", mantenimientos=" + mantenimientos + "]";
 	}
     
     

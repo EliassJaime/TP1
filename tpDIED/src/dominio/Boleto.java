@@ -16,6 +16,19 @@ public class Boleto {
 	private Double costoBol;
 	
 	
+	
+	
+	public Boleto(Integer idBoleto, Cliente cliente, Instant fechaDeVenta, Estacion origen, Estacion destino,
+			List<Vertice<Estacion>> camino, Double costoBol) {
+	
+		this.idBoleto = idBoleto;
+		this.cliente = cliente;
+		this.fechaDeVenta = fechaDeVenta;
+		this.origen = origen;
+		this.destino = destino;
+		this.camino = camino;
+		this.costoBol = costoBol;
+	}
 	public Integer getidBoleto() {
 		return idBoleto;
 	}
@@ -58,6 +71,11 @@ public class Boleto {
 	}
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+	@Override
+	public String toString() {
+		return "Boleto [idBoleto=" + idBoleto + ", cliente=" + cliente + ", fechaDeVenta=" + fechaDeVenta + ", origen="
+				+ origen + ", destino=" + destino + ", camino=" + camino + ", costoBol=" + costoBol + "]";
 	}
 	
 	

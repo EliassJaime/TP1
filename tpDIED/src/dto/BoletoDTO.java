@@ -8,6 +8,7 @@ public class BoletoDTO {
 	private Integer idOrigen;
 	private Integer idDestino;
 	private Double costoBol;
+	
 	public BoletoDTO(Integer idBoleto, Integer idCliente, String fechaVenta, Integer idOrigen, Integer idDestino,
 			Double costoBol) {
 		this.idBoleto = idBoleto;

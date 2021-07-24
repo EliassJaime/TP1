@@ -10,11 +10,12 @@ public class RutaDTO {
 	private Integer cantidadMaxPasajeros;
 	private String estado;
 	private Double costo;
+	private Integer idLineaTransporte;
 	
 	
-	public RutaDTO(Integer idRuta, Integer idOrigenE, Integer idDestinoE, Double distancia, Double duracionDelViaje,
+	public RutaDTO(Integer idLinea, Integer idOrigenE, Integer idDestinoE, Double distancia, Double duracionDelViaje,
 			Integer cantidadMaxPasajeros, String estado, Double costo) {
-		this.idRuta = idRuta;
+		this.idLineaTransporte = idLinea;
 		this.idOrigenE = idOrigenE;
 		this.idDestinoE = idDestinoE;
 		this.distancia = distancia;
@@ -71,6 +72,14 @@ public class RutaDTO {
 	}
 	public void setCosto(Double costo) {
 		this.costo = costo;
+	}
+
+	public Integer getIdLineaTransporte() {
+		return idLineaTransporte;
+	}
+
+	public void setIdLineaTransporte(Integer idLineaTransporte) {
+		this.idLineaTransporte = idLineaTransporte;
 	}
 	
 	

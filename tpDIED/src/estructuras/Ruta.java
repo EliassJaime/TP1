@@ -1,6 +1,7 @@
 package estructuras;
 
 import dominio.Estacion;
+import dominio.LineaTransporte;
 import enums.EstadoRuta;
 
 
@@ -15,6 +16,7 @@ public class Ruta<Estacion> {
 	private Integer cantidadMaxPasajeros;
 	private EstadoRuta estado;
 	private Double costo;
+	private LineaTransporte lineaTransporte;
 	
 
 	public Ruta(){
@@ -36,6 +38,12 @@ public class Ruta<Estacion> {
 		this.distancia = distancia;
 		this.duracionDelViaje = duracionDelViaje;
 		this.cantidadMaxPasajeros = cantidadMaxPasajeros;
+	}
+
+
+	public Ruta(Vertice<dominio.Estacion> vertice, Vertice<dominio.Estacion> vertice2, double double1, double double2,
+			double double3) {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Vertice<Estacion> getOrigen() {
@@ -120,6 +128,14 @@ public class Ruta<Estacion> {
 
 	public void setIdRuta(Integer idRuta) {
 		this.idRuta = idRuta;
+	}
+
+	public LineaTransporte getLineaTransporte() {
+		return lineaTransporte;
+	}
+
+	public void setLineaTransporte(LineaTransporte lineaTransporte) {
+		this.lineaTransporte = lineaTransporte;
 	}
 }
 	
