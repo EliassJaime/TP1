@@ -8,7 +8,7 @@ import estructuras.Ruta;
 
 public class Estacion {
 	
-
+private int prueba;
 	private Integer id;
 	private String nombre;
     private String horarioApertura;
