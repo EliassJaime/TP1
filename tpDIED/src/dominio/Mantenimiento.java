@@ -64,6 +64,11 @@ public class Mantenimiento {
 		this.observaciones = observaciones;
 	}
 
+	@Override
+	public String toString() {
+		return "Mantenimiento [id=" + id +  ", observaciones=" + observaciones + "]";
+	}
+
 
 	
 	

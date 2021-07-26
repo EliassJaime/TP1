@@ -331,6 +331,64 @@ public class Grafo<Estacion> {
 		return null;
     }
 	
+	public List<Ruta<Estacion>> caminoMinimoDistancia(Estacion Origen,Estacion Destino){
+		List<Ruta<Estacion>> retorno = this.caminoMinimoDistancia(new Vertice<Estacion>(Origen), new Vertice<Estacion>(Destino));
+		
+		return retorno;
+	}
+	
+	
+	public List<Ruta<Estacion>> caminoMinimoDistancia(Vertice<Estacion> Origen,Vertice<Estacion> Destino) {
+		List<Ruta<Estacion>> retorno = new ArrayList<>();
+		
+    	List<Vertice<Estacion>> listaAdyOrigen =  this.getAdyacentes(Origen); 
+    	
+    	List<List<Vertice<Estacion>>> caminos = getRecorridos(listaAdyOrigen,Origen, Destino);
+    	
+    	Double distanciaMinima=null;
+    	
+    	for(int j=0;j<caminos.size();j++) {
+    		
+    		List<Vertice<Estacion>> c = caminos.get(j);
+    		Double distanciaMinimaAux = distanciaCamino(caminos.get(j));
+    		List<Ruta<Estacion>> retornoAux= obtenerRutas(caminos.get(j));
+    		
+    		if(distanciaMinima==null) {
+    			distanciaMinima = distanciaMinimaAux;
+    			retorno=retornoAux;
+    			
+    		}else if(distanciaMinima > distanciaMinimaAux){
+    		
+    			distanciaMinima = distanciaMinimaAux;
+    			retorno=retornoAux;
+    		}else if(distanciaMinima == distanciaMinimaAux){
+    			retorno=retornoAux;
+    		}
+    		
+    	}
+    	
+		return retorno;
+	}
+
+	private Double distanciaCamino(List<Vertice<Estacion>> list) {
+		Double distanciaMinima=null;
+		
+		for(int i = 0; i<list.size(); i++) {
+			if(i != 0) {
+				Ruta ruta= rutaEntreDosEstacions(list.get(i-1), list.get(i));
+				if(distanciaMinima==null) {
+					distanciaMinima=ruta.getDistancia();
+				}else {
+					distanciaMinima=distanciaMinima + ruta.getDistancia();
+				}
+			}
+		}
+		
+		return distanciaMinima;
+	}
+
+	
+	/*
 	public List<List<String>> caminoMinimoDistancia(Estacion Origen,Estacion Destino){
 		List<List<String>> retorno = this.caminoMinimoDistancia(new Vertice<Estacion>(Origen), new Vertice<Estacion>(Destino));
 		
@@ -378,100 +436,6 @@ public class Grafo<Estacion> {
 		return retorno;
 	}
 
-	public List<List<String>> caminoMinimoDuracion(Estacion Origen,Estacion Destino){
-		List<List<String>> retorno = this.caminoMinimoDuracion(new Vertice<Estacion>(Origen), new Vertice<Estacion>(Destino));
-		return retorno;
-	}
-	public List<List<String>> caminoMinimoDuracion(Vertice<Estacion> Origen, Vertice<Estacion> Destino) {
-		
-		List<List<String>> retorno = new ArrayList<List<String>>();
-		
-    	List<Vertice<Estacion>> listaAdyOrigen =  this.getAdyacentes(Origen); 
-    	
-    	List<List<Vertice<Estacion>>> caminos = getRecorridos(listaAdyOrigen,Origen, Destino);
-    	
-    	Double duracionMinima=null;
-    	for(int j=0;j<caminos.size();j++) {
-    		
-    		List<Vertice<Estacion>> c = caminos.get(j);
-    		Double duracionMinimaAux = duracionCamino(caminos.get(j));
-    		List<String> caminoString = new ArrayList<String>();
-    		
-    		if(duracionMinima==null) {
-    			duracionMinima = duracionMinimaAux;
-    			caminoString.addAll(listaNombresEstacions(c));
-    			caminoString.add(duracionMinima.toString());
-    			retorno.add(caminoString);
-    			
-    		}else if(duracionMinima > duracionMinimaAux){
-    			duracionMinima = duracionMinimaAux;
-    			caminoString.addAll(listaNombresEstacions(c));
-    			caminoString.add(duracionMinima.toString());
-    			retorno.clear();
-    			retorno.add(caminoString);
-    		}else if(duracionMinima == duracionMinimaAux){
-    			caminoString.addAll(listaNombresEstacions(c));
-    			caminoString.add(duracionMinima.toString());
-    			retorno.add(caminoString);
-    		}
-    		
-    	}
-		
-		return retorno;
-	}
-
-	//ANDA A SABER SI ANDA -REEVER 46MIL VECEES
-	public List<String> caminoMinimoCosto(Estacion Origen,Estacion Destino){
-		List<String> retorno = this.caminoMinimoCosto(new Vertice<Estacion>(Origen), new Vertice<Estacion>(Destino));
-		return retorno;
-	}
-	public List<String> caminoMinimoCosto(Vertice<Estacion> Origen, Vertice<Estacion> Destino) {
-		
-		List<String> retorno = new ArrayList<String>();
-		
-    	List<Vertice<Estacion>> listaAdyOrigen =  this.getAdyacentes(Origen); 
-    	
-    	List<List<Vertice<Estacion>>> caminos = getRecorridos(listaAdyOrigen,Origen, Destino);
-    	
-    	Double costoMinimo=null;
-    	for(int j=0;j<caminos.size();j++) {
-    		
-    		List<Vertice<Estacion>> c = caminos.get(j);
-    		Double costoMinimoAux = costoCamino(caminos.get(j));
-    	
-    		
-    		if(costoMinimo==null) {
-    			costoMinimo = costoMinimoAux;
-    			retorno.addAll(listaNombresEstacions(c));
-    			retorno.add(costoMinimo.toString());
-    			
-    			
-    		}else if(costoMinimo > costoMinimoAux){
-    			costoMinimo = costoMinimoAux;
-    			retorno.clear();
-    			retorno.addAll(listaNombresEstacions(c));
-    			retorno.add(costoMinimo.toString());
-    			
-    		}else if(costoMinimo == costoMinimoAux){
-    			retorno.addAll(listaNombresEstacions(c));
-    			retorno.add(costoMinimo.toString());
-    			
-    		}
-    		
-    	}
-		
-		return retorno;
-	}
-	
-	
-	
-	public List<String> listaNombresEstacions(List<Vertice<Estacion>> listVertices) {
-		List<String> ret = new ArrayList<String>();
-		for(Vertice<Estacion> v : listVertices)
-			ret.add(((dominio.Estacion) v.getValor()).getNombre());
-		return ret;
-	}
-
 	private Double distanciaCamino(List<Vertice<Estacion>> list) {
 		Double distanciaMinima=null;
 		
@@ -488,6 +452,43 @@ public class Grafo<Estacion> {
 		
 		return distanciaMinima;
 	}
+	*/
+	
+	public List<Ruta<Estacion>> caminoMinimoDuracion(Estacion Origen,Estacion Destino){
+		List<Ruta<Estacion>> retorno = this.caminoMinimoDuracion(new Vertice<Estacion>(Origen), new Vertice<Estacion>(Destino));
+		return retorno;
+	}
+	public List<Ruta<Estacion>> caminoMinimoDuracion(Vertice<Estacion> Origen, Vertice<Estacion> Destino) {
+		
+		List<Ruta<Estacion>> retorno = new ArrayList<>();
+		
+    	List<Vertice<Estacion>> listaAdyOrigen =  this.getAdyacentes(Origen); 
+    	
+    	List<List<Vertice<Estacion>>> caminos = getRecorridos(listaAdyOrigen,Origen, Destino);
+    	
+    	Double duracionMinima=null;
+    	for(int j=0;j<caminos.size();j++) {
+    		
+    		List<Vertice<Estacion>> c = caminos.get(j);
+    		Double duracionMinimaAux = duracionCamino(caminos.get(j));
+    		List<Ruta<Estacion>> retornoAux = obtenerRutas(caminos.get(j));
+    		
+    		if(duracionMinima==null) {
+    			duracionMinima = duracionMinimaAux;
+    			retorno=retornoAux;
+    			
+    		}else if(duracionMinima > duracionMinimaAux){
+    			duracionMinima = duracionMinimaAux;
+    		retorno=retornoAux;
+    		}
+    		/*else if(duracionMinima == duracionMinimaAux){
+    			retorno=retornoAux;
+    		}*/
+    		
+    	}
+		
+		return retorno;
+	}
 	
 	private Double duracionCamino(List<Vertice<Estacion>> list) {
 		
@@ -498,13 +499,55 @@ public class Grafo<Estacion> {
 				Ruta ruta= rutaEntreDosEstacions(list.get(i-1), list.get(i));
 				if(duracionMinima==null) {
 					duracionMinima=ruta.getDuracionRecorrido();
-				}else {
-					duracionMinima=duracionMinima + ruta.getDuracionRecorrido();
 				}
+				/*else {
+					duracionMinima=duracionMinima + ruta.getDuracionRecorrido();
+				}*/
 			}
 		}
 		
 		return duracionMinima;
+	}
+
+	//ANDA A SABER SI ANDA -REEVER 46MIL VECEES
+	public List<Ruta<Estacion>> caminoMinimoCosto(Estacion Origen,Estacion Destino){
+		List<Ruta<Estacion>> retorno = this.caminoMinimoCosto(new Vertice<Estacion>(Origen), new Vertice<Estacion>(Destino));
+		return retorno;
+	}
+	public List<Ruta<Estacion>> caminoMinimoCosto(Vertice<Estacion> Origen, Vertice<Estacion> Destino) {
+		
+		List<Ruta<Estacion>> retorno = new ArrayList<>();
+		
+    	List<Vertice<Estacion>> listaAdyOrigen =  this.getAdyacentes(Origen); 
+    	
+    	List<List<Vertice<Estacion>>> caminos = getRecorridos(listaAdyOrigen,Origen, Destino);
+    	
+    	Double costoMinimo=null;
+    	for(int j=0;j<caminos.size();j++) {
+    		
+    		List<Vertice<Estacion>> c = caminos.get(j);
+    		Double costoMinimoAux = costoCamino(caminos.get(j));
+    		List<Ruta<Estacion>> retornoAux= obtenerRutas(caminos.get(j));
+    				
+    	
+    		
+    		if(costoMinimo==null) {
+    			costoMinimo = costoMinimoAux;
+    			retorno=retornoAux;
+    			
+    			
+    		}else if(costoMinimo > costoMinimoAux){
+    			costoMinimo = costoMinimoAux;
+    			retorno=retornoAux;
+    			
+    		}
+    		/*else if(costoMinimo == costoMinimoAux){
+    			retorno=retornoAux;
+    		}*/
+    		
+    	}
+		
+		return retorno;
 	}
 private Double costoCamino(List<Vertice<Estacion>> list) {
 		
@@ -523,7 +566,71 @@ private Double costoCamino(List<Vertice<Estacion>> list) {
 		
 		return costo;
 	}
+
+
+public Double costoCaminoRutas(List<Ruta<Estacion>> lista) {
 	
+	Double costo= 0.0;
+	for(int i = 0; i<lista.size(); i++) {
+		costo=costo+lista.get(i).getCosto();
+	}
+	
+
+	return costo;
+	
+}
+public Double distanciaCaminoRutas(List<Ruta<Estacion>> lista) {
+	
+	Double distancia= 0.0;
+	for(int i = 0; i<lista.size(); i++) {
+		distancia=distancia+lista.get(i).getDistancia();
+	}
+	
+
+	return distancia;
+	
+}
+
+public Double duracionCaminoRutas(List<Ruta<Estacion>> lista) {
+	
+	Double duracion= 0.0;
+	for(int i = 0; i<lista.size(); i++) {
+		duracion=duracion+lista.get(i).getDuracionDelViaje();
+	}
+	
+
+	return duracion;
+	
+}
+	
+	
+	
+	public  List<Ruta<Estacion>> obtenerRutas(List<Vertice<Estacion>> lista){
+	
+		List<Ruta<Estacion>> rutas2= new ArrayList<>();
+		
+		for(int i = 0; i<lista.size(); i++) {
+			if(i != 0) {
+				Ruta ruta= rutaEntreDosEstacions(lista.get(i-1), lista.get(i));
+			
+				rutas2.add(ruta);
+			}
+		}
+		
+		return rutas2;
+	}
+	
+	
+	
+	public List<String> listaNombresEstacions(List<Vertice<Estacion>> listVertices) {
+		List<String> ret = new ArrayList<String>();
+		for(Vertice<Estacion> v : listVertices)
+			ret.add(((dominio.Estacion) v.getValor()).getNombre());
+		return ret;
+	}
+
+
+
 	public int getPageRank(Estacion nodo){
 		return this.getPageRank(new Vertice<Estacion>(nodo));
 	}

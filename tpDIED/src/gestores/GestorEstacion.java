@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 
 import dao.EstacionDAO;
+import dao.MantenimientoDAO;
 import dominio.Estacion;
 import dominio.Mantenimiento;
 import dto.EstacionDTO;
@@ -12,21 +13,20 @@ import enums.EstadoEstacion;
 public class GestorEstacion {
 	
 	
-	public static void altaEstacion(Estacion estacion) {
+	public static void altaEstacion(EstacionDTO estacion) {
 		
 		
-		EstacionDTO dto= new EstacionDTO(0, estacion.getNombre(), estacion.getEstado().toString(), "15", "15");
-		EstacionDAO.guardarEstacion(dto);
+		EstacionDAO.guardarEstacion(estacion);
 		
 		
 	}
-	public static void editarEstacion(Estacion estacion) {
-		EstacionDTO dto= crearDTO(estacion);
-		EstacionDAO.guardarEstacion(dto);
+	public static void editarEstacion(EstacionDTO estacion) {
+		
+		EstacionDAO.guardarEstacion(estacion);
 		
 	}
 	
-	public static void eliminarEstacion(Estacion estacion) {
+	public static void eliminarEstacion(EstacionDTO estacion) {
 		
 		EstacionDAO.EliminarEstacion(estacion.getId());
 	}
@@ -43,6 +43,8 @@ public class GestorEstacion {
 			Mantenimiento m=GestorMantenimiento.crearMantenimiento(f1, f2, observaciones);
 			m.setEstacion(e);
 			e.addMantenimiento(m);
+			e.setEstado(EstadoEstacion.Operativo);
+			MantenimientoDAO.guardarMantenimiento(GestorMantenimiento.crearDTO(m));
 			EstacionDAO.guardarEstacion(GestorEstacion.crearDTO(e));
 		}
 		
@@ -51,6 +53,7 @@ public class GestorEstacion {
 	}
 	public static void setearMantenimiento(Estacion e) {
 		e.setEstado(EstadoEstacion.EnMantenimiento);
+		EstacionDAO.guardarEstacion(GestorEstacion.crearDTO(e));
 	}
 	
 	

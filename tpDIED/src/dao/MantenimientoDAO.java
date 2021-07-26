@@ -22,6 +22,9 @@ public static void guardarMantenimiento(MantenimientoDTO mantenimiento) {
 		String consulta = null;
 	System.out.println("ojo el try");
 		try {
+			
+    mantenimiento.setIdMantenimiento(obtenerId());			
+			
 				consulta = "insert into mantenimiento(idMantenimiento,idEstacion,fechaInicio,fechaFin,observaciones) "
 					+ "values ("+mantenimiento.getIdMantenimiento() 
 					+ ","+mantenimiento.getIdEstacion()+",'"+mantenimiento.getFechaInicio()+"','"
@@ -64,7 +67,7 @@ public static ArrayList<Mantenimiento>  obtenerMantenimientosByIdEstacion(Intege
 				
 				
 				mantenimientos.add(new Mantenimiento(rs.getInt("idMantenimiento"),
-						EstacionDAO.buscarEstacionPorId(rs.getInt("idEstacion")),
+						null,
 						(formato.parse(rs.getString("fechaInicio")).toInstant())
 						, (formato.parse(rs.getString("fechaFin")).toInstant())
 						, rs.getString("observaciones")));
@@ -122,6 +125,34 @@ public static ArrayList<Mantenimiento>  obtenerMantenimientos() {
 return mantenimientos;
 }
 
+
+
+public static int obtenerId() {
+	
+	
+	
+	Connection con = AccesoBDD.getConn();
+	String consulta = "SELECT max(idMantenimiento) from mantenimiento";
+	
+	Statement st;
+
+	int id=0;
+	ResultSet rs;
+	
+		try {
+			st=con.createStatement();
+			rs=st.executeQuery(consulta);
+			
+			while(rs.next()) {
+				id=rs.getInt("max(idMantenimiento)");
+			}
+				
+			}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+return (id+1);	
+}
 
 	
 	

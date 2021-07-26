@@ -11,14 +11,14 @@ public class Estacion {
 
 	private Integer id;
 	private String nombre;
-    private Instant horarioApertura;
-    private Instant horarioCierre;
+    private String horarioApertura;
+    private String horarioCierre;
     private EstadoEstacion estado;
     private ArrayList<Mantenimiento> mantenimientos;
  
     
     
-	public Estacion(Integer id, String nombre, Instant horarioApertura, Instant horarioCierre, EstadoEstacion estado) {
+	public Estacion(Integer id, String nombre, String horarioApertura, String horarioCierre, EstadoEstacion estado) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -33,16 +33,16 @@ public class Estacion {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Instant getHorarioApertura() {
+	public String getHorarioApertura() {
 		return horarioApertura;
 	}
-	public void setHorarioApertura(Instant horarioApertura) {
+	public void setHorarioApertura(String horarioApertura) {
 		this.horarioApertura = horarioApertura;
 	}
-	public Instant getHorarioCierre() {
+	public String getHorarioCierre() {
 		return horarioCierre;
 	}
-	public void setHorarioCierre(Instant horarioCierre) {
+	public void setHorarioCierre(String horarioCierre) {
 		this.horarioCierre = horarioCierre;
 	}
 	public EstadoEstacion getEstado() {
@@ -58,7 +58,11 @@ public class Estacion {
 	public void addMantenimiento(Mantenimiento m) {
 		this.mantenimientos.add(m);
 	}
+	
 
+	public void setMantenimientos(ArrayList<Mantenimiento> mantenimientos) {
+		this.mantenimientos = mantenimientos;
+	}
 	public Integer getId() {
 		return id;
 	}

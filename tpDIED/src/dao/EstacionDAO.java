@@ -12,7 +12,9 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 
+
 import dominio.Estacion;
+import dominio.Mantenimiento;
 import dto.EstacionDTO;
 import enums.EstadoEstacion;
 
@@ -47,16 +49,18 @@ public static void guardarEstacion(EstacionDTO estacion) {
 			
 			if(estacion.getId()==0) {
 				
+				estacion.setId(obtenerIdEstacion());
+				
 				consulta = "insert into estacion(id,nombre,horarioApertura,horarioCierre,estado) "
-					+ "values ("+estacion.getId() 
-					+ ",'"+estacion.getNombre()+"','"+estacion.getHorarioApertura()+"',"
+					+ "values ("+estacion.getId()+",'"+estacion.getNombre()+"','"+estacion.getHorarioApertura()+"',"
 							+ "'"+estacion.getHorarioCierre()+"',"+"'"+estacion.getEstado()+"')";
 
 			}
 			else {
-				consulta= "update estacion set nombre='"+estacion.getNombre()+"','"
-			+estacion.getHorarioApertura()+"','"+estacion.getHorarioCierre()+"','"+estacion.getEstado()
-			+"')";
+				consulta= "update estacion set nombre='"+estacion.getNombre()+"',horarioApertura='"
+			+estacion.getHorarioApertura()+"',horarioCierre='"+estacion.getHorarioCierre()+"',"
+					+ "estado='"+estacion.getEstado()
+			+"' WHERE id="+estacion.getId()+";";
 				
 			}
 				
@@ -83,32 +87,23 @@ public static ArrayList<Estacion> buscarTodasLasEstaciones(){
 	ArrayList<Estacion> listaEstacion=new ArrayList<Estacion>();
 	
 	String consulta = "select * from estacion";
-	
 
-	SimpleDateFormat formato= new SimpleDateFormat("dd/MM/yyyy");
-	
-	
-	
 	
 	Statement st;
 	
 	try {
 		st = con.createStatement();
 		tablaEstacion = st.executeQuery(consulta);
-		//HACER
+	
 		
 		while(tablaEstacion.next()) {
-			Date fechaAperturaAux= formato.parse(tablaEstacion.getString("horarioApertura"));
-			Date fechaCierreAux= formato.parse(tablaEstacion.getString("horarioCierre"));
 			
 		    
 			
-			Estacion Estacion = new Estacion(tablaEstacion.getInt("id")
-					,tablaEstacion.getString("nombre"),fechaAperturaAux.toInstant(),fechaCierreAux.toInstant()
-					,EstadoEstacion.Operativo);
+			
 		
 			
-			listaEstacion.add(Estacion);		
+			listaEstacion.add(EstacionDAO.buscarEstacionPorId(tablaEstacion.getInt("id")));		
 		}
 		
 		
@@ -134,20 +129,30 @@ public static Estacion buscarEstacionPorId(int idEstacion) {
 	String consulta = "select * from estacion where id='"+idEstacion+"'";
 	
 	Statement st;
-	SimpleDateFormat formato= new SimpleDateFormat("dd/MM/yyyy");
+
 	try {
 		st = con.createStatement();
 		tablaEstacion = st.executeQuery(consulta);
 		
 		while(tablaEstacion.next()) {
-			Date fechaAperturaAux= formato.parse(tablaEstacion.getString("horarioApertura"));
-			Date fechaCierreAux= formato.parse(tablaEstacion.getString("horarioCierre"));
-			
+	
 		    
 			
 			 estacion = new Estacion(tablaEstacion.getInt("id")
-					,tablaEstacion.getString("nombre"),fechaAperturaAux.toInstant(),fechaCierreAux.toInstant()
-					,EstadoEstacion.Operativo);
+					,tablaEstacion.getString("nombre"),tablaEstacion.getString("horarioApertura"),tablaEstacion.getString("horarioCierre")
+					,null);
+			 
+			 if(tablaEstacion.getString("estado").equals("Operativo")) {
+			 estacion.setEstado(EstadoEstacion.Operativo);}
+			 else {
+				 estacion.setEstado(EstadoEstacion.EnMantenimiento);}
+				 
+			 estacion.setMantenimientos(MantenimientoDAO.obtenerMantenimientosByIdEstacion(estacion.getId()));
+			 
+			 for(Mantenimiento m:estacion.getMantenimientos()) {
+				 m.setEstacion(estacion);
+				 
+			 }
 		}
 		
 		st.close();
@@ -254,6 +259,33 @@ public static String getNombreEstacion (int idEstacion) {
 	
 	return nombreEstacion;
 	
+}
+
+public static int obtenerIdEstacion() {
+	
+	
+	
+	Connection con = AccesoBDD.getConn();
+	String consulta = "SELECT max(id) from estacion";
+	
+	Statement st;
+
+	int id=0;
+	ResultSet rs;
+	
+		try {
+			st=con.createStatement();
+			rs=st.executeQuery(consulta);
+			
+			while(rs.next()) {
+				id=rs.getInt("max(id)");
+			}
+				
+			}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+return (id+1);	
 }
 
 

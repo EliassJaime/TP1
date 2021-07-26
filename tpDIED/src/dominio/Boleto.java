@@ -3,6 +3,7 @@ package dominio;
 import java.time.Instant;
 import java.util.List;
 
+import estructuras.Ruta;
 import estructuras.Vertice;
 
 public class Boleto {
@@ -12,14 +13,14 @@ public class Boleto {
 	private Instant fechaDeVenta;
 	private Estacion origen;
 	private Estacion destino;
-	private List<Vertice<Estacion>> camino;
+	private List<Ruta<Estacion>> camino;
 	private Double costoBol;
 	
 	
 	
 	
 	public Boleto(Integer idBoleto, Cliente cliente, Instant fechaDeVenta, Estacion origen, Estacion destino,
-			List<Vertice<Estacion>> camino, Double costoBol) {
+			List<Ruta<Estacion>> camino, Double costoBol) {
 	
 		this.idBoleto = idBoleto;
 		this.cliente = cliente;
@@ -28,6 +29,9 @@ public class Boleto {
 		this.destino = destino;
 		this.camino = camino;
 		this.costoBol = costoBol;
+	}
+	public Boleto() {
+		// TODO Auto-generated constructor stub
 	}
 	public Integer getidBoleto() {
 		return idBoleto;
@@ -60,10 +64,10 @@ public class Boleto {
 	public void setCostoBol(Double costoBol) {
 		this.costoBol = costoBol;
 	}
-	public List<Vertice<Estacion>> getCamino() {
+	public List<Ruta<Estacion> > getCamino() {
 		return camino;
 	}
-	public void setCamino(List<Vertice<Estacion>> camino) {
+	public void setCamino(List<Ruta<Estacion>> camino) {
 		this.camino = camino;
 	}
 	public Cliente getCliente() {
