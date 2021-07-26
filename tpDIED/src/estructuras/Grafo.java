@@ -25,7 +25,23 @@ public class Grafo<Estacion> {
 	private List<Vertice<Estacion>> vertices;
 
 	
-	 public Grafo(List<Ruta> rutas, List<Vertice<Estacion>> vertices) {
+	 public List<Ruta> getRutas() {
+		return rutas;
+	}
+
+	public void setRutas(List<Ruta> rutas) {
+		this.rutas = rutas;
+	}
+
+	public List<Vertice<Estacion>> getVertices() {
+		return vertices;
+	}
+
+	public void setVertices(List<Vertice<Estacion>> vertices) {
+		this.vertices = vertices;
+	}
+
+	public Grafo(List<Ruta> rutas, List<Vertice<Estacion>> vertices) {
 		// TODO Auto-generated constructor stub
 		 this.rutas=rutas;
 		 this.vertices=vertices;

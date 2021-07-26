@@ -50,6 +50,10 @@ public class LineaTransporte {
 	public void setIdLinea(Integer idLinea) {
 		this.idLinea = idLinea;
 	}
+	@Override
+	public String toString() {
+		return "LineaTransporte [nombre=" + nombre + ", color=" + color + ", estadolinea=" + estadolinea + "]";
+	}
 	
 	
 }

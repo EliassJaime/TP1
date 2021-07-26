@@ -58,7 +58,7 @@ public class GestorEstacion {
 	
 	
 	
-	private static EstacionDTO crearDTO(Estacion e) {
+	public static EstacionDTO crearDTO(Estacion e) {
 		return new EstacionDTO(e.getId(), e.getNombre(), e.getEstado().toString(), "15", "15");
 	}
 	public static Estacion getEstacionById(int id) {

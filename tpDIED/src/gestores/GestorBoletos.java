@@ -36,7 +36,10 @@ public class GestorBoletos {
     	
     	boleto.setCostoBol(Grafo.getInstance().costoCaminoRutas(boleto.getCamino()));
 		return boleto;
-	}
+	
+    
+    
+    }
     public static Boleto generarBoletoRutaMenosTiempo(Integer idOrigen,Integer idDestino) {
 		
     	Boleto boleto= new Boleto();

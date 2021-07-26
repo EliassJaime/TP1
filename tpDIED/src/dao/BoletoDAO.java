@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import dominio.Boleto;
 import dominio.Cliente;
 import dto.BoletoDTO;
+import dto.RutaDTO;
 
 public class BoletoDAO {
 	
@@ -29,6 +30,8 @@ public class BoletoDAO {
 
 			Statement st = con.createStatement();
 			st.executeUpdate(consulta);
+			
+			guardarRutaBoleto(boleto.getRuta(), boleto.getIdBoleto());
 			
 			st.close();
 			con.close();
@@ -83,6 +86,37 @@ public static ArrayList<Boleto>  obtenerBoletos( ) {
 		}
 	return boletos;
 	}
+
+   
+   public static void guardarRutaBoleto(ArrayList<RutaDTO> rutas,Integer idBoleto) {
+		  
+	   
+	   Connection con = AccesoBDD.getConn();
+		String consulta = null;
+	System.out.println("ojo el try");
+		try {
+			
+			for(RutaDTO r:rutas) {
+				consulta = "insert into boletoruta(idRuta,idBoleto) "
+					+ "values ("+r.getIdRuta() 
+					+ ","+idBoleto +")";
+
+			Statement st = con.createStatement();
+			st.executeUpdate(consulta);
+			
+			st.close();
+			}
+			con.close();
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		
+	
+	 
+	
+}
 	
 	
 	

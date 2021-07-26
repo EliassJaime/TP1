@@ -7,8 +7,7 @@ import enums.EstadoEstacion;
 import estructuras.Ruta;
 
 public class Estacion {
-	
-private int prueba;
+
 	private Integer id;
 	private String nombre;
     private String horarioApertura;
@@ -72,8 +71,7 @@ private int prueba;
 
 	@Override
 	public String toString() {
-		return "Estacion [id=" + id + ", nombre=" + nombre + ", horarioApertura=" + horarioApertura + ", horarioCierre="
-				+ horarioCierre + ", estado=" + estado + ", mantenimientos=" + mantenimientos + "]";
+		return nombre;
 	}
     
     

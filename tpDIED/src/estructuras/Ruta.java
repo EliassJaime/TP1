@@ -31,13 +31,17 @@ public class Ruta<Estacion> {
 		this.destino = destino;
 	}
 
-	public Ruta(Vertice<Estacion> nodo1, Vertice<Estacion> nodo2, Double distancia, Double duracionDelViaje,
-			Integer cantidadMaxPasajeros) {
+	public Ruta(Integer id,Vertice<Estacion> nodo1, Vertice<Estacion> nodo2, Double distancia, Double duracionDelViaje,
+			Integer cantidadMaxPasajeros,EstadoRuta estado,Double costo,LineaTransporte linea) {
+		this.idRuta=id;
 		this.origen = nodo1;
 		this.destino = nodo2;
 		this.distancia = distancia;
 		this.duracionDelViaje = duracionDelViaje;
 		this.cantidadMaxPasajeros = cantidadMaxPasajeros;
+		this.estado=estado;
+		this.costo=costo;
+		this.lineaTransporte=linea;
 	}
 
 
@@ -104,7 +108,7 @@ public class Ruta<Estacion> {
 
 	@Override
 	public String toString() {
-		return "";
+		return  ""+idRuta +": " +origen.getValor()+"-"+destino.getValor() ;
 	}
 	
 	@Override
@@ -137,6 +141,8 @@ public class Ruta<Estacion> {
 	public void setLineaTransporte(LineaTransporte lineaTransporte) {
 		this.lineaTransporte = lineaTransporte;
 	}
+	
+	
 }
 	
 

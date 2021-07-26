@@ -14,7 +14,7 @@ public class GestorLineaTransporte {
 	public static void altaLineaTransporte(LineaTransporte l) {
 
 		LineaTransporteDAO.guardarLineaTransporte(
-				new LineaTransporteDTO(0, l.getNombre(), l.getColor(), l.getEstadolinea().toString()));
+				new LineaTransporteDTO(l.getIdLinea(), l.getNombre(), l.getColor(), l.getEstadolinea().toString()));
 	}
 
 	public static void editarLineaTransporte(LineaTransporte l) {
@@ -40,7 +40,7 @@ public class GestorLineaTransporte {
 		
 		for(int i=0;i<(estaciones.size()-1);i++) {
 		
-		rutas.add(new RutaDTO(idLineaTransporte, estaciones.get(i).getId(), estaciones.get(i+1).getId(), 3.0, 2.3, 15, "Estado", 32.2));
+		rutas.add(new RutaDTO(0,idLineaTransporte, estaciones.get(i).getId(), estaciones.get(i+1).getId(), 3.0, 2.3, 15, "Activa", 32.2));
 		
 		}
 		

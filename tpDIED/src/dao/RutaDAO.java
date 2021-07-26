@@ -8,6 +8,7 @@ import dto.RutaDTO;
 import estructuras.Ruta;
 import estructuras.Vertice;
 import gestores.GestorEstacion;
+import gestores.GestorLineaTransporte;
 
 
 public class RutaDAO {
@@ -36,12 +37,25 @@ public static void guardarRuta(RutaDTO ruta) {
 		String consulta = null;
 		
 		try {
-				consulta = "insert into RUTA(idRuta,idOrigenE, idDestinoE, distancia,"
-						+ " duracionDelViaje, cantidadMaxPasajeros) "
-						+ "values ('"+ruta.getIdRuta()+ruta.getIdOrigenE()+"','"+ ruta.getIdDestinoE()+"',"
-						+ "'"+ruta.getDistancia()+"','"+ruta.getDuracionDelViaje()+"','"
-								+ruta.getCantidadMaxPasajeros()+ "')" ;
-
+			System.out.println("Entro al try");
+			if(ruta.getIdRuta()==0) {
+				
+				ruta.setIdRuta(obtenerId());
+				
+				consulta = "insert into RUTA(idRuta,idLineaTransporte,idOrigenE, idDestinoE, distancia,"
+						+ " duracionDelViaje, cantidadMaxPasajeros,estado,costo) "
+						+ "values ("+ruta.getIdRuta()+","+ruta.getIdLineaTransporte()+","+ruta.getIdOrigenE()+","+ ruta.getIdDestinoE()+","
+						+ruta.getDistancia()+","+ruta.getDuracionDelViaje()+","
+								+ruta.getCantidadMaxPasajeros()+",'"+ruta.getEstado()+ "',"+ruta.getCosto() +")" ;
+			}
+			else {
+				consulta= "update ruta set distancia="+ruta.getDistancia()+",duracionDelViaje='"
+						+ruta.getDuracionDelViaje()+",cantidadMaxPasajeros="+ruta.getCantidadMaxPasajeros()+
+						
+						",estado='" +ruta.getEstado() +"',costo=" +ruta.getCosto() 
+								+ " WHERE idLinea="+ruta.getIdRuta()+";";
+				
+			}
 			Statement st = con.createStatement();
 			st.executeUpdate(consulta);
 			
@@ -49,7 +63,7 @@ public static void guardarRuta(RutaDTO ruta) {
 			con.close();
 			
 		} catch (SQLException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		
 	}
@@ -59,7 +73,7 @@ public static ArrayList<Ruta<Estacion>> buscarTodasLasRutas(){
 
 	
 	Connection con = AccesoBDD.getConn();
-	ResultSet tablaRuta=null;
+	ResultSet rs=null;
 	
 	ArrayList<Ruta<Estacion>> listaRuta=new ArrayList<Ruta<Estacion>>();
 	
@@ -69,15 +83,15 @@ public static ArrayList<Ruta<Estacion>> buscarTodasLasRutas(){
 	
 	try {
 		st = con.createStatement();
-		tablaRuta = st.executeQuery(consulta);
+		rs = st.executeQuery(consulta);
 		
-		while(tablaRuta.next()) {
+		while(rs.next()) {
 			
-			Estacion estacionOrigen=GestorEstacion.getEstacionById(tablaRuta.getInt("id_Estacion_origen"));
-			Estacion estacionDestino=GestorEstacion.getEstacionById(tablaRuta.getInt("id_Estacion_destino"));
+			Estacion estacionOrigen=GestorEstacion.getEstacionById(rs.getInt("idOrigenE"));
+			Estacion estacionDestino=GestorEstacion.getEstacionById(rs.getInt("idDestinoE"));
 			
-			Ruta<Estacion> ruta = new Ruta<Estacion>(new Vertice<Estacion>(estacionOrigen), new Vertice<Estacion>(estacionDestino), tablaRuta.getDouble("distancia"),
-					tablaRuta.getDouble("duracion_recorrido"), tablaRuta.getDouble("peso_maximo"));
+			
+			Ruta<Estacion> ruta = new Ruta<Estacion>(rs.getInt("idRuta"), new Vertice<Estacion>(estacionOrigen),  new Vertice<Estacion>(estacionDestino), rs.getDouble("distancia"), rs.getDouble("duracionDelViaje"), rs.getInt("cantidadMaxPasajeros"), null, rs.getDouble("costo"), null);
 			listaRuta.add(ruta);		
 		}
 		
@@ -86,10 +100,43 @@ public static ArrayList<Ruta<Estacion>> buscarTodasLasRutas(){
 		
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
-		e.printStackTrace();
+		System.out.println(e.getMessage());
 	}
 	
 	return listaRuta;
 }
+
+
+
+
+public static int obtenerId() {
+	
+	
+	
+	Connection con = AccesoBDD.getConn();
+	String consulta = "SELECT max(idRuta) from ruta";
+	
+	Statement st;
+
+	int id=0;
+	ResultSet rs;
+	
+		try {
+			st=con.createStatement();
+			rs=st.executeQuery(consulta);
+			
+			while(rs.next()) {
+				id=rs.getInt("max(idRuta)");
+			}
+				
+			}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+return (id+1);	
+}
+
+	
+	
 
 }

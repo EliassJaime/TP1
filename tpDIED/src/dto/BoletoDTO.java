@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.ArrayList;
+
 public class BoletoDTO {
 
 	private Integer idBoleto;
@@ -8,6 +10,7 @@ public class BoletoDTO {
 	private Integer idOrigen;
 	private Integer idDestino;
 	private Double costoBol;
+	private ArrayList<RutaDTO> ruta;
 	
 	public BoletoDTO(Integer idBoleto, Integer idCliente, String fechaVenta, Integer idOrigen, Integer idDestino,
 			Double costoBol) {
@@ -53,6 +56,12 @@ public class BoletoDTO {
 	}
 	public void setCostoBol(Double costoBol) {
 		this.costoBol = costoBol;
+	}
+	public ArrayList<RutaDTO> getRuta() {
+		return ruta;
+	}
+	public void setRuta(ArrayList<RutaDTO> ruta) {
+		this.ruta = ruta;
 	}
 	
 	

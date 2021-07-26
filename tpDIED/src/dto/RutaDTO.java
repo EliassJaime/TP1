@@ -13,8 +13,9 @@ public class RutaDTO {
 	private Integer idLineaTransporte;
 	
 	
-	public RutaDTO(Integer idLinea, Integer idOrigenE, Integer idDestinoE, Double distancia, Double duracionDelViaje,
+	public RutaDTO(Integer idRuta,Integer idLinea, Integer idOrigenE, Integer idDestinoE, Double distancia, Double duracionDelViaje,
 			Integer cantidadMaxPasajeros, String estado, Double costo) {
+		this.idRuta=idRuta;
 		this.idLineaTransporte = idLinea;
 		this.idOrigenE = idOrigenE;
 		this.idDestinoE = idDestinoE;
