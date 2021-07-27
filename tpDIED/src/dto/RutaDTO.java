@@ -82,6 +82,12 @@ public class RutaDTO {
 	public void setIdLineaTransporte(Integer idLineaTransporte) {
 		this.idLineaTransporte = idLineaTransporte;
 	}
+
+	@Override
+	public String toString() {
+		return ""+idRuta;
+	}
+	
 	
 	
 	

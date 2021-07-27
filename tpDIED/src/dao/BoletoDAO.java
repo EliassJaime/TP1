@@ -23,6 +23,9 @@ public class BoletoDAO {
 		String consulta = null;
 	System.out.println("ojo el try");
 		try {
+			
+			boleto.setIdBoleto(obtenerId());
+			
 				consulta = "insert into boleto(idBoleto,idCliente,fechaVenta,idOrigen,idDestino,costoBol) "
 					+ "values ("+boleto.getIdBoleto() 
 					+ ","+boleto.getIdCliente()+",'"+boleto.getFechaVenta()+"',"
@@ -89,14 +92,16 @@ public static ArrayList<Boleto>  obtenerBoletos( ) {
 
    
    public static void guardarRutaBoleto(ArrayList<RutaDTO> rutas,Integer idBoleto) {
-		  
-	   
+	
+	   System.out.println(rutas.size());
 	   Connection con = AccesoBDD.getConn();
 		String consulta = null;
 	System.out.println("ojo el try");
 		try {
 			
 			for(RutaDTO r:rutas) {
+				System.out.println("holis");
+			
 				consulta = "insert into boletoruta(idRuta,idBoleto) "
 					+ "values ("+r.getIdRuta() 
 					+ ","+idBoleto +")";
@@ -117,6 +122,30 @@ public static ArrayList<Boleto>  obtenerBoletos( ) {
 	 
 	
 }
+   public static int obtenerId() {
+
+		Connection con = AccesoBDD.getConn();
+		String consulta = "SELECT max(idBoleto) from boleto";
+
+		Statement st;
+
+		int id = 0;
+		ResultSet rs;
+
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery(consulta);
+
+			while (rs.next()) {
+				id = rs.getInt("max(idBoleto)");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return (id + 1);
+	}
 	
 	
 	

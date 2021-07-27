@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import dominio.Estacion;
 import dto.RutaDTO;
+import enums.EstadoRuta;
 import estructuras.Ruta;
 import estructuras.Vertice;
 import gestores.GestorEstacion;
@@ -91,7 +92,18 @@ public static ArrayList<Ruta<Estacion>> buscarTodasLasRutas(){
 			Estacion estacionDestino=GestorEstacion.getEstacionById(rs.getInt("idDestinoE"));
 			
 			
-			Ruta<Estacion> ruta = new Ruta<Estacion>(rs.getInt("idRuta"), new Vertice<Estacion>(estacionOrigen),  new Vertice<Estacion>(estacionDestino), rs.getDouble("distancia"), rs.getDouble("duracionDelViaje"), rs.getInt("cantidadMaxPasajeros"), null, rs.getDouble("costo"), null);
+			Ruta<Estacion> ruta = new Ruta<Estacion>(rs.getInt("idRuta"), new Vertice<Estacion>(estacionOrigen),  new Vertice<Estacion>(estacionDestino), rs.getDouble("distancia"), rs.getDouble("duracionDelViaje"), rs.getInt("cantidadMaxPasajeros")
+					,null, rs.getDouble("costo"),  LineaTransporteDAO.obtenerLineaPorID(rs.getInt("idLineaTransporte")));
+			
+			if(rs.getString("estado").equals(EstadoRuta.Activa)) {
+				ruta.setEstado(EstadoRuta.Activa);
+				
+			}
+			else {
+				ruta.setEstado(EstadoRuta.NoActiva);
+				
+			}
+			
 			listaRuta.add(ruta);		
 		}
 		

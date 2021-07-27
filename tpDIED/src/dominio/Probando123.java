@@ -25,13 +25,9 @@ public class Probando123 {
 
 	public static void main(String[] args) throws SQLException {
 
+	GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMenosTiempo(3, 5, 1)));
 		
-	/*	System.out.println(Grafo.getInstance().caminoMinimoCosto
-				(new Vertice<>(EstacionDAO.buscarEstacionPorId(1)), new Vertice<>(EstacionDAO.buscarEstacionPorId(5))));
-		*/
-		Vertice<Estacion> v= new Vertice<>(EstacionDAO.buscarEstacionPorId(1));
-		System.out.println(Grafo.getInstance().getAdyacentes(v));
-		
+	
 	}
 	
 

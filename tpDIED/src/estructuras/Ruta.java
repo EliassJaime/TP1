@@ -113,13 +113,10 @@ public class Ruta<Estacion> {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return (obj instanceof Ruta) && ((Ruta)obj).getValor().equals(this.distancia); 
+		return (obj instanceof Ruta) && ((Ruta)obj).getIdRuta().equals(this.idRuta); 
 	}
 
-	private Object getValor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	public Double getDuracionRecorrido() {
 		// TODO Auto-generated method stub
@@ -141,6 +138,8 @@ public class Ruta<Estacion> {
 	public void setLineaTransporte(LineaTransporte lineaTransporte) {
 		this.lineaTransporte = lineaTransporte;
 	}
+	
+	
 	
 	
 }
