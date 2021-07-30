@@ -2,13 +2,17 @@ package gestores;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 
 import dao.EstacionDAO;
 import dao.MantenimientoDAO;
+import dao.RutaDAO;
 import dominio.Estacion;
 import dominio.Mantenimiento;
 import dto.EstacionDTO;
+import dto.RutaDTO;
 import enums.EstadoEstacion;
+import estructuras.Grafo;
 
 public class GestorEstacion {
 	
@@ -65,5 +69,23 @@ public class GestorEstacion {
 		
 		return EstacionDAO.buscarEstacionPorId(id);
 	}
+    public static int getIdEstacionByNombre(String nombre) {
+		
+		return EstacionDAO.getIdEstacion(nombre);
+	}
+
+	public static List<List<String>> flujoMaximoGestor(Estacion o, Estacion d) {
+		
+		return Grafo.getInstance().flujoMaximo(o, d);
+		
+	}
+	public static ArrayList<Estacion> obtenerPageRank(){
+		 return Grafo.getInstance().getEstacionPagerank();
+	}
+    public static void eliminarEstacion(Estacion estacion) {
+		
+		EstacionDAO.EliminarEstacion(estacion.getId());
+	}
+	
 
 }

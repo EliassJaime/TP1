@@ -26,6 +26,10 @@ public class RutaDTO {
 		this.costo = costo;
 	}
 	
+	public RutaDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer getIdRuta() {
 		return idRuta;
 	}

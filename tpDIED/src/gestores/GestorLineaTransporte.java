@@ -2,8 +2,10 @@ package gestores;
 
 import java.util.ArrayList;
 
+import dao.EstacionDAO;
 import dao.LineaTransporteDAO;
 import dao.RutaDAO;
+import dominio.Estacion;
 import dominio.LineaTransporte;
 import dto.EstacionDTO;
 import dto.LineaTransporteDTO;
@@ -54,11 +56,19 @@ public class GestorLineaTransporte {
 	
 	
 	
+    public static ArrayList<LineaTransporte> buscarTodasLasLineasTrasporte(){
+		
+		return LineaTransporteDAO.obtenerLineasTransporte();
+	}
 	
 	
 	
-	
-	
+    public static int obtenerIdLineaTransporte(String nombreL) {
+		return LineaTransporteDAO.getIdLineaTransporte(nombreL);
+	}
+    public static LineaTransporte obtenerLineaTransportePorId(Integer id) {
+		return LineaTransporteDAO.obtenerLineaPorID(id);
+	}
 	
 	
 	

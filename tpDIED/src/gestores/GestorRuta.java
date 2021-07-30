@@ -18,7 +18,7 @@ public class GestorRuta {
 	}
 
 	public static void guardarRuta(RutaDTO rutaDto) {
-		
+		rutaDto.setIdRuta(0);
 		RutaDAO.guardarRuta(rutaDto);
 		Grafo.getInstance().actualizarGrafo();
 		

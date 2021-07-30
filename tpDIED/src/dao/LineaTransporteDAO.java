@@ -47,6 +47,37 @@ public class LineaTransporteDAO {
 			System.out.println(e.getMessage());
 		}
 	}
+	public static int getIdLineaTransporte(String nombreLinea) {
+		
+		Connection con = AccesoBDD.getConn();
+		
+		ResultSet tablaEstacion=null;
+		
+		Integer id=null;
+		
+		String consulta = "select idLinea from lineatransporte where nombre ='"+nombreLinea+"'";
+		
+		Statement st;
+		
+		try {
+			st = con.createStatement();
+			tablaEstacion = st.executeQuery(consulta);
+			
+			while(tablaEstacion.next()) {
+				id=tablaEstacion.getInt("idLinea");
+			}
+			
+			st.close();
+			con.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return id;
+	}
 
 	public static ArrayList<LineaTransporte> obtenerLineasTransporte() {
 
@@ -166,5 +197,6 @@ public class LineaTransporteDAO {
 		}
 		return l;
 	}
+
 
 }
