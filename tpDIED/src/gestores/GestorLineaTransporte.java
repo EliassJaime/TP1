@@ -2,7 +2,7 @@ package gestores;
 
 import java.util.ArrayList;
 
-import dao.EstacionDAO;
+
 import dao.LineaTransporteDAO;
 import dao.RutaDAO;
 import dominio.Estacion;
@@ -10,6 +10,7 @@ import dominio.LineaTransporte;
 import dto.EstacionDTO;
 import dto.LineaTransporteDTO;
 import dto.RutaDTO;
+import estructuras.Ruta;
 
 public class GestorLineaTransporte {
 
@@ -25,8 +26,8 @@ public class GestorLineaTransporte {
 
 	}
 	
-	public static void eliminarLineaTransporte(LineaTransporte l) {
-		LineaTransporteDAO.eliminarLineaTransporteByID(l.getIdLinea());
+	public static void eliminarLineaTransporte(LineaTransporteDTO lineaTransporteDTO) {
+		LineaTransporteDAO.eliminarLineaTransporteByID(lineaTransporteDTO.getIdLinea());
 		
 		
 	}
@@ -77,7 +78,76 @@ public class GestorLineaTransporte {
 		return new LineaTransporteDTO(l.getIdLinea(), l.getNombre(), l.getColor(), l.getEstadolinea().toString());
 	}
 	
+	public static ArrayList<LineaTransporteDTO> buscarlineast(String nombre,String estado,String color,String id){
+		ArrayList<LineaTransporte> lineas=LineaTransporteDAO.obtenerLineasTransporte();
+
+		
+		int tam=lineas.size();
+		if(nombre!="all") {
+			for(int i=0; i<tam;i++) {
+				
+				if(lineas.get(i).getNombre().toLowerCase().compareTo(nombre)!=0) {
+					
+					lineas.remove(i);
+					i--;
+					tam=lineas.size();
+				}	
+			}
+			}
+		if(estado!="all") {
+			for(int i=0; i<tam;i++) {
+				
+				if(lineas.get(i).getEstadolinea().toString().compareTo(estado)!=0) {
+					lineas.remove(i);
+					i--;
+					tam=lineas.size();
+				}	
+			}
+			}
+		if(color!="all") {
+			for(int i=0; i<tam;i++) {
+				
+				if(lineas.get(i).getColor().toLowerCase().compareTo(color)!=0) {
+					lineas.remove(i);
+					i--;
+					tam=lineas.size();
+				}	
+			}
+			}
+		
+		if(id!="all") {
+			for(int i=0; i<tam;i++) {
+				
+				if(lineas.get(i).getIdLinea()!=Integer.parseInt(id)) {
+					lineas.remove(i);
+					i--;
+					tam=lineas.size();
+				}	
+			}
+			}
+		
+		
+		
+		return GestorLineaTransporte.obtenerlineasDTO(lineas);
+	}
+
+	public static ArrayList<LineaTransporteDTO> obtenerlineasDTO(ArrayList<LineaTransporte> lineas){
+		ArrayList<LineaTransporteDTO> lineasDTO=new ArrayList<LineaTransporteDTO>();
+		
+		for(LineaTransporte c:lineas) {
+			LineaTransporteDTO dto=new LineaTransporteDTO();
+			dto.setNombre(c.getNombre());
+			dto.setEstado(c.getEstadolinea().toString());
+			dto.setColor(c.getColor());
+			dto.setIdLinea(c.getIdLinea());
+			lineasDTO.add(dto);
+		}
 	
+		
+		return lineasDTO;
+	}
+	
+
 	
 	
 

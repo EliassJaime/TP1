@@ -16,7 +16,9 @@ public class GestorRuta {
 		return RutaDAO.buscarTodasLasRutas();
 		
 	}
+	
 
+	
 	public static void guardarRuta(RutaDTO rutaDto) {
 		rutaDto.setIdRuta(0);
 		RutaDAO.guardarRuta(rutaDto);

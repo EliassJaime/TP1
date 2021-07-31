@@ -7,8 +7,11 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +25,7 @@ import javax.swing.border.TitledBorder;
 
 import dominio.Estacion;
 import dominio.LineaTransporte;
+import dto.LineaTransporteDTO;
 import estructuras.Ruta;
 import gestores.GestorEstacion;
 import gestores.GestorLineaTransporte;
@@ -33,7 +37,6 @@ public class LineasDeTransporte {
 	private JFrame frame;
 	private JTextField textFieldID;
 	private JTextField textFieldNOMBRE;
-	private JTextField textFieldTrayectoria;
 
 	/**
 	 * Launch the application.
@@ -70,7 +73,7 @@ public class LineasDeTransporte {
 		
 		JPanel panelEstado = new JPanel();
 		panelEstado.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
-		panelEstado.setBounds(10, 22, 752, 113);
+		panelEstado.setBounds(10, 22, 752, 138);
 		frame.getContentPane().add(panelEstado);
 		panelEstado.setLayout(null);
 		
@@ -80,14 +83,16 @@ public class LineasDeTransporte {
 		textFieldID.setColumns(10);
 		
 		JComboBox<String> estado = new JComboBox<String>();
+		estado.addItem(null);
 		estado.addItem("Activa");
 		estado.addItem("NoActiva");
+		
 		estado.setSelectedItem(null);
-		estado.setBounds(157, 39, 137, 22);
+		estado.setBounds(157, 64, 137, 22);
 		panelEstado.add(estado);
 	
 		JButton btnNewButton = new JButton("Buscar");
-		btnNewButton.setBounds(641, 79, 101, 23);
+		btnNewButton.setBounds(641, 110, 101, 23);
 		panelEstado.add(btnNewButton);
 		
 		JTextPane txtpnIdEstacion = new JTextPane();
@@ -98,46 +103,90 @@ public class LineasDeTransporte {
 		
 		JTextPane txtNombreEstacion = new JTextPane();
 		txtNombreEstacion.setText("Nombre Linea:");
-		txtNombreEstacion.setBounds(378, 11, 110, 20);
+		txtNombreEstacion.setBounds(10, 35, 137, 20);
 		txtNombreEstacion.setEditable(false);
 		panelEstado.add(txtNombreEstacion);
 		
+		ArrayList<Estacion> estaciones= GestorEstacion.buscarTodasLasEstaciones();
+		JScrollPane scrollPane1 = new JScrollPane();
+		scrollPane1.setBounds(350, 30, 395, 80);
+		
+		frame.getContentPane().add(scrollPane1);
+		 JPanel panelEstaciones = new JPanel();
+		 panelEstaciones.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+			panelEstaciones.setPreferredSize(new Dimension(360, 35*estaciones.size()));
+			panelEstaciones.setLayout(null);
+		panelEstaciones.setAutoscrolls(true);
+		scrollPane1.setViewportView(panelEstaciones);
+		panelEstado.add(scrollPane1);
+	
+		ArrayList<JCheckBox> checkEstacion=new ArrayList<JCheckBox>();
+		ArrayList<Integer> trayecto= new ArrayList<Integer>();
+		int posicionX=0;
+		int posicionY=0;
+		for(int i=0;i<estaciones.size();i++) {
+			int aux=i;
+		checkEstacion.add(new JCheckBox(estaciones.get(i).getNombre()));
+		checkEstacion.get(i).setEnabled(true);
+		checkEstacion.get(i).setBounds(10+posicionX, 11+posicionY, 85, 14);
+		panelEstaciones.add(checkEstacion.get(i));
+		
+		posicionX+=90;
+		if(posicionX>350) {
+			posicionX=0;
+			posicionY+=30;
+		}
+	checkEstacion.get(i).addActionListener(new ActionListener() {
+		
+			public void actionPerformed(ActionEvent e) {
+				Integer aux2=GestorEstacion.getIdEstacionByNombre(checkEstacion.get(aux).getText().toString());
+				if(checkEstacion.get(aux).isSelected()) {
+				trayecto.add(aux2);
+				System.out.println(trayecto);
+				}
+				else {
+					if(trayecto.contains(aux2)) {
+						trayecto.remove(aux2);
+						System.out.println(trayecto);
+					}
+				}
+			}});
+	
+		
+		}
+		
 		JTextPane txtpnTrayectoria = new JTextPane();
 		txtpnTrayectoria.setText("Trayectoria:");
-		txtpnTrayectoria.setBounds(378, 41, 110, 20);
+		txtpnTrayectoria.setBounds(349, 11, 110, 20);
 		txtpnTrayectoria.setEditable(false);
 		panelEstado.add(txtpnTrayectoria);
 		
 		textFieldNOMBRE = new JTextField();
 		textFieldNOMBRE.setColumns(10);
-		textFieldNOMBRE.setBounds(529, 11, 182, 20);
+		textFieldNOMBRE.setBounds(157, 35, 182, 20);
 		panelEstado.add(textFieldNOMBRE);
 		
 		JTextPane txtpnColor = new JTextPane();
 		txtpnColor.setText("Color: ");
-		txtpnColor.setBounds(10, 72, 137, 20);
+		txtpnColor.setBounds(10, 97, 137, 20);
 		txtpnColor.setEditable(false);
 		panelEstado.add(txtpnColor);
 		
-		textFieldTrayectoria = new JTextField();
-		textFieldTrayectoria.setColumns(10);
-		textFieldTrayectoria.setBounds(529, 40, 182, 20);
-		panelEstado.add(textFieldTrayectoria);
-		
 		JTextPane txtpnEstado = new JTextPane();
 		txtpnEstado.setText("Estado:");
-		txtpnEstado.setBounds(10, 41, 137, 20);
+		txtpnEstado.setBounds(10, 66, 137, 20);
 		txtpnEstado.setEditable(false);
 		panelEstado.add(txtpnEstado);
 		
 		JComboBox<String> color = new JComboBox<String>();
+		color.addItem(null);
 		color.addItem("Azul");
 		color.addItem("Amarillo");
 		color.addItem("Verde");
 		color.addItem("Naranja");
 		color.addItem("Negro");
 		color.setSelectedItem(null);
-		color.setBounds(157, 72, 137, 22);
+		color.setBounds(157, 94, 137, 22);
 		panelEstado.add(color);
 		
 
@@ -151,8 +200,8 @@ public class LineasDeTransporte {
 			String es;
 			String id;
 			String col;
-			String trayectoria;
-			ArrayList<LineaTransporte> lineas;
+			
+			ArrayList<LineaTransporteDTO> lineas;
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -161,7 +210,7 @@ public class LineasDeTransporte {
 				this.n="all";
 				this.es="all";
 				this.col="all";
-				this.trayectoria="all";
+			
 				
 				if(!textFieldID.getText().isEmpty()) {
 					System.out.println(textFieldID.getText()+"<-");
@@ -175,27 +224,22 @@ public class LineasDeTransporte {
 				}
 				
 			     if(estado.getSelectedItem()!=null) {
-			    	 es=estado.getSelectedItem().toString().toLowerCase();
+			    	 es=estado.getSelectedItem().toString();
 			     }
 			     
-			     if(!textFieldTrayectoria.getText().isEmpty()) {
-						System.out.println(textFieldTrayectoria.getText()+"<-");
-				    	 trayectoria=textFieldTrayectoria.getText().toLowerCase();
+			     if(!trayecto.isEmpty()) {
+						System.out.println(trayecto+"<-");
+				    	
 					}
 			     
 			     if(color.getSelectedItem()!=null) {
 			    	 col=color.getSelectedItem().toString().toLowerCase();
 			     }
 				
-				System.out.println("-"+id+n+"-"+es+"-"+col+"-"+trayectoria+"-");
+				System.out.println("-"+id+"-"+n+"-"+es+"-"+col+"-");
 
-                lineas=GestorLineaTransporte.buscarTodasLasLineasTrasporte();    //EJECUTAR FUNCION FILTRO EN GESTOR, HACER FUNCION
-		
-		
-			//	for(CompetenciaDTO c:competencias) {
-			//		System.out.println(c.getNombre()+" "+c.getModalidad());
-			//	}  
-				
+                lineas=GestorLineaTransporte.buscarlineast(n, es, col, id);   // falta filtrar por trayecto
+            	
 				// TODO Auto-generated method stub
 				int cantidad=lineas.size(); //Setear la cantidad de resultados encontrados en la busqueda
 				int contador=0;
@@ -268,16 +312,25 @@ public class LineasDeTransporte {
 					Trayectoria2.add(new JTextField());
 					Trayectoria2.get(contador).setBounds(150, 41+agregadoY, 100, 20);
 					Trayectoria2.get(contador).setEditable(false);
-					ArrayList<Ruta<Estacion>> rutas=GestorRuta.buscarTodasLasRutas();
-				
-					System.out.println(rutas);
-					Trayectoria2.get(contador).setText(""); //MOSTRAR TRAYECTORIA, HACER
+					ArrayList<Ruta<Estacion>> rutas2=GestorRuta.buscarTodasLasRutas();
+					ArrayList<Integer> mostrar=new ArrayList<Integer>();
+					for(int i=0;i<rutas2.size();i++) {
+																									
+						if(rutas2.get(i).getLineaTransporte().getIdLinea()!=lineas.get(contador).getIdLinea()) {
+							rutas2.remove(i);
+						}
+						else {
+							mostrar.add(rutas2.get(i).getOrigen().getValor().getId());
+							mostrar.add(rutas2.get(i).getDestino().getValor().getId());}
+						}
+					
+					Trayectoria2.get(contador).setText(mostrar.stream().distinct().collect(Collectors.toList()).toString()); 
 					panelResultados.add(Trayectoria2.get(contador));  
 					
 					Estado2.add(new JTextField());
 					Estado2.get(contador).setBounds(343, 41+agregadoY, 110, 20);
 					Estado2.get(contador).setEditable(false);
-					Estado2.get(contador).setText(lineas.get(contador).getEstadolinea().toString());        
+					Estado2.get(contador).setText(lineas.get(contador).getEstadoLinea().toString());        
 					panelResultados.add(Estado2.get(contador));
 					
 					
@@ -396,7 +449,7 @@ public class LineasDeTransporte {
 		JTextPane txtpnResultadoDeBusqueda = new JTextPane();
 		txtpnResultadoDeBusqueda.setEditable(false);
 		txtpnResultadoDeBusqueda.setText("Resultado de Busqueda");
-		txtpnResultadoDeBusqueda.setBounds(10, 146, 244, 20);
+		txtpnResultadoDeBusqueda.setBounds(10, 161, 244, 20);
 		frame.getContentPane().add(txtpnResultadoDeBusqueda);
 		
 		

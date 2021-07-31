@@ -9,7 +9,6 @@ import enums.EstadoRuta;
 import estructuras.Ruta;
 import estructuras.Vertice;
 import gestores.GestorEstacion;
-import gestores.GestorLineaTransporte;
 
 
 public class RutaDAO {
@@ -147,6 +146,7 @@ public static int obtenerId() {
 	
 return (id+1);	
 }
+
 
 	
 	
