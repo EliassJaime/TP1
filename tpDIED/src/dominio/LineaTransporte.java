@@ -1,5 +1,6 @@
 package dominio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import enums.EstadoRuta;
@@ -11,9 +12,9 @@ public class LineaTransporte {
 	private String nombre;
 	private String color;
 	private EstadoRuta estadolinea;
-	private List<Ruta> trayectoria;
+	private List<Ruta<Estacion>> trayectoria;
 	
-	public LineaTransporte(Integer idLinea, String nombre, String color, EstadoRuta estadolinea, List<Ruta> trayectoria) {
+	public LineaTransporte(Integer idLinea, String nombre, String color, EstadoRuta estadolinea, List<Ruta<Estacion>> trayectoria) {
 		this.idLinea=idLinea;
 		this.nombre = nombre;
 		this.color = color;
@@ -38,11 +39,11 @@ public class LineaTransporte {
 	public void setEstadolinea(EstadoRuta estadolinea) {
 		this.estadolinea = estadolinea;
 	}
-	public List<Ruta> getTrayectoria() {
+	public List<Ruta<Estacion>> getTrayectoria() {
 		return trayectoria;
 	}
-	public void setTrayectoria(List<Ruta> trayectoria) {
-		this.trayectoria = trayectoria;
+	public void setTrayectoria(ArrayList<Ruta<Estacion>> arrayList) {
+		this.trayectoria = arrayList;
 	}
 	public Integer getIdLinea() {
 		return idLinea;

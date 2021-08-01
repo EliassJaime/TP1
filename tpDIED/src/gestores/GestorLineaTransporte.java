@@ -1,8 +1,9 @@
 package gestores;
 
 import java.util.ArrayList;
+import java.util.List;
 
-
+import dao.EstacionDAO;
 import dao.LineaTransporteDAO;
 import dao.RutaDAO;
 import dominio.Estacion;
@@ -11,6 +12,7 @@ import dto.EstacionDTO;
 import dto.LineaTransporteDTO;
 import dto.RutaDTO;
 import estructuras.Ruta;
+import estructuras.Vertice;
 
 public class GestorLineaTransporte {
 
@@ -78,7 +80,8 @@ public class GestorLineaTransporte {
 		return new LineaTransporteDTO(l.getIdLinea(), l.getNombre(), l.getColor(), l.getEstadolinea().toString());
 	}
 	
-	public static ArrayList<LineaTransporteDTO> buscarlineast(String nombre,String estado,String color,String id){
+	public static ArrayList<LineaTransporteDTO> buscarlineast(String nombre,String estado,
+			String color,String id,ArrayList<Integer> trayecto){
 		ArrayList<LineaTransporte> lineas=LineaTransporteDAO.obtenerLineasTransporte();
 
 		
@@ -126,10 +129,73 @@ public class GestorLineaTransporte {
 			}
 			}
 		
+		if(trayecto.size()>0) {
+			
+			ArrayList<Ruta> subTrayecto = new ArrayList<>();
+			for(int i=0;i<trayecto.size()-1;i++) {
+				 
+				Ruta r=new Ruta<Estacion>(new Vertice<Estacion>(EstacionDAO.buscarEstacionPorId(trayecto.get(i)))
+						, new Vertice<Estacion>(EstacionDAO.buscarEstacionPorId(trayecto.get(i+1))));
+				r.setIdRuta(-1);
+				System.out.println(r);
+				
+				subTrayecto.add(r);
+				
+			}
+			
+      for(int i=0; i<tam;i++) {
+				
+				if(!contiene(lineas.get(i).getTrayectoria(), subTrayecto)) {
+					lineas.remove(i);
+					i--;
+					tam=lineas.size();
+					
+				}	
+			}
+				
+			
+			
+		}
+		
+		
 		
 		
 		return GestorLineaTransporte.obtenerlineasDTO(lineas);
 	}
+	
+	
+	public static Boolean contiene(List<Ruta<Estacion>> list,ArrayList<Ruta> segundo) {
+		
+		Boolean contiene=false;
+		
+		
+		int i;
+		int j = -1;
+		for( i=0;i<list.size();i++) {
+			
+			if(list.get(i).equals(segundo.get(0))) {
+				
+				i++;
+				for( j=1;j<segundo.size();j++) {
+					
+					if(!list.get(i).equals(segundo.get(j))) {
+					break;	
+					}
+					else {
+						i++;}	}		
+			}		
+		}
+		if( j==segundo.size()) {contiene=true;}
+		
+		
+		return contiene;
+	}
+	
+	
+	
+	
+	
+	
 
 	public static ArrayList<LineaTransporteDTO> obtenerlineasDTO(ArrayList<LineaTransporte> lineas){
 		ArrayList<LineaTransporteDTO> lineasDTO=new ArrayList<LineaTransporteDTO>();

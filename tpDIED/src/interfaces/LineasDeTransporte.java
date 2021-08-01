@@ -238,9 +238,9 @@ public class LineasDeTransporte {
 				
 				System.out.println("-"+id+"-"+n+"-"+es+"-"+col+"-");
 
-                lineas=GestorLineaTransporte.buscarlineast(n, es, col, id);   // falta filtrar por trayecto
+                lineas=GestorLineaTransporte.buscarlineast(n, es, col, id,trayecto);   // falta filtrar por trayecto
             	
-				// TODO Auto-generated method stub
+			
 				int cantidad=lineas.size(); //Setear la cantidad de resultados encontrados en la busqueda
 				int contador=0;
 				int agregadoY=0;

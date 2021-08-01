@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import dao.AccesoBDD;
@@ -30,15 +31,23 @@ public class Probando123 {
 
 	public static void main(String[] args) throws SQLException {
 		
-		LineaTransporte dtoLinea = new LineaTransporte(0, "Nose", "Rojo", EstadoRuta.Activa, null);
-		GestorLineaTransporte.crearDTO(dtoLinea);
-		GestorLineaTransporte.altaLineaTransporte(dtoLinea);
-		
-		RutaDTO dto = new RutaDTO(0, 2,2, 3, 10.0, 12.0,
-				30,"Activa", 8.0);
-		
-		GestorRuta.guardarRuta(dto);
 
+		
+
+		
+		ArrayList<Integer> uno= new ArrayList<>();
+		ArrayList<Integer> dos= new ArrayList<>();
+		
+		uno.add(1);
+		uno.add(2);
+		uno.add(3);
+		uno.add(4);
+		uno.add(5);
+
+	
+		dos.add(6);
+		//System.out.println(GestorLineaTransporte.contiene(uno, dos));
+		
 	//GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMenosTiempo(3, 5, 1)));
 		
 	

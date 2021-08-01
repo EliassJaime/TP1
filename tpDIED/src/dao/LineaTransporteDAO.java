@@ -105,6 +105,10 @@ public class LineaTransporteDAO {
 					l.setEstadolinea(EstadoRuta.NoActiva);
 				}
 
+				l.setTrayectoria(RutaDAO.obtenerRutasPorIdLinea(l.getIdLinea()));
+				
+				
+				
 				lineas.add(l);
 
 			}

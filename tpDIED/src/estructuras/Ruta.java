@@ -113,7 +113,17 @@ public class Ruta<Estacion> {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return (obj instanceof Ruta) && ((Ruta)obj).getIdRuta().equals(this.idRuta); 
+		
+		Boolean iguales=(obj instanceof Ruta) && ((Ruta)obj).getIdRuta().equals(this.idRuta);
+		
+		if(!iguales && (obj instanceof Ruta)) {
+			
+			iguales=((Ruta)obj).getOrigen().equals(this.getOrigen()) && ((Ruta)obj).getDestino().equals(this.getDestino());
+		}
+		
+		
+		
+		return iguales; 
 	}
 
 	
