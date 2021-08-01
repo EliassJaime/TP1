@@ -180,7 +180,7 @@ public class Estaciones {
 				}
 				
 			     if(estado.getSelectedItem()!=null) {
-			    	 es=estado.getSelectedItem().toString().toLowerCase();
+			    	 es=estado.getSelectedItem().toString().toLowerCase();                 //VER, NO FILTRA ESTADO
 			     }
 			     
 			     if(!textFieldHORAAPERTURA.getText().isEmpty()) {
@@ -195,7 +195,7 @@ public class Estaciones {
 				
 				System.out.println("-"+id+n+"-"+es+"-"+horarioapertura+"-"+horariocierre+"-");
 
-estaciones=GestorEstacion.buscarEstaciones(id,n,es,horarioapertura,horariocierre);       //EJECUTAR FUNCION FILTRO EN GESTOR, HACER FUNCION
+estaciones=GestorEstacion.buscarEstaciones(id,n,es,horarioapertura,horariocierre);       
 		
 		
 		
