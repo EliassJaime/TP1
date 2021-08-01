@@ -83,7 +83,7 @@ public class LineasDeTransporte {
 		textFieldID.setColumns(10);
 		
 		JComboBox<String> estado = new JComboBox<String>();
-		estado.addItem(null);
+		
 		estado.addItem("Activa");
 		estado.addItem("NoActiva");
 		
@@ -180,7 +180,6 @@ public class LineasDeTransporte {
 		panelEstado.add(txtpnEstado);
 		
 		JComboBox<String> color = new JComboBox<String>();
-		color.addItem(null);
 		color.addItem("Azul");
 		color.addItem("Amarillo");
 		color.addItem("Verde");
@@ -352,6 +351,9 @@ public class LineasDeTransporte {
 					
 					RegTrayecto.add(new JButton("RegTrayecto")); 
 					RegTrayecto.get(contador).setBounds(450, 41+agregadoY, 96, 20);
+					if(!mostrar.isEmpty()) {
+						RegTrayecto.get(contador).setEnabled(false);
+					}
 		RegTrayecto.get(contador).addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 						EventQueue.invokeLater(new Runnable() {

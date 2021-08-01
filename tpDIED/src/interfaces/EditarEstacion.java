@@ -54,7 +54,7 @@ public class EditarEstacion {
 	private void initialize(Estacion esta) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 704, 433);
-		frame.setTitle("Crear Estacion");
+		frame.setTitle("Editar Estacion");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
