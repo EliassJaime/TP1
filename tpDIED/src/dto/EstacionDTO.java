@@ -19,7 +19,7 @@ public class EstacionDTO {
 	public EstacionDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {

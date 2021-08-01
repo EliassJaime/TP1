@@ -92,8 +92,9 @@ public class LineasDeTransporte {
 		panelEstado.add(estado);
 	
 		JButton btnNewButton = new JButton("Buscar");
-		btnNewButton.setBounds(641, 110, 101, 23);
+		btnNewButton.setBounds(535, 110, 101, 23);
 		panelEstado.add(btnNewButton);
+		
 		
 		JTextPane txtpnIdEstacion = new JTextPane();
 		txtpnIdEstacion.setText("Id Linea:");
@@ -189,6 +190,21 @@ public class LineasDeTransporte {
 		color.setBounds(157, 94, 137, 22);
 		panelEstado.add(color);
 		
+		JButton btnNewButton_1 = new JButton("Limpiar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				estado.setSelectedItem(null);
+				color.setSelectedItem(null);
+				textFieldID.setText("");
+				textFieldNOMBRE.setText("");
+				trayecto.clear();
+				for(int i=0;i<estaciones.size();i++) {
+					checkEstacion.get(i).setSelected(false);
+				}
+			}
+		});
+		btnNewButton_1.setBounds(641, 110, 101, 23);
+		panelEstado.add(btnNewButton_1);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 177, 752, 169);

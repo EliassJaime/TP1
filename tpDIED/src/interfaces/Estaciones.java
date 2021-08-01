@@ -21,6 +21,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
 import dominio.Estacion;
+import dto.EstacionDTO;
 import gestores.GestorEstacion;
 
 
@@ -84,7 +85,7 @@ public class Estaciones {
 		panelEstado.add(estado);
 	
 		JButton btnNewButton = new JButton("Buscar");
-		btnNewButton.setBounds(557, 85, 101, 23);
+		btnNewButton.setBounds(446, 85, 101, 23);
 		panelEstado.add(btnNewButton);
 		
 		JTextPane txtpnIdEstacion = new JTextPane();
@@ -132,6 +133,18 @@ public class Estaciones {
 		txtpnEstado.setEditable(false);
 		panelEstado.add(txtpnEstado);
 		
+		JButton btnNewButton_1 = new JButton("Limpiar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				estado.setSelectedItem(null);
+				textFieldID.setText("");
+				textFieldNOMBRE.setText("");
+				textFieldHORAAPERTURA.setText("");
+				textFieldHORACIERRE.setText("");
+			}
+		});
+		btnNewButton_1.setBounds(557, 85, 101, 23);
+		panelEstado.add(btnNewButton_1);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 177, 668, 169);
@@ -141,15 +154,15 @@ public class Estaciones {
 		
 			String n;
 			String es;
-			String id;
+			Integer id;
 			String horarioapertura;
 			String horariocierre;
-			ArrayList<Estacion> estaciones;
+			ArrayList<EstacionDTO> estaciones;
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				this.id="all";
+				this.id=-1;
 				this.n="all";
 				this.es="all";
 				this.horarioapertura="all";
@@ -157,7 +170,7 @@ public class Estaciones {
 				
 				if(!textFieldID.getText().isEmpty()) {
 					System.out.println(textFieldID.getText()+"<-");
-			    	 id=textFieldID.getText().toLowerCase();
+			    	 id=Integer.parseInt(textFieldID.getText().toLowerCase());
 			     
 				}
 				
@@ -182,12 +195,10 @@ public class Estaciones {
 				
 				System.out.println("-"+id+n+"-"+es+"-"+horarioapertura+"-"+horariocierre+"-");
 
-estaciones=GestorEstacion.buscarTodasLasEstaciones();       //EJECUTAR FUNCION FILTRO EN GESTOR, HACER FUNCION
+estaciones=GestorEstacion.buscarEstaciones(id,n,es,horarioapertura,horariocierre);       //EJECUTAR FUNCION FILTRO EN GESTOR, HACER FUNCION
 		
 		
-			//	for(CompetenciaDTO c:competencias) {
-			//		System.out.println(c.getNombre()+" "+c.getModalidad());
-			//	}  
+		
 				
 				// TODO Auto-generated method stub
 				int cantidad=estaciones.size(); //Setear la cantidad de resultados encontrados en la busqueda
