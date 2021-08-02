@@ -38,7 +38,7 @@ public static void guardarRuta(RutaDTO ruta) {
 		String consulta = null;
 		
 		try {
-			System.out.println("Entro al try");
+		
 			if(ruta.getIdRuta()==0) {
 				
 				ruta.setIdRuta(obtenerId());
@@ -50,11 +50,13 @@ public static void guardarRuta(RutaDTO ruta) {
 								+ruta.getCantidadMaxPasajeros()+",'"+ruta.getEstado()+ "',"+ruta.getCosto() +")" ;
 			}
 			else {
-				consulta= "update ruta set distancia="+ruta.getDistancia()+",duracionDelViaje='"
+				
+				System.out.println(ruta.getEstado()); 
+				consulta= "update ruta set distancia="+ruta.getDistancia()+",duracionDelViaje="
 						+ruta.getDuracionDelViaje()+",cantidadMaxPasajeros="+ruta.getCantidadMaxPasajeros()+
 						
 						",estado='" +ruta.getEstado() +"',costo=" +ruta.getCosto() 
-								+ " WHERE idLinea="+ruta.getIdRuta()+";";
+								+ " WHERE idRuta="+ruta.getIdRuta()+";";
 				
 			}
 			Statement st = con.createStatement();
@@ -95,7 +97,7 @@ public static ArrayList<Ruta<Estacion>> buscarTodasLasRutas(){
 			Ruta<Estacion> ruta = new Ruta<Estacion>(rs.getInt("idRuta"), new Vertice<Estacion>(estacionOrigen),  new Vertice<Estacion>(estacionDestino), rs.getDouble("distancia"), rs.getDouble("duracionDelViaje"), rs.getInt("cantidadMaxPasajeros")
 					,null, rs.getDouble("costo"),  LineaTransporteDAO.obtenerLineaPorID(rs.getInt("idLineaTransporte")));
 			
-			if(rs.getString("estado").equals(EstadoRuta.Activa)) {
+			if(rs.getString("estado").equals("Activa")) {
 				ruta.setEstado(EstadoRuta.Activa);
 				
 			}
@@ -172,7 +174,7 @@ public static ArrayList<Ruta<Estacion>> obtenerRutasPorIdLinea(Integer idLinea) 
 			Ruta<Estacion> ruta = new Ruta<Estacion>(rs.getInt("idRuta"), new Vertice<Estacion>(estacionOrigen),  new Vertice<Estacion>(estacionDestino), rs.getDouble("distancia"), rs.getDouble("duracionDelViaje"), rs.getInt("cantidadMaxPasajeros")
 					,null, rs.getDouble("costo"),  LineaTransporteDAO.obtenerLineaPorID(rs.getInt("idLineaTransporte")));
 			
-			if(rs.getString("estado").equals(EstadoRuta.Activa)) {
+			if(rs.getString("estado").equals("Activa")) {
 				ruta.setEstado(EstadoRuta.Activa);
 				
 			}

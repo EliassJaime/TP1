@@ -23,12 +23,23 @@ public static void guardarMantenimiento(MantenimientoDTO mantenimiento) {
 	System.out.println("ojo el try");
 		try {
 			
-    mantenimiento.setIdMantenimiento(obtenerId());			
-			
+			if (mantenimiento.getIdMantenimiento() == 0) {
+
+				mantenimiento.setIdMantenimiento(obtenerId());			
+				
 				consulta = "insert into mantenimiento(idMantenimiento,idEstacion,fechaInicio,fechaFin,observaciones) "
 					+ "values ("+mantenimiento.getIdMantenimiento() 
 					+ ","+mantenimiento.getIdEstacion()+",'"+mantenimiento.getFechaInicio()+"','"
 					+mantenimiento.getFechaFin()+"','"+mantenimiento.getObservaciones()+"')";
+			} else {
+				consulta = "update mantenimiento set fechaFin='" +mantenimiento.getFechaFin() + "',observaciones='" +mantenimiento.getObservaciones()
+						+ "' WHERE idMantenimiento=" + mantenimiento.getIdMantenimiento()
+						+ ";";
+
+			}
+						
+			
+    
 
 			Statement st = con.createStatement();
 			st.executeUpdate(consulta);

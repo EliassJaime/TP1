@@ -11,9 +11,6 @@ public class GestorMantenimiento {
 	
 	public static Mantenimiento crearMantenimiento(Instant f1, Instant f2,String observaciones) {
 		
-		
-		
-		
 		return new Mantenimiento(0, f1, f2, observaciones);
 		
 	} 
@@ -23,11 +20,25 @@ public class GestorMantenimiento {
 		
 		SimpleDateFormat f= new SimpleDateFormat("dd/MM/yyyy");
 		
+		String fechaInicio=f.format(Date.from(m.getFechaInicioMan()));
+		
+		
+		String fechaFin;
+		
+		if(m.getFechaFinMan()==null) {
+			fechaFin="No finalizado";
+		} 
+		else {
+			fechaFin= f.format(Date.from(m.getFechaInicioMan()));
+		}
+		if(m.getObservaciones()==null) {
+			m.setObservaciones("");
+		}
 		
 		
 		
 MantenimientoDTO mdto= new MantenimientoDTO(m.getId(), m.getEstacion().getId()
-				,f.format(Date.from(m.getFechaInicioMan())), f.format(Date.from(m.getFechaInicioMan()))	
+				,fechaInicio,fechaFin	
 				, m.getObservaciones());
 
 return mdto;

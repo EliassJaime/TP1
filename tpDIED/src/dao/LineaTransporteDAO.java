@@ -7,11 +7,15 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import dominio.Estacion;
 import dominio.LineaTransporte;
 import dominio.Mantenimiento;
 import dto.BoletoDTO;
 import dto.LineaTransporteDTO;
+import dto.RutaDTO;
 import enums.EstadoRuta;
+import estructuras.Ruta;
+import gestores.GestorRuta;
 
 public class LineaTransporteDAO {
 
@@ -35,6 +39,36 @@ public class LineaTransporteDAO {
 						+ ";";
 
 			}
+			
+	
+			if(linea.getEstadoLinea().equals("Activa")) {
+				
+				for(Ruta<Estacion> r: RutaDAO.obtenerRutasPorIdLinea(linea.getIdLinea())) {
+					
+					if(r.getEstado().equals(EstadoRuta.NoActiva)) {
+						r.setEstado(EstadoRuta.Activa);
+						RutaDAO.guardarRuta(GestorRuta.obtenerDTO(r));
+					}
+					
+				}
+				
+				
+				
+			}else {
+				
+       for(Ruta<Estacion> r: RutaDAO.obtenerRutasPorIdLinea(linea.getIdLinea())) {
+					
+					if(r.getEstado().equals(EstadoRuta.Activa)) {
+						r.setEstado(EstadoRuta.NoActiva);
+						RutaDAO.guardarRuta(GestorRuta.obtenerDTO(r));
+					}
+					
+				}
+				
+				
+				
+			}
+			
 
 			Statement st = con.createStatement();
 			st.executeUpdate(consulta);
@@ -191,6 +225,8 @@ public class LineaTransporteDAO {
 				}
 
 			}
+			
+	
 
 			st.close();
 			con.close();

@@ -26,4 +26,14 @@ public class GestorRuta {
 		
 	}
 
+
+
+	public static RutaDTO obtenerDTO(Ruta<Estacion> r) {
+		RutaDTO dto=new RutaDTO(r.getIdRuta(), r.getLineaTransporte().getIdLinea(), r.getOrigen().getValor().getId(), r.getDestino().getValor().getId(), r.getDistancia(), r.getDuracionDelViaje(), r.getCantidadMaxPasajeros(), r.getEstado().toString(), r.getCosto());
+		
+		
+		
+		return dto;
+	}
+
 }

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import dto.EstacionDTO;
 import enums.EstadoEstacion;
+import enums.EstadoRuta;
 import gestores.GestorEstacion;
 import gestores.GestorRuta;
 
@@ -108,22 +109,14 @@ public class Grafo<Estacion> {
 		return null;
 	}
 
-	public List<Estacion> getAdyacentes(Estacion valor){ 
-		Vertice<Estacion> unNodo = this.getNodo(valor);
-		List<Estacion> salida = new ArrayList<Estacion>();
-		for(Ruta enlace : this.rutas){
-			if( enlace.getOrigen().equals(unNodo)){
-				salida.add((Estacion) enlace.getDestino().getValor());
-			}
-		}
-		return salida;
-	}
+	
 	
 
-	public List<Vertice<Estacion>> getAdyacentes(Vertice<Estacion> unNodo){  //funciona
+	public List<Vertice<Estacion>> getAdyacentes(Vertice<Estacion> unNodo){  
 		List<Vertice<Estacion>> salida = new ArrayList<Vertice<Estacion>>();
 		for(Ruta enlace : this.rutas){
-			if( enlace.getOrigen().equals(unNodo)){
+			if( enlace.getOrigen().equals(unNodo) && !((dominio.Estacion)enlace.getDestino().getValor())
+					.getEstado().equals(EstadoEstacion.EnMantenimiento)){
 				salida.add(enlace.getDestino());
 			}
 		}
@@ -263,11 +256,12 @@ public class Grafo<Estacion> {
     }
     
     public List<List<String>> flujoMaximo (Vertice<Estacion> Origen, Vertice<Estacion> Destino){
-    	//va a devolver los nombres de la ruta y el último elemento va a ser el flujo máximo 
+   
     	
     	List<List<String>> retorno = new ArrayList<List<String>>();
     	
     	List<Vertice<Estacion>> listaAdyOrigen =  this.getAdyacentes(Origen); 
+    	System.out.println(listaAdyOrigen);
     	
     	List<List<Vertice<Estacion>>> recorridos = getRecorridos(listaAdyOrigen,Origen, Destino); 
 
@@ -276,13 +270,16 @@ public class Grafo<Estacion> {
     				
     				List<String> recorridoString = new ArrayList<String>();
     				List<Vertice<Estacion>> recorrido = recorridos.get(i);
+    		
     				
     				for(int j = 0; j<recorrido.size();j++){
     					
     					if(j!= 0) {
-    						Ruta ruta= rutaEntreDosEstacions(recorrido.get(j-1), recorrido.get(j));
+    						Ruta ruta= rutaEntreDosEstaciones(recorrido.get(j-1), recorrido.get(j));
     					
+    						
     						if(recorridoString.size() == 1) {
+    							
     							recorridoString.add(((dominio.Estacion) recorrido.get(j).getValor()).getNombre());
     							recorridoString.add(Double.toString(ruta.getCantidadMaxPasajeros()));
     						}else if(Double.parseDouble(recorridoString.get(recorridoString.size()-1)) > ruta.getCantidadMaxPasajeros()) {
@@ -290,10 +287,10 @@ public class Grafo<Estacion> {
     							recorridoString.add(((dominio.Estacion) recorrido.get(j).getValor()).getNombre());
     							recorridoString.add(Double.toString(ruta.getCantidadMaxPasajeros()));
     						}else {
-    							String pesoMax = recorridoString.get(recorridoString.size()-1);
+    							String cantMax = recorridoString.get(recorridoString.size()-1);
     							recorridoString.remove(recorridoString.size()-1);
     							recorridoString.add(((dominio.Estacion) recorrido.get(j).getValor()).getNombre());
-    							recorridoString.add(pesoMax);
+    							recorridoString.add(cantMax);
     						}
     					}else {
     						recorridoString.add(((dominio.Estacion) recorrido.get(j).getValor()).getNombre());
@@ -314,7 +311,8 @@ public class Grafo<Estacion> {
     		
     		for (Vertice<Estacion> v : listaAdy) {
     		
-    			if(v.equals(Destino)) {
+    			if(v.equals(Destino) && !((dominio.Estacion)Destino.getValor())
+    					.getEstado().equals(EstadoEstacion.EnMantenimiento)) {
     				
     				List<Vertice<Estacion>> recorrido = new ArrayList<Vertice<Estacion>>();
     				recorrido.add(Origen);
@@ -341,9 +339,10 @@ public class Grafo<Estacion> {
 		return retorno;
 	}
 
-	public Ruta rutaEntreDosEstacions(Vertice<Estacion> Origen, Vertice<Estacion> Destino) {
+	public Ruta rutaEntreDosEstaciones(Vertice<Estacion> Origen, Vertice<Estacion> Destino) {
     	for (Ruta r : this.rutas) {
-    		if (r.getOrigen().equals(Origen) && r.getDestino().equals(Destino)) return r;
+
+    		if (r.getOrigen().equals(Origen) && r.getDestino().equals(Destino) && r.getEstado().equals(EstadoRuta.Activa)) {return r;}
     	}
 		return null;
     }
@@ -392,7 +391,7 @@ public class Grafo<Estacion> {
 		
 		for(int i = 0; i<list.size(); i++) {
 			if(i != 0) {
-				Ruta ruta= rutaEntreDosEstacions(list.get(i-1), list.get(i));
+				Ruta ruta= rutaEntreDosEstaciones(list.get(i-1), list.get(i));
 				if(distanciaMinima==null) {
 					distanciaMinima=ruta.getDistancia();
 				}else {
@@ -458,7 +457,7 @@ public class Grafo<Estacion> {
 		
 		for(int i = 0; i<list.size(); i++) {
 			if(i != 0) {
-				Ruta ruta= rutaEntreDosEstacions(list.get(i-1), list.get(i));
+				Ruta ruta= rutaEntreDosEstaciones(list.get(i-1), list.get(i));
 				if(distanciaMinima==null) {
 					distanciaMinima=ruta.getDistancia();
 				}else {
@@ -513,7 +512,7 @@ public class Grafo<Estacion> {
 		
 		for(int i = 0; i<list.size(); i++) {
 			if(i != 0) {
-				Ruta ruta= rutaEntreDosEstacions(list.get(i-1), list.get(i));
+				Ruta ruta= rutaEntreDosEstaciones(list.get(i-1), list.get(i));
 				if(duracionMinima==null) {
 					duracionMinima=ruta.getDuracionRecorrido();
 				}
@@ -572,7 +571,7 @@ private Double costoCamino(List<Vertice<Estacion>> list) {
 		
 		for(int i = 0; i<list.size(); i++) {
 			if(i != 0) {
-				Ruta ruta= rutaEntreDosEstacions(list.get(i-1), list.get(i));
+				Ruta ruta= rutaEntreDosEstaciones(list.get(i-1), list.get(i));
 				if(costo==null) {
 					costo=ruta.getCosto();
 				}else {
@@ -628,8 +627,9 @@ public Double duracionCaminoRutas(List<Ruta<Estacion>> lista) {
 		
 		for(int i = 0; i<lista.size(); i++) {
 			if(i != 0) {
-				Ruta ruta= rutaEntreDosEstacions(lista.get(i-1), lista.get(i));
-			
+				Ruta ruta= rutaEntreDosEstaciones(lista.get(i-1), lista.get(i));
+			    
+				
 				rutas2.add(ruta);
 			}
 		}
@@ -696,11 +696,11 @@ public Double duracionCaminoRutas(List<Ruta<Estacion>> lista) {
 	}    
 	
 	public double getDistanciaEntreEstacions(Vertice<Estacion> Origen,Vertice<Estacion> Destino) {
-		return rutaEntreDosEstacions(Origen, Destino).getDistancia();
+		return rutaEntreDosEstaciones(Origen, Destino).getDistancia();
 	}
 	
 	public double getDuracionEntreEstacions(Vertice<Estacion> Origen,Vertice<Estacion> Destino) {
-		return rutaEntreDosEstacions(Origen, Destino).getDuracionRecorrido();
+		return rutaEntreDosEstaciones(Origen, Destino).getDuracionRecorrido();
 	}
 	
 	public List<Double> getValoresDistanciaConDemasVertices(Vertice<Estacion> vertice){
@@ -711,7 +711,7 @@ public Double duracionCaminoRutas(List<Ruta<Estacion>> lista) {
 			if(v.equals(vertice)) {
 				retorno.add(0.0);
 			}else {
-				Ruta ruta = rutaEntreDosEstacions(vertice, v);
+				Ruta ruta = rutaEntreDosEstaciones(vertice, v);
 				if(ruta == null) {
 					retorno.add(0.0);
 				}else {
@@ -732,7 +732,7 @@ public Double duracionCaminoRutas(List<Ruta<Estacion>> lista) {
 			if(v.equals(vertice)) {
 				retorno.add(0.0);
 			}else {
-				Ruta ruta = rutaEntreDosEstacions(vertice, v);
+				Ruta ruta = rutaEntreDosEstaciones(vertice, v);
 				if(ruta == null) {
 					retorno.add(0.0);
 				}else {
