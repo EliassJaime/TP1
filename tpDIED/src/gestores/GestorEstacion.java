@@ -82,7 +82,7 @@ public class GestorEstacion {
 		return Grafo.getInstance().flujoMaximo(o, d);
 		
 	}
-	public static ArrayList<Estacion> obtenerPageRank(){
+	public static ArrayList<EstacionDTO> obtenerPageRank(){
 		 return Grafo.getInstance().getEstacionPagerank();
 	}
     public static void eliminarEstacion(Estacion estacion) {

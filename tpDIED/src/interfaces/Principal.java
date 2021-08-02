@@ -131,8 +131,17 @@ public class Principal {
 		JButton btnPageRank = new JButton("Page Rank");
 		btnPageRank.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				JOptionPane.showMessageDialog(null,GestorEstacion.obtenerPageRank());
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							PageRank window = new PageRank();
+							window.getFrame().setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				frame.dispose();
 			}
 		});
 		btnPageRank.setBounds(10, 267, 170, 33);

@@ -115,49 +115,71 @@ public class FlujoMax {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Integer auxId = GestorEstacion.getIdEstacionByNombre((comboBoxOrigen.getSelectedItem().toString()));
-				Integer auxId2 = GestorEstacion.getIdEstacionByNombre((comboBoxDestino.getSelectedItem().toString()));
+			Integer auxId = GestorEstacion.getIdEstacionByNombre((comboBoxOrigen.getSelectedItem().toString()));
+			Integer auxId2 = GestorEstacion.getIdEstacionByNombre((comboBoxDestino.getSelectedItem().toString()));
 				
+			List<List<String>> aux1 = GestorEstacion.flujoMaximoGestor(GestorEstacion.getEstacionById(auxId), 
+									GestorEstacion.getEstacionById(auxId2));
 				
-				//JOptionPane.showMessageDialog(null,GestorEstacion.flujoMaximoGestor(GestorEstacion.getEstacionById(auxId), 
-						//GestorEstacion.getEstacionById(auxId2)));
+			int cantidad=aux1.size(); //Setear la cantidad de resultados encontrados en la busqueda
+			int contador=0;
+			int agregadoY=0;
+			int agregadoX=0;
+			int dimX=0;
+			for(List<String> d:aux1 ) {
 				
-				
-				List<List<String>> aux1 = GestorEstacion.flujoMaximoGestor(GestorEstacion.getEstacionById(auxId), 
-						GestorEstacion.getEstacionById(auxId2));
-				
-				int cantidad=aux1.size(); //Setear la cantidad de resultados encontrados en la busqueda
-				int contador=0;
-				int agregadoY=0;
-				
-				JPanel panelResultados = new JPanel();
-				 panelResultados.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-					panelResultados.setPreferredSize(new Dimension(360, 25*cantidad*5));
-					panelResultados.setLayout(null);
-				panelResultados.setAutoscrolls(true);
-				scrollPane.setViewportView(panelResultados);
-
-				
-				ArrayList<JTextField> prueba=new ArrayList<JTextField>();
-				System.out.println(aux1);
-				
+				if(dimX<d.size()) {
+					dimX=d.size();
+				}
+				}
+			
+			JPanel panelResultados = new JPanel();
+		    panelResultados.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+			panelResultados.setPreferredSize(new Dimension(150*dimX, 25*cantidad*5));
+			panelResultados.setLayout(null);
+			panelResultados.setAutoscrolls(true);
+			scrollPane.setViewportView(panelResultados);
+		
+			ArrayList<JLabel> detalle=new ArrayList<JLabel>();
+			ArrayList<JLabel> nro=new ArrayList<JLabel>();
+			ArrayList<JTextField> prueba=new ArrayList<JTextField>();
+			
+			System.out.println(aux1);
+				Integer nro1=0;
 				for(List<String> d:aux1 ) {
-					for(String auxxx:d) {
-						
+					
+					nro.add(new JLabel());
+					nro.get(nro1).setBounds(10, 15+agregadoY, 10, 20);
+				    nro.get(nro1).setText(nro1.toString());
+					panelResultados.add(nro.get(nro1));
+					
+					for(int i=0;i<d.size();i++) {
+
 						prueba.add(new JTextField());
-						prueba.get(contador).setBounds(10, 21+agregadoY, 100, 20);
+						prueba.get(contador).setBounds(30+agregadoX, 15+agregadoY, 100, 20);
 						prueba.get(contador).setEditable(false);
-						prueba.get(contador).setText(auxxx);
+						prueba.get(contador).setText(d.get(i).toString());
 						panelResultados.add(prueba.get(contador));
 						
-						agregadoY=agregadoY+30;
-						contador++;
+						detalle.add(new JLabel());
+						detalle.get(contador).setBounds(135+agregadoX, 15+agregadoY, 50, 20);
+						detalle.get(contador).setText("---->");
+						panelResultados.add(detalle.get(contador));
+					if(i==d.size()-1) {
+						detalle.get(contador).setVisible(false);
+						}
+					
 						
+						agregadoX+=150;
+						contador++;
 					}
-				}
+					agregadoX=0;
+					agregadoY=agregadoY+30;
+					nro1++;
+				}}
 				
-				//frameFlujoMax.getContentPane().add(scrollPane);
-			}
+			
+
 		});
 	
 	}
