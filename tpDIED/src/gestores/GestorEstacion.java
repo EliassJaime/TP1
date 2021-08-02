@@ -118,7 +118,8 @@ public class GestorEstacion {
 				}
 			if(es!="all") {
 				for(int i=0; i<tam;i++) {
-					if(estaciones.get(i).getEstado().toString().compareTo(es)!=0) {
+					System.out.println(estaciones.get(i).getEstado().toString());
+					if(!estaciones.get(i).getEstado().toString().toLowerCase().equals(es)) {
 						estaciones.remove(i);
 						i--;
 						tam=estaciones.size();

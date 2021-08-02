@@ -129,7 +129,7 @@ public class GestorLineaTransporte {
 			}
 			}
 		
-		if(trayecto.size()>0) {
+		if(trayecto.size()>1) {
 			
 			ArrayList<Ruta> subTrayecto = new ArrayList<>();
 			for(int i=0;i<trayecto.size()-1;i++) {
@@ -152,10 +152,8 @@ public class GestorLineaTransporte {
 					
 				}	
 			}
-				
-			
-			
 		}
+	
 		
 		
 		

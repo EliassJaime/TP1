@@ -79,7 +79,7 @@ public class Estaciones {
 		
 		JComboBox<String> estado = new JComboBox<String>();
 		estado.addItem("Operativo");
-		estado.addItem("En Mantenimiento");
+		estado.addItem("EnMantenimiento");
 		estado.setSelectedItem(null);
 		estado.setBounds(521, 41, 137, 22);
 		panelEstado.add(estado);
@@ -324,6 +324,7 @@ estaciones=GestorEstacion.buscarEstaciones(id,n,es,horarioapertura,horariocierre
 					
 					agregadoY=agregadoY+30;
 					contador++;
+					
 				}	
 			}			 
 		}

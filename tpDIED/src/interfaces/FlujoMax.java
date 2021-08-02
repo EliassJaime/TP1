@@ -139,11 +139,11 @@ public class FlujoMax {
 
 				
 				ArrayList<JTextField> prueba=new ArrayList<JTextField>();
-				
+				System.out.println(aux1);
 				
 				for(List<String> d:aux1 ) {
 					for(String auxxx:d) {
-						System.out.println(auxxx);
+						
 						prueba.add(new JTextField());
 						prueba.get(contador).setBounds(10, 21+agregadoY, 100, 20);
 						prueba.get(contador).setEditable(false);
