@@ -120,8 +120,14 @@ public class FlujoMax {
 				
 			List<List<String>> aux1 = GestorEstacion.flujoMaximoGestor(GestorEstacion.getEstacionById(auxId), 
 									GestorEstacion.getEstacionById(auxId2));
+			
+			
 				
 			int cantidad=aux1.size(); //Setear la cantidad de resultados encontrados en la busqueda
+			
+			if(cantidad==0) {
+				JOptionPane.showMessageDialog(null,"No existe camino desde estacion origen a estacion destino");
+			}
 			int contador=0;
 			int agregadoY=0;
 			int agregadoX=0;
