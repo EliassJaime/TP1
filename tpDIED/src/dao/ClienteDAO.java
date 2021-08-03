@@ -20,6 +20,7 @@ public class ClienteDAO {
 		Connection con = AccesoBDD.getConn();
 		String consulta = null;
 	System.out.println("ojo el try");
+	
 		try {
 				consulta = "insert into cliente(id,nombre,correo) "
 					+ "values ("+cliente.getId() 
@@ -75,11 +76,37 @@ public class ClienteDAO {
 	
 	
 	
+	public static int obtenerId() {
+		
+		
+		
+		Connection con = AccesoBDD.getConn();
+		String consulta = "SELECT max(id) from cliente";
+		
+		Statement st;
+
+		int id=0;
+		ResultSet rs;
+		
+			try {
+				st=con.createStatement();
+				rs=st.executeQuery(consulta);
+				
+				while(rs.next()) {
+					id=rs.getInt("max(id)");
+				}
+					
+				}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
+	return (id+1);		
 	
 	
 	
 	
 	
+	}
 	
 	
 	

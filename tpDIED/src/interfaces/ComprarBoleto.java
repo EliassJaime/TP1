@@ -21,6 +21,7 @@ import estructuras.Grafo;
 import estructuras.Ruta;
 import estructuras.Vertice;
 import gestores.GestorBoletos;
+import gestores.GestorCliente;
 import gestores.GestorEstacion;
 
 import java.awt.Font;
@@ -322,7 +323,9 @@ public class ComprarBoleto {
 					if(ok) {
 				if(caminoRapido.isSelected()) {
 					
-					GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMenosTiempo(auxId, auxId2, 1)));
+					Integer idCliente = GestorCliente.crearCliente(textFieldNombre.getText(),textFieldCorreo.getText());
+					
+					GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMenosTiempo(auxId, auxId2, idCliente)));
 					
 				    JOptionPane.showMessageDialog(null, "Has comprado Boleto mas rapido desde: "+(comboBoxOrigen.getSelectedItem().toString())+" hasta: "+(comboBoxDestino.getSelectedItem().toString()));
 					
@@ -338,8 +341,8 @@ public class ComprarBoleto {
 					});
 					frmComprarBoleto.dispose();
 				} else if(caminoBarato.isSelected()) {
-					
-					GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMasBarata(auxId, auxId2, 1)));
+					Integer idCliente = GestorCliente.crearCliente(textFieldNombre.getText(),textFieldCorreo.getText());
+					GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMasBarata(auxId, auxId2, idCliente)));
 					JOptionPane.showMessageDialog(null, "Has comprado Boleto mas barato desde: "+(comboBoxOrigen.getSelectedItem().toString())+
 							" hasta: "+(comboBoxDestino.getSelectedItem().toString()));
 					EventQueue.invokeLater(new Runnable() {
@@ -354,8 +357,8 @@ public class ComprarBoleto {
 					});
 					frmComprarBoleto.dispose();
 				}else if(caminoMenorDis.isSelected()) {
-					
-					GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMasCorta(auxId, auxId2, 1)));
+					Integer idCliente = GestorCliente.crearCliente(textFieldNombre.getText(),textFieldCorreo.getText());
+					GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMasCorta(auxId, auxId2, idCliente)));
 					JOptionPane.showMessageDialog(null, "Has comprado Boleto por ruta mas corta desde: "+(comboBoxOrigen.getSelectedItem().toString())+
 							" hasta: "+(comboBoxDestino.getSelectedItem().toString()));
 					EventQueue.invokeLater(new Runnable() {
