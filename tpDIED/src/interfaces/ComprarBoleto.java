@@ -18,7 +18,6 @@ import javax.swing.border.TitledBorder;
 
 import dominio.Estacion;
 import estructuras.Grafo;
-import estructuras.PanelDibujo;
 import estructuras.Ruta;
 import estructuras.Vertice;
 import gestores.GestorBoletos;
@@ -149,7 +148,7 @@ public class ComprarBoleto {
 			 
 			 PanelDibujo pd;
 			 
-			 public void init(List<Ruta<Estacion>> vertices){
+			 public void init(List<Estacion> vertices){
 		
 				 
 				
@@ -189,10 +188,9 @@ public class ComprarBoleto {
 		actualizarOriDes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-			 List<Ruta<Estacion>> vertices=Grafo.getInstance().getEstacions();
+			 List<Estacion> vertices=Grafo.getInstance().getEstacions();
 				aux.init(vertices);                                               //Grafico los vertices (estaciones)
-			}
-			});
+			}});
 		
 	
 		

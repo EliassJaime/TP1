@@ -1,4 +1,4 @@
-package estructuras;
+package interfaces;
 
 
 
@@ -13,6 +13,9 @@ import java.util.Vector;
 import javax.swing.*;
 
 import dominio.Estacion;
+import estructuras.Grafo;
+import estructuras.Ruta;
+import estructuras.Vertice;
 
 public class PanelDibujo extends JPanel {
  
@@ -20,16 +23,16 @@ public class PanelDibujo extends JPanel {
  private ArrayList<Integer> xvs;
  private ArrayList<Integer> yvs;
 
-private List<Ruta<Estacion>> vgrafos;
-private List<Ruta<Estacion>> vgrafosaux;
+private List<Ruta<Estacion>> agrafos;
+private List<Estacion> vgrafos;
 private Color Color;
  int indice=0;
 
  
 
 public PanelDibujo(){
-  vgrafos=new ArrayList();
-  vgrafosaux=new ArrayList();
+  vgrafos=new ArrayList<>();
+  setAgrafos(new ArrayList<>());
   xvs=new ArrayList<Integer>();
   yvs=new ArrayList<Integer>();
   setDoubleBuffered(true);
@@ -76,9 +79,13 @@ public PanelDibujo(){
     
   g.setColor(Color);
   
- 
+   
+  
+  if(Grafo.getInstance().rutaEntreDosEstaciones(new Vertice(vgrafos.get(i)), new Vertice(vgrafos.get(j)))!=null) {
 	  g.drawLine(xvs.get(i)+15,yvs.get(i)+15,xvs.get(j)+15,yvs.get(j)+15);
-    g.setColor(Color.WHITE);
+  }
+	  
+	  g.setColor(Color.WHITE);
     g.fillOval(xvs.get(i), yvs.get(i), ancho, alto);
     g.setColor(Color.BLACK);
     g.drawOval(xvs.get(i),yvs.get(i), ancho, alto);
@@ -107,15 +114,23 @@ public PanelDibujo(){
  }
  
   
- public List<Ruta<Estacion>> getVgrafos() {
+ public List<Estacion> getVgrafos() {
   return vgrafos;
  }
- public void setVgrafos(List<Ruta<Estacion>> vertices) {
+ public void setVgrafos(List<Estacion> vertices) {
   this.vgrafos = vertices;
  }
 
 public void setColor(List<Ruta<Estacion>> verticeaux, Color c) {
 	this.Color=c;
-	this.vgrafosaux=verticeaux;
+	this.agrafos=verticeaux;
+}
+
+public List<Ruta<Estacion>> getAgrafos() {
+	return agrafos;
+}
+
+public void setAgrafos(List<Ruta<Estacion>> agrafos) {
+	this.agrafos = agrafos;
 }
 }
