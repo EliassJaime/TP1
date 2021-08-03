@@ -44,10 +44,10 @@ public class GestorEstacion {
 		return EstacionDAO.buscarTodasLasEstaciones();
 	}
 
-	public static void terminarMantenimiento(Estacion e,Instant f1,Instant f2,String observaciones) {
+	/*public static void terminarMantenimiento(Estacion e,Instant f1,Instant f2,String observaciones) {
 		
 		if(e.getEstado()==EstadoEstacion.EnMantenimiento) {
-			Mantenimiento m=GestorMantenimiento.crearMantenimiento(f1, f2, observaciones);
+			Mantenimiento m=GestorMantenimiento.crearMantenimiento(observaciones);
 			m.setEstacion(e);
 			e.addMantenimiento(m);
 			e.setEstado(EstadoEstacion.Operativo);
@@ -61,7 +61,7 @@ public class GestorEstacion {
 	public static void setearMantenimiento(Estacion e) {
 		e.setEstado(EstadoEstacion.EnMantenimiento);
 		EstacionDAO.guardarEstacion(GestorEstacion.crearDTO(e));
-	}
+	}*/
 	
 	
 	

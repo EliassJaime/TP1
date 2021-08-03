@@ -21,10 +21,6 @@ public class MonticuloMantenimiento {
 	
 
 	 m.addAll(EstacionDAO.buscarTodasLasEstaciones());
-	 
-	 while(!m.isEmpty()) {
-		 System.out.println(m.poll());
-	 }
 		
 		
 		return m;

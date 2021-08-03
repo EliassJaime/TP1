@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 
 import dominio.Boleto;
@@ -76,12 +77,17 @@ public static ArrayList<Mantenimiento>  obtenerMantenimientosByIdEstacion(Intege
 			
 			while(rs.next()) {
 				
+				Instant fecha = null;
 				
+				if(!rs.getString("fechaFin").equals("No finalizado")) {
+					
+					fecha = (formato.parse(rs.getString("fechaFin")).toInstant());
+					
+				}
 				mantenimientos.add(new Mantenimiento(rs.getInt("idMantenimiento"),
 						null,
 						(formato.parse(rs.getString("fechaInicio")).toInstant())
-						, (formato.parse(rs.getString("fechaFin")).toInstant())
-						, rs.getString("observaciones")));
+						,fecha, rs.getString("observaciones")));
 				
 				
 				

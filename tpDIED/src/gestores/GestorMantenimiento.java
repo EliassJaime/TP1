@@ -4,16 +4,29 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
+import dao.EstacionDAO;
+import dao.MantenimientoDAO;
 import dominio.Mantenimiento;
 import dto.MantenimientoDTO;
 
 public class GestorMantenimiento {
 	
-	public static Mantenimiento crearMantenimiento(Instant f1, Instant f2,String observaciones) {
+	public static void crearMantenimiento(Integer idEstacion) {
 		
-		return new Mantenimiento(0, f1, f2, observaciones);
+		 Mantenimiento m = new Mantenimiento(0, EstacionDAO.buscarEstacionPorId(idEstacion), Instant.now(), null, null);
+		 MantenimientoDAO.guardarMantenimiento(GestorMantenimiento.crearDTO(m)); 
 		
 	} 
+    public static void terminarMantenimiento(Integer idEstacion,String observaciones) {
+    	Mantenimiento m = MantenimientoDAO.obtenerMantenimientosByIdEstacion(idEstacion).get(EstacionDAO.buscarEstacionPorId(idEstacion).getMantenimientos().size()-1);
+		m.setFechaFinMan(Instant.now());
+		m.setObservaciones(observaciones);
+		m.setEstacion(EstacionDAO.buscarEstacionPorId(idEstacion));
+		MantenimientoDAO.guardarMantenimiento(GestorMantenimiento.crearDTO(m));
+	} 
+    
+    
+    
 	
 	
 	public static MantenimientoDTO crearDTO(Mantenimiento m) {
@@ -29,14 +42,14 @@ public class GestorMantenimiento {
 			fechaFin="No finalizado";
 		} 
 		else {
-			fechaFin= f.format(Date.from(m.getFechaInicioMan()));
+			fechaFin= f.format(Date.from(m.getFechaFinMan()));
 		}
 		if(m.getObservaciones()==null) {
 			m.setObservaciones("");
 		}
 		
 		
-		
+		System.out.println(m.getEstacion());
 MantenimientoDTO mdto= new MantenimientoDTO(m.getId(), m.getEstacion().getId()
 				,fechaInicio,fechaFin	
 				, m.getObservaciones());

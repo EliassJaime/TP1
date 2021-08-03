@@ -16,6 +16,7 @@ import dominio.Estacion;
 import dto.EstacionDTO;
 
 import gestores.GestorEstacion;
+import gestores.GestorMantenimiento;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -127,7 +128,7 @@ public class EditarEstacion {
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setBounds(147, 223, 198, 20);
 		comboBox.addItem("Operativo");
-		comboBox.addItem("En Mantenimiento");
+		comboBox.addItem("EnMantenimiento");
 		comboBox.setSelectedItem(esta.getEstado());
 		frame.getContentPane().add(comboBox);
 		
@@ -234,6 +235,20 @@ public class EditarEstacion {
 		txtpnDatosCargadosEn.setBounds(410, 22, 179, 20);
 		txtpnDatosCargadosEn.setEditable(false);
 		frame.getContentPane().add(txtpnDatosCargadosEn);
+		
+		JTextPane txtpnObsevacionesDeMantenimiento = new JTextPane();
+		txtpnObsevacionesDeMantenimiento.setText("Obsevaciones");
+		txtpnObsevacionesDeMantenimiento.setEditable(false);
+		txtpnObsevacionesDeMantenimiento.setBounds(10, 270, 127, 20);
+		frame.getContentPane().add(txtpnObsevacionesDeMantenimiento);
+		
+		JTextPane textObservaciones = new JTextPane();
+		if(esta.getEstado().toString() == "Operativo") {
+			textObservaciones.setEditable(false);
+		}
+		
+		textObservaciones.setBounds(147, 270, 198, 84);
+		frame.getContentPane().add(textObservaciones);
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -274,6 +289,17 @@ public class EditarEstacion {
 					ok=false;
 				}
 				else {
+					if(comboBox.getSelectedItem().toString() != esta.getEstado().toString() &&
+							comboBox.getSelectedItem().toString() == "EnMantenimiento") {
+						
+						GestorMantenimiento.crearMantenimiento(esta.getId());
+						
+						
+					}if(comboBox.getSelectedItem().toString() != esta.getEstado().toString() &&
+							comboBox.getSelectedItem().toString() == "Operativo") {
+						GestorMantenimiento.terminarMantenimiento(esta.getId(), textObservaciones.getText());
+						
+					}
 					dto.setEstado(comboBox.getSelectedItem().toString());
 				}
 				

@@ -148,6 +148,22 @@ public class Principal {
 		frame.getContentPane().add(btnPageRank);
 		
 		JButton btnProximoMantenimiento = new JButton("Proximo Mantenimiento");
+		btnProximoMantenimiento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+			try {
+				ProximoMantenimiento window = new ProximoMantenimiento();
+				window.getFrame().setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+					}
+				});
+				frame.dispose();
+			}
+		});
+		
 		btnProximoMantenimiento.setBounds(10, 317, 170, 33);
 		frame.getContentPane().add(btnProximoMantenimiento);
 		
