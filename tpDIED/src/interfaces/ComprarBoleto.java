@@ -82,7 +82,7 @@ public class ComprarBoleto {
 		for(Estacion d:estaciones) {
 			comboBoxOrigen.addItem(d);
 		}
-		comboBoxOrigen.setSelectedItem(null);
+	
 		comboBoxOrigen.setBounds(58, 22, 134, 22);
 		frmComprarBoleto.getContentPane().add(comboBoxOrigen);
 		
@@ -91,28 +91,49 @@ public class ComprarBoleto {
 		for(Estacion d:estaciones2) {
 			comboBoxDestino.addItem(d);
 		}
-		comboBoxDestino.setSelectedItem(null);
+
 		comboBoxDestino.setBounds(360, 22, 134, 22);
 		frmComprarBoleto.getContentPane().add(comboBoxDestino);
 		
 		
 		JRadioButton caminoRapido = new JRadioButton("Seleccionar camino mas rapido");
+		caminoRapido.setEnabled(false);
 		caminoRapido.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		caminoRapido.setBounds(10, 536, 254, 23);
+		
 		frmComprarBoleto.getContentPane().add(caminoRapido);
 		
 		JRadioButton caminoMenorDis = new JRadioButton("Seleccionar camino de menor distancia");
+		caminoMenorDis.setEnabled(false);
 		caminoMenorDis.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		caminoMenorDis.setBounds(10, 562, 254, 23);
+		
 		frmComprarBoleto.getContentPane().add(caminoMenorDis);
 		
 		JRadioButton caminoBarato = new JRadioButton("Seleccionar camino mas barato");
+		caminoBarato.setEnabled(false);
 		caminoBarato.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		caminoBarato.setBounds(10, 588, 254, 23);
+		
 		frmComprarBoleto.getContentPane().add(caminoBarato);
-		
-		
-	
+		caminoRapido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				caminoBarato.setForeground(Color.BLACK);
+				caminoMenorDis.setForeground(Color.BLACK);
+				caminoRapido.setForeground(Color.BLACK);
+			}});
+		caminoMenorDis.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				caminoBarato.setForeground(Color.BLACK);
+				caminoMenorDis.setForeground(Color.BLACK);
+				caminoRapido.setForeground(Color.BLACK);
+			}});
+		caminoBarato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				caminoBarato.setForeground(Color.BLACK);
+				caminoMenorDis.setForeground(Color.BLACK);
+				caminoRapido.setForeground(Color.BLACK);
+			}});
 		
 		JScrollPane scrollPane = new JScrollPane();
 	 	 scrollPane.setBounds(10, 81, 645, 448);
@@ -163,9 +184,9 @@ public class ComprarBoleto {
 		frmComprarBoleto.getContentPane().add(actualizarOriDes);
 		actualizarOriDes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				caminoBarato.setForeground(Color.BLACK);
-				caminoMenorDis.setForeground(Color.BLACK);
-				caminoRapido.setForeground(Color.BLACK);
+				caminoBarato.setEnabled(true);
+				caminoMenorDis.setEnabled(true);
+				caminoRapido.setEnabled(true);
 			 List<Estacion> vertices=Grafo.getInstance().getEstacions();
 				aux.init(vertices);                                               //Grafico los vertices (estaciones)
 			}});
@@ -282,15 +303,25 @@ public class ComprarBoleto {
 					lblCorreo.setForeground(Color.RED);
 					ok=false;
 				}
-				if(!(caminoRapido.isSelected() && caminoBarato.isSelected() && caminoMenorDis.isSelected())) {
+				if(!(caminoRapido.isSelected() || caminoBarato.isSelected() || caminoMenorDis.isSelected())) {
 					caminoRapido.setForeground(Color.RED);
 					caminoBarato.setForeground(Color.RED);
 					caminoMenorDis.setForeground(Color.RED);
 				}
-				if(ok) {
-				if(caminoRapido.isSelected()) {
+			
 					Integer auxId = GestorEstacion.getIdEstacionByNombre((comboBoxOrigen.getSelectedItem().toString()));
 					Integer auxId2 = GestorEstacion.getIdEstacionByNombre((comboBoxDestino.getSelectedItem().toString()));
+				Estacion origen=GestorEstacion.getEstacionById(auxId);
+				Estacion destino=GestorEstacion.getEstacionById(auxId2);
+				List<Ruta<Estacion>> camino=Grafo.getInstance().caminoMinimoCosto(origen, destino);
+				// ACA SEGUIR
+				if(camino.isEmpty()) {
+					
+					ok=false;
+				}
+					if(ok) {
+				if(caminoRapido.isSelected()) {
+					
 					GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMenosTiempo(auxId, auxId2, 1)));
 					
 				    JOptionPane.showMessageDialog(null, "Has comprado Boleto mas rapido desde: "+(comboBoxOrigen.getSelectedItem().toString())+" hasta: "+(comboBoxDestino.getSelectedItem().toString()));
@@ -307,8 +338,7 @@ public class ComprarBoleto {
 					});
 					frmComprarBoleto.dispose();
 				} else if(caminoBarato.isSelected()) {
-					Integer auxId = GestorEstacion.getIdEstacionByNombre((comboBoxOrigen.getSelectedItem().toString()));
-					Integer auxId2 = GestorEstacion.getIdEstacionByNombre((comboBoxDestino.getSelectedItem().toString()));
+					
 					GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMasBarata(auxId, auxId2, 1)));
 					JOptionPane.showMessageDialog(null, "Has comprado Boleto mas barato desde: "+(comboBoxOrigen.getSelectedItem().toString())+
 							" hasta: "+(comboBoxDestino.getSelectedItem().toString()));
@@ -324,8 +354,7 @@ public class ComprarBoleto {
 					});
 					frmComprarBoleto.dispose();
 				}else if(caminoMenorDis.isSelected()) {
-					Integer auxId = GestorEstacion.getIdEstacionByNombre((comboBoxOrigen.getSelectedItem().toString()));
-					Integer auxId2 = GestorEstacion.getIdEstacionByNombre((comboBoxDestino.getSelectedItem().toString()));
+					
 					GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMasCorta(auxId, auxId2, 1)));
 					JOptionPane.showMessageDialog(null, "Has comprado Boleto por ruta mas corta desde: "+(comboBoxOrigen.getSelectedItem().toString())+
 							" hasta: "+(comboBoxDestino.getSelectedItem().toString()));
@@ -342,8 +371,14 @@ public class ComprarBoleto {
 					frmComprarBoleto.dispose();
 				}
 				}
-			
-			
+				else {
+					if(camino.isEmpty()) {
+					JOptionPane.showMessageDialog(null,"No existe camino desde origen a destino");
+				}
+					else {
+						JOptionPane.showMessageDialog(null,"Debe Completar Todos los Campos (*) y seleccionar un camino");
+					}
+				}
 		}});
 		btnComprarBoleto.setBounds(529, 621, 126, 29);	
 		JLabel lblNewLabel_2 = new JLabel("Este sistema contempla el estado de rutas y estaciones");

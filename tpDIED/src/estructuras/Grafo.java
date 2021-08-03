@@ -304,7 +304,7 @@ public class Grafo<Estacion> {
     }
     
     
-    private List<List<Vertice<Estacion>>> getRecorridos(List<Vertice<Estacion>> listaAdy, Vertice<Estacion> Origen, Vertice<Estacion> Destino) {
+    public List<List<Vertice<Estacion>>> getRecorridos(List<Vertice<Estacion>> listaAdy, Vertice<Estacion> Origen, Vertice<Estacion> Destino) {
     	List<List<Vertice<Estacion>>> retorno = new ArrayList<List<Vertice<Estacion>>>();
     	
     	if(!listaAdy.isEmpty()) {
