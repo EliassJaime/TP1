@@ -30,7 +30,7 @@ public class GestorBoletos {
 		
 		boleto.setCamino(Grafo.getInstance().caminoMinimoDistancia
 		(new Vertice<>(origen), new Vertice<>(destino)));
-	
+		boleto.setidBoleto(BoletoDAO.obtenerId());
 		boleto.setCostoBol(Grafo.getInstance().costoCaminoRutas(boleto.getCamino()));
 		boleto.setOrigen(origen);
 		boleto.setDestino(destino);
@@ -52,7 +52,7 @@ public class GestorBoletos {
     	boleto.setCamino(Grafo.getInstance().caminoMinimoCosto
 		(new Vertice<>(origen)
 				, new Vertice<>(destino)));
-    	
+    	boleto.setidBoleto(BoletoDAO.obtenerId());
     	boleto.setCostoBol(Grafo.getInstance().costoCaminoRutas(boleto.getCamino()));
 		
     	
@@ -80,7 +80,7 @@ public class GestorBoletos {
 		
     	
     	boleto.setCostoBol(Grafo.getInstance().costoCaminoRutas(boleto.getCamino()));
-    	
+    	boleto.setidBoleto(BoletoDAO.obtenerId());
     	boleto.setOrigen(origen);
 		boleto.setDestino(destino);
 		boleto.setCliente(ClienteDAO.obtenerClienteByID(idCliente));

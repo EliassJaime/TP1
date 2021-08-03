@@ -108,7 +108,7 @@ public class Ruta<Estacion> {
 
 	@Override
 	public String toString() {
-		return  ""+idRuta +": " +origen.getValor()+"-"+destino.getValor() ;
+		return ""+ origen.getValor() + "---->" + destino.getValor() + "     Linea Transporte: "+ lineaTransporte.getNombre()  ;
 	}
 	
 	@Override

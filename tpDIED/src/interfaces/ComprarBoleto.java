@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
+import dominio.Boleto;
 import dominio.Estacion;
 import estructuras.Grafo;
 import estructuras.Ruta;
@@ -48,7 +49,7 @@ public class ComprarBoleto {
 	JFrame frmComprarBoleto;
 	private JTextField textFieldNombre;
 	private JTextField textFieldCorreo;
-	
+	public Boleto bol=null;
 	/**
 	 * Create the application.
 	 */
@@ -321,58 +322,46 @@ public class ComprarBoleto {
 					ok=false;
 				}
 					if(ok) {
+						
 				if(caminoRapido.isSelected()) {
 					
 					Integer idCliente = GestorCliente.crearCliente(textFieldNombre.getText(),textFieldCorreo.getText());
-					
-					GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMenosTiempo(auxId, auxId2, idCliente)));
+					bol=GestorBoletos.generarBoletoRutaMenosTiempo(auxId, auxId2, idCliente);
+					GestorBoletos.guardarBoleto(bol);
 					
 				    JOptionPane.showMessageDialog(null, "Has comprado Boleto mas rapido desde: "+(comboBoxOrigen.getSelectedItem().toString())+" hasta: "+(comboBoxDestino.getSelectedItem().toString()));
 					
-					EventQueue.invokeLater(new Runnable() {
-						public void run() {
-							try {
-								Principal window = new Principal();
-								window.getFrame().setVisible(true);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
-					});
-					frmComprarBoleto.dispose();
+					
+					
 				} else if(caminoBarato.isSelected()) {
 					Integer idCliente = GestorCliente.crearCliente(textFieldNombre.getText(),textFieldCorreo.getText());
-					GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMasBarata(auxId, auxId2, idCliente)));
+					bol=GestorBoletos.generarBoletoRutaMasBarata(auxId, auxId2, idCliente);
+					GestorBoletos.guardarBoleto(bol);
 					JOptionPane.showMessageDialog(null, "Has comprado Boleto mas barato desde: "+(comboBoxOrigen.getSelectedItem().toString())+
 							" hasta: "+(comboBoxDestino.getSelectedItem().toString()));
-					EventQueue.invokeLater(new Runnable() {
-						public void run() {
-							try {
-								Principal window = new Principal();
-								window.getFrame().setVisible(true);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
-					});
-					frmComprarBoleto.dispose();
+					
+					
 				}else if(caminoMenorDis.isSelected()) {
 					Integer idCliente = GestorCliente.crearCliente(textFieldNombre.getText(),textFieldCorreo.getText());
-					GestorBoletos.guardarBoleto((GestorBoletos.generarBoletoRutaMasCorta(auxId, auxId2, idCliente)));
+					bol=GestorBoletos.generarBoletoRutaMasCorta(auxId, auxId2, idCliente);
+					GestorBoletos.guardarBoleto(bol);
 					JOptionPane.showMessageDialog(null, "Has comprado Boleto por ruta mas corta desde: "+(comboBoxOrigen.getSelectedItem().toString())+
 							" hasta: "+(comboBoxDestino.getSelectedItem().toString()));
-					EventQueue.invokeLater(new Runnable() {
-						public void run() {
-							try {
-								Principal window = new Principal();
-								window.getFrame().setVisible(true);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
-					});
-					frmComprarBoleto.dispose();
+				
 				}
+				
+				EventQueue.invokeLater(new Runnable() {
+				
+					public void run() {
+						try {
+							MostrarBoleto window = new MostrarBoleto(bol);
+							window.getFrame().setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				frmComprarBoleto.dispose();
 				}
 				else {
 					if(camino.isEmpty()) {
