@@ -12,7 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
@@ -74,7 +76,7 @@ public class MostrarBoleto {
 						EventQueue.invokeLater(new Runnable() {
 							public void run() {
 					try {
-						ProximoMantenimiento window = new ProximoMantenimiento();
+						Principal window = new Principal();
 						window.getFrame().setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -113,7 +115,12 @@ public class MostrarBoleto {
 		textFieldFecha.setEditable(false);
 		textFieldFecha.setColumns(10);
 		textFieldFecha.setBounds(113, 46, 86, 20);
-		textFieldFecha.setText(bol.getFechaDeVenta().toString());
+		
+		SimpleDateFormat f=new SimpleDateFormat("dd/MM/yyyy");
+		
+		String fecha = f.format(Date.from(bol.getFechaDeVenta()));
+		
+		textFieldFecha.setText(fecha);
 		frame.getContentPane().add(textFieldFecha);
 		
 		textFieldCosto = new JTextField();

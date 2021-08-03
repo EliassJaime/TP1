@@ -375,7 +375,7 @@ public class ComprarBoleto {
 		btnComprarBoleto.setBounds(529, 621, 126, 29);	
 		JLabel lblNewLabel_2 = new JLabel("Este sistema contempla el estado de rutas y estaciones");
 		lblNewLabel_2.setEnabled(false);
-		lblNewLabel_2.setBounds(143, 636, 292, 14);
+		lblNewLabel_2.setBounds(143, 636, 351, 14);
 		frmComprarBoleto.getContentPane().add(lblNewLabel_2);
 	
 		frmComprarBoleto.getContentPane().add(btnComprarBoleto);
