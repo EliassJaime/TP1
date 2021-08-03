@@ -20,7 +20,6 @@ import javax.swing.JTextPane;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
-import dominio.Estacion;
 import dto.EstacionDTO;
 import gestores.GestorEstacion;
 
