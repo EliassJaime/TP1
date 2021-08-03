@@ -42,7 +42,7 @@ public PanelDibujo(){
 	 Integer x=270;
 	 Integer y=0;
 	 if(vgrafos.size()>5) {
-	 y = 16*vgrafos.size();}
+	 y = 21*vgrafos.size();}
 	 else {
 	 y=60*vgrafos.size();
 	 }
@@ -56,7 +56,7 @@ public PanelDibujo(){
    g.setColor(Color.BLACK);
    int radio=0;
    if(vgrafos.size()>5) {
-   radio = 16*vgrafos.size();}
+   radio = 21*vgrafos.size();}
    else {
 	   radio=60*vgrafos.size();
    }
@@ -70,8 +70,7 @@ public PanelDibujo(){
     indice++;
    }
   }
-  ArrayList<Integer> indexi=new ArrayList<Integer>();
-  ArrayList<Integer> indexj=new ArrayList<Integer>();
+ 
   for(int i=0;i<vgrafos.size();i++){
    for(int j=0;j<vgrafos.size();j++){
     g.setStroke(new BasicStroke(2));
@@ -98,19 +97,7 @@ public PanelDibujo(){
   g.drawString(""+vgrafos.get(j), xvs.get(j)+((ancho/2)-20), yvs.get(j)+((alto/2)+3));
    }
   }
- /* for(int w=0;w<vgrafosaux.size();w++) {
-  for(int i=0;i<vgrafos.size();i++){
-	   for(int j=0;j<vgrafos.size();j++){
-		  
-			   System.out.printf(" "+vgrafos.get(j),vgrafos.get(i),vgrafosaux.get(w)+"//////");
-			   if(vgrafosaux.size()!=0 && vgrafos.get(j)==vgrafos.get(i) && vgrafos.get(j)==vgrafosaux.get(w)) {
-			  
-	   g.setColor(Color);
-		    g.drawLine(xvs.get(i)+22,yvs.get(i)+22,xvs.get(j)+22,yvs.get(j)+22);
-		   }
-	   }
-	   
- }} */
+
  }
  
   

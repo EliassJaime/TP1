@@ -28,9 +28,7 @@ public class CrearEstacion {
 	private JTextField textFieldHorarioAperturaMin;
 	private JTextField textFieldHorarioCierreMin;
 
-	/**
-	 * Launch the application.
-	 */
+	
 
 	/**
 	 * Create the application.
@@ -190,7 +188,7 @@ public class CrearEstacion {
 					dto.setNombre(textFieldNombreEstacion.getText());
 				}
 				
-				if((textFieldHorarioCierreHora.getText().length()==0 || textFieldHorarioCierreHora.getText().length()>2 || 
+				if((textFieldHorarioCierreHora.getText().length()==0 || textFieldHorarioCierreHora.getText().length()>2 || textFieldHorarioCierreHora.getText().length()<2 ||
 						Integer.valueOf(textFieldHorarioCierreHora.getText())>=24 || (Integer.valueOf(textFieldHorarioCierreHora.getText())<0))  || 
 						(textFieldHorarioCierreMin.getText().length()==0 || textFieldHorarioCierreMin.getText().length()>2) 
 						|| Integer.valueOf(textFieldHorarioCierreMin.getText())>=60 || (Integer.valueOf(textFieldHorarioCierreMin.getText())<0))  {
@@ -198,10 +196,10 @@ public class CrearEstacion {
 					ok=false;
 				}
 				else {
-					dto.setHorarioCierre(textFieldHorarioCierreHora.getText()+" : "+textFieldHorarioCierreMin.getText());
+					dto.setHorarioCierre((textFieldHorarioCierreHora.getText()+":"+textFieldHorarioCierreMin.getText()));
 				}
 				
-				if((textFieldHorarioAperturaHora.getText().length()==0 || textFieldHorarioAperturaHora.getText().length()>2 || 
+				if((textFieldHorarioAperturaHora.getText().length()==0 || textFieldHorarioAperturaHora.getText().length()>2 || textFieldHorarioAperturaHora.getText().length()<2 ||
 						Integer.valueOf(textFieldHorarioAperturaHora.getText())>=24 || (Integer.valueOf(textFieldHorarioAperturaHora.getText())<0))  || 
 						(textFieldHorarioAperturaMin.getText().length()==0 || textFieldHorarioAperturaMin.getText().length()>2) 
 						|| Integer.valueOf(textFieldHorarioAperturaMin.getText())>=60 || (Integer.valueOf(textFieldHorarioAperturaMin.getText())<0)) {
@@ -209,7 +207,7 @@ public class CrearEstacion {
 					ok=false;
 				}
 				else {
-					dto.setHorarioApertura(textFieldHorarioAperturaHora.getText()+" : "+textFieldHorarioAperturaMin.getText());
+					dto.setHorarioApertura((textFieldHorarioAperturaHora.getText()+":"+textFieldHorarioAperturaMin.getText()));
 				}
 				if(comboBox.getSelectedItem()==null) {
 					txtpnEstado.setForeground(Color.RED);
@@ -227,11 +225,7 @@ public class CrearEstacion {
 				            "Confirmacion", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 				dto.setId(0);
 				GestorEstacion.altaEstacion(dto);
-						
-						//CREAR ESTACION NUEVA CON EL DTO
-					//	if(creada==0) {JOptionPane.showMessageDialog(null,"Competencia Creada con Exito");
-					//	System.out.println(dto.toString());
-						
+	
 						EventQueue.invokeLater(new Runnable() {
 							public void run() {
 								try {

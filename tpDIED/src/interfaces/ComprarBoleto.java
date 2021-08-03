@@ -28,6 +28,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,19 +45,9 @@ import javax.swing.JScrollPane;
 public class ComprarBoleto {
 
 	JFrame frmComprarBoleto;
-	int x=150;
-	int y=150;
-	int ancho=30;
-	int alto=30;
-	public ArrayList<Integer> xvs;
-	public ArrayList<Integer> yvs;
-	public ArrayList<Grafo> vgrafos;
-	int indice=0;
-
-	/**
-	 * Launch the application.
-	 */
-
+	private JTextField textFieldNombre;
+	private JTextField textFieldCorreo;
+	
 	/**
 	 * Create the application.
 	 */
@@ -71,7 +63,7 @@ public class ComprarBoleto {
 		
 		frmComprarBoleto = new JFrame();
 		frmComprarBoleto.setTitle("Comprar Boleto");
-		frmComprarBoleto.setBounds(100, 100, 681, 620);
+		frmComprarBoleto.setBounds(100, 30, 693, 700);
 		frmComprarBoleto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmComprarBoleto.getContentPane().setLayout(null);
 		
@@ -106,44 +98,28 @@ public class ComprarBoleto {
 		
 		JRadioButton caminoRapido = new JRadioButton("Seleccionar camino mas rapido");
 		caminoRapido.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		caminoRapido.setBounds(41, 459, 254, 23);
+		caminoRapido.setBounds(10, 536, 254, 23);
 		frmComprarBoleto.getContentPane().add(caminoRapido);
 		
 		JRadioButton caminoMenorDis = new JRadioButton("Seleccionar camino de menor distancia");
 		caminoMenorDis.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		caminoMenorDis.setBounds(41, 485, 254, 23);
+		caminoMenorDis.setBounds(10, 562, 254, 23);
 		frmComprarBoleto.getContentPane().add(caminoMenorDis);
 		
 		JRadioButton caminoBarato = new JRadioButton("Seleccionar camino mas barato");
 		caminoBarato.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		caminoBarato.setBounds(41, 511, 254, 23);
+		caminoBarato.setBounds(10, 588, 254, 23);
 		frmComprarBoleto.getContentPane().add(caminoBarato);
 		
 		
-	/*if(caminoBarato.isSelected()) {
-		vertices=Grafo.getInstance().caminoMinimoCosto(origen, destino);
-		
-		}
-		if(caminoMenorDis.isSelected()) {
-		vertices=Grafo.getInstance().caminoMinimoDistancia(origen, destino);
-		}
-		if(caminoRapido.isSelected()) {
-		vertices=Grafo.getInstance().caminoMinimoDuracion(origen, destino);
-		}*/
-
-		
-		
-		
+	
 		
 		JScrollPane scrollPane = new JScrollPane();
-	 	 scrollPane.setBounds(10, 81, 645, 371);
+	 	 scrollPane.setBounds(10, 81, 645, 448);
 	 	frmComprarBoleto.getContentPane().add(scrollPane);
 	 	
 	 	
-	//	List<List<String>> aux1 = GestorEstacion.flujoMaximoGestor(GestorEstacion.getEstacionById(auxId), 
-		//						GestorEstacion.getEstacionById(auxId2));
-		
-		//vertices=(ArrayList<Vertice>) vertices.subList(2, vertices.size()-1);
+	
 		class Auxiliar extends JApplet{
 			 
 			 PanelDibujo pd;
@@ -174,7 +150,7 @@ public class ComprarBoleto {
 				      repaint();
 				     
 				     }catch(NumberFormatException ne){
-				      JOptionPane.showMessageDialog(null, "Digite un numero valido");
+				      JOptionPane.showMessageDialog(null, "Fallo");
 				     }
 				 
 			 }
@@ -187,7 +163,9 @@ public class ComprarBoleto {
 		frmComprarBoleto.getContentPane().add(actualizarOriDes);
 		actualizarOriDes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				caminoBarato.setForeground(Color.BLACK);
+				caminoMenorDis.setForeground(Color.BLACK);
+				caminoRapido.setForeground(Color.BLACK);
 			 List<Estacion> vertices=Grafo.getInstance().getEstacions();
 				aux.init(vertices);                                               //Grafico los vertices (estaciones)
 			}});
@@ -205,6 +183,9 @@ public class ComprarBoleto {
 			Estacion destino=GestorEstacion.getEstacionById(auxId2);
 				List<Ruta<Estacion>> verticeaux=new ArrayList<Ruta<Estacion>>();
 				if(caminoRapido.isSelected()) {
+					caminoBarato.setForeground(Color.BLACK);
+					caminoMenorDis.setForeground(Color.BLACK);
+					caminoRapido.setForeground(Color.BLACK);
 					caminoMenorDis.setSelected(false);
 					caminoBarato.setSelected(false);
 					verticeaux=Grafo.getInstance().caminoMinimoDuracion(origen, destino);
@@ -222,12 +203,14 @@ public class ComprarBoleto {
 			Estacion destino=GestorEstacion.getEstacionById(auxId2);
 				List<Ruta<Estacion>> verticeaux=new ArrayList<Ruta<Estacion>>();
 				if(caminoMenorDis.isSelected()) {
+					caminoBarato.setForeground(Color.BLACK);
+					caminoMenorDis.setForeground(Color.BLACK);
+					caminoRapido.setForeground(Color.BLACK);
 					caminoRapido.setSelected(false);
 					caminoBarato.setSelected(false);
 					verticeaux=Grafo.getInstance().caminoMinimoDistancia(origen, destino);
 				System.out.println(verticeaux);
-					
-					
+
 					aux.init(verticeaux,Color.BLUE);
 				}
 			}
@@ -241,21 +224,70 @@ public class ComprarBoleto {
 			Estacion destino=GestorEstacion.getEstacionById(auxId2);
 				List<Ruta<Estacion>> verticeaux=new ArrayList<Ruta<Estacion>>();
 				if(caminoBarato.isSelected()) {
+					caminoBarato.setForeground(Color.BLACK);
+					caminoMenorDis.setForeground(Color.BLACK);
+					caminoRapido.setForeground(Color.BLACK);
 					caminoMenorDis.setSelected(false);
 					caminoRapido.setSelected(false);
 					verticeaux=Grafo.getInstance().caminoMinimoCosto(origen, destino);
-					
-				
+
 					aux.init(verticeaux,Color.GREEN);
 				}
 			}
 		});
+		
+		JLabel lblNombre = new JLabel("(*) Nombre:");
+		lblNombre.setBounds(402, 562, 72, 14);
+		
+		frmComprarBoleto.getContentPane().add(lblNombre);
+		
+		JLabel lblCorreo = new JLabel("(*) Correo:");
+		lblCorreo.setBounds(402, 593, 72, 14);
+		frmComprarBoleto.getContentPane().add(lblCorreo);
+		
+		textFieldNombre = new JTextField();
+		textFieldNombre.setBounds(472, 559, 183, 20);
+		textFieldNombre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				lblNombre.setForeground(Color.BLACK);
+			}
+		});
+		frmComprarBoleto.getContentPane().add(textFieldNombre);
+		textFieldNombre.setColumns(10);
+		
+		textFieldCorreo = new JTextField();
+		textFieldCorreo.setColumns(10);
+		textFieldCorreo.setBounds(472, 590, 183, 20);
+		textFieldCorreo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				lblCorreo.setForeground(Color.BLACK);
+			}
+		});
+		frmComprarBoleto.getContentPane().add(textFieldCorreo);
+	
 		
 		JButton btnComprarBoleto = new JButton("Comprar Boleto");
 		btnComprarBoleto.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnComprarBoleto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				boolean ok=true;
+				if(textFieldNombre.getText().isEmpty()) {
+					lblNombre.setForeground(Color.RED);
+					ok=false;
+				}
+				if(textFieldCorreo.getText().isEmpty()) {
+					lblCorreo.setForeground(Color.RED);
+					ok=false;
+				}
+				if(!(caminoRapido.isSelected() && caminoBarato.isSelected() && caminoMenorDis.isSelected())) {
+					caminoRapido.setForeground(Color.RED);
+					caminoBarato.setForeground(Color.RED);
+					caminoMenorDis.setForeground(Color.RED);
+				}
+				if(ok) {
 				if(caminoRapido.isSelected()) {
 					Integer auxId = GestorEstacion.getIdEstacionByNombre((comboBoxOrigen.getSelectedItem().toString()));
 					Integer auxId2 = GestorEstacion.getIdEstacionByNombre((comboBoxDestino.getSelectedItem().toString()));
@@ -309,11 +341,16 @@ public class ComprarBoleto {
 					});
 					frmComprarBoleto.dispose();
 				}
-				
+				}
 			
 			
 		}});
-		btnComprarBoleto.setBounds(529, 540, 126, 29);
+		btnComprarBoleto.setBounds(529, 621, 126, 29);	
+		JLabel lblNewLabel_2 = new JLabel("Este sistema contempla el estado de rutas y estaciones");
+		lblNewLabel_2.setEnabled(false);
+		lblNewLabel_2.setBounds(143, 636, 292, 14);
+		frmComprarBoleto.getContentPane().add(lblNewLabel_2);
+	
 		frmComprarBoleto.getContentPane().add(btnComprarBoleto);
 		
 		
@@ -334,8 +371,9 @@ public class ComprarBoleto {
 				frmComprarBoleto.dispose();
 			}
 		});
-		btnAtras.setBounds(10, 541, 126, 29);
+		btnAtras.setBounds(10, 621, 126, 29);
 		frmComprarBoleto.getContentPane().add(btnAtras);
+		
 	
 		 	 
 		 	 
@@ -348,4 +386,5 @@ public class ComprarBoleto {
 	
 	
 		 
-}}
+}	
+}

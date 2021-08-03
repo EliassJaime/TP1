@@ -263,7 +263,7 @@ public class EditarEstacion {
 					dto.setNombre(textFieldNombreEstacion.getText());
 				}
 				
-				if((textFieldHorarioCierreHora.getText().length()==0 || textFieldHorarioCierreHora.getText().length()>2 || 
+				if((textFieldHorarioCierreHora.getText().length()==0 || textFieldHorarioCierreHora.getText().length()>2 || textFieldHorarioCierreHora.getText().length()<2 ||
 						Integer.valueOf(textFieldHorarioCierreHora.getText())>=24 || (Integer.valueOf(textFieldHorarioCierreHora.getText())<0))  || 
 						(textFieldHorarioCierreMin.getText().length()==0 || textFieldHorarioCierreMin.getText().length()>2) 
 						|| Integer.valueOf(textFieldHorarioCierreMin.getText())>=60 || (Integer.valueOf(textFieldHorarioCierreMin.getText())<0))  {
@@ -274,7 +274,7 @@ public class EditarEstacion {
 					dto.setHorarioCierre(textFieldHorarioCierreHora.getText()+":"+textFieldHorarioCierreMin.getText());
 				}
 				
-				if((textFieldHorarioAperturaHora.getText().length()==0 || textFieldHorarioAperturaHora.getText().length()>2 || 
+				if((textFieldHorarioAperturaHora.getText().length()==0 || textFieldHorarioAperturaHora.getText().length()>2 || textFieldHorarioAperturaHora.getText().length()<2 ||
 						Integer.valueOf(textFieldHorarioAperturaHora.getText())>=24 || (Integer.valueOf(textFieldHorarioAperturaHora.getText())<0))  || 
 						(textFieldHorarioAperturaMin.getText().length()==0 || textFieldHorarioAperturaMin.getText().length()>2) 
 						|| Integer.valueOf(textFieldHorarioAperturaMin.getText())>=60 || (Integer.valueOf(textFieldHorarioAperturaMin.getText())<0)) {
@@ -293,12 +293,11 @@ public class EditarEstacion {
 							comboBox.getSelectedItem().toString() == "EnMantenimiento") {
 						
 						GestorMantenimiento.crearMantenimiento(esta.getId());
-						
-						
+					
 					}if(comboBox.getSelectedItem().toString() != esta.getEstado().toString() &&
 							comboBox.getSelectedItem().toString() == "Operativo") {
 						GestorMantenimiento.terminarMantenimiento(esta.getId(), textObservaciones.getText());
-						
+					
 					}
 					dto.setEstado(comboBox.getSelectedItem().toString());
 				}
@@ -311,12 +310,12 @@ public class EditarEstacion {
 				else {
 					if(JOptionPane.showConfirmDialog(frame, "¿Esta seguro que desea continuar?",
 				            "Confirmacion", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-						
-				GestorEstacion.editarEstacion(dto);    //VER PARA ENVIAR MENSAJE DE EDITADO CN EXITO
-						
-						//EDITADO CN EXITO
-					//	if(creada==0) {JOptionPane.showMessageDialog(null,"Competencia Creada con Exito");
-					//	System.out.println(dto.toString());
+						if(comboBox.getSelectedItem().toString() != esta.getEstado().toString() &&
+								comboBox.getSelectedItem().toString() == "EnMantenimiento") {
+							JOptionPane.showMessageDialog(null,"Actualizo a EnMantenimiento");
+						}
+						else JOptionPane.showMessageDialog(null,"Actualizo a Operativo");
+				GestorEstacion.editarEstacion(dto);    
 						
 						EventQueue.invokeLater(new Runnable() {
 							public void run() {
