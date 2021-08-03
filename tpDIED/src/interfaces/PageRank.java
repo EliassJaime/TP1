@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import dominio.Estacion;
 import dto.EstacionDTO;
 import gestores.GestorEstacion;
 import javax.swing.JTextPane;
@@ -26,8 +25,6 @@ import javax.swing.JTextField;
 public class PageRank {
 
 	private JFrame frame;
-
-
 
 	/**
 	 * Create the application.
@@ -55,8 +52,6 @@ public class PageRank {
 		txtpnPageRank.setBounds(231, 11, 104, 20);
 		frame.getContentPane().add(txtpnPageRank);
 		
-		
-		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(140, 40, 300, 299);
 		frame.getContentPane().add(scrollPane);
@@ -66,7 +61,7 @@ public class PageRank {
 		int cantidad=page.size();
 		JPanel panelResultados = new JPanel();
 		panelResultados.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		panelResultados.setPreferredSize(new Dimension(164, 35*cantidad));
+		panelResultados.setPreferredSize(new Dimension(164, 40*cantidad));
 		panelResultados.setLayout(null);
 		panelResultados.setAutoscrolls(true);
 		scrollPane.setViewportView(panelResultados);

@@ -43,6 +43,7 @@ public class MostrarBoleto {
 	private void initialize(Boleto bol) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 523, 385);
+		frame.setTitle("Mostrar Boleto");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -134,17 +135,17 @@ public class MostrarBoleto {
 		scrollPane.setBounds(10, 145, 487, 165);
 		frame.getContentPane().add(scrollPane);
 		
-		JPanel panelTrayecto = new JPanel();
-		panelTrayecto.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		panelTrayecto.setPreferredSize(new Dimension(360, 35*1));
-		panelTrayecto.setLayout(null);
-		panelTrayecto.setAutoscrolls(true);
-		scrollPane.setViewportView(panelTrayecto);
-		
 		ArrayList<JTextField> trayecto=new ArrayList<JTextField>();
 		int cantidad=bol.getCamino().size();
 		int contador=0;
 		int agregadoY=0;
+		
+		JPanel panelTrayecto = new JPanel();
+		panelTrayecto.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		panelTrayecto.setPreferredSize(new Dimension(360, 40*cantidad));
+		panelTrayecto.setLayout(null);
+		panelTrayecto.setAutoscrolls(true);
+		scrollPane.setViewportView(panelTrayecto);
 		while(contador<cantidad) {
 		trayecto.add(new JTextField());
 		trayecto.get(contador).setEditable(false);

@@ -316,7 +316,7 @@ public class ComprarBoleto {
 				Estacion origen=GestorEstacion.getEstacionById(auxId);
 				Estacion destino=GestorEstacion.getEstacionById(auxId2);
 				List<Ruta<Estacion>> camino=Grafo.getInstance().caminoMinimoCosto(origen, destino);
-				// ACA SEGUIR
+			
 				if(camino.isEmpty()) {
 					
 					ok=false;

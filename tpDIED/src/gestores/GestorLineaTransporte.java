@@ -37,45 +37,29 @@ public class GestorLineaTransporte {
 	
 	
 	public static void agregarTrayecto(Integer idLineaTransporte, ArrayList<EstacionDTO> estaciones) {
-		
-		
 		ArrayList<RutaDTO> rutas= new ArrayList<>();
 		
-		
-		
 		for(int i=0;i<(estaciones.size()-1);i++) {
-		
 		rutas.add(new RutaDTO(0,idLineaTransporte, estaciones.get(i).getId(), estaciones.get(i+1).getId(), 3.0, 2.3, 15, "Activa", 32.2));
-		
 		}
 		
 		for(RutaDTO r:rutas) {
 			RutaDAO.guardarRuta(r);
 		}
-		
-		
 	}
-	
-	
-	
 	
     public static ArrayList<LineaTransporte> buscarTodasLasLineasTrasporte(){
-		
 		return LineaTransporteDAO.obtenerLineasTransporte();
 	}
-	
-	
 	
     public static int obtenerIdLineaTransporte(String nombreL) {
 		return LineaTransporteDAO.getIdLineaTransporte(nombreL);
 	}
+    
     public static LineaTransporte obtenerLineaTransportePorId(Integer id) {
 		return LineaTransporteDAO.obtenerLineaPorID(id);
 	}
 	
-	
-	
-
 	public static LineaTransporteDTO crearDTO(LineaTransporte l) {
 		return new LineaTransporteDTO(l.getIdLinea(), l.getNombre(), l.getColor(), l.getEstadolinea().toString());
 	}
@@ -84,7 +68,6 @@ public class GestorLineaTransporte {
 			String color,String id,ArrayList<Integer> trayecto){
 		ArrayList<LineaTransporte> lineas=LineaTransporteDAO.obtenerLineasTransporte();
 
-		
 		int tam=lineas.size();
 		if(nombre!="all") {
 			for(int i=0; i<tam;i++) {
@@ -153,20 +136,12 @@ public class GestorLineaTransporte {
 				}	
 			}
 		}
-	
-		
-		
-		
-		
 		return GestorLineaTransporte.obtenerlineasDTO(lineas);
 	}
-	
 	
 	public static Boolean contiene(List<Ruta<Estacion>> list,ArrayList<Ruta> segundo) {
 		
 		Boolean contiene=false;
-		
-		
 		int i;
 		int j = -1;
 		for( i=0;i<list.size();i++) {
@@ -185,16 +160,9 @@ public class GestorLineaTransporte {
 		}
 		if( j==segundo.size()) {contiene=true;}
 		
-		
 		return contiene;
 	}
 	
-	
-	
-	
-	
-	
-
 	public static ArrayList<LineaTransporteDTO> obtenerlineasDTO(ArrayList<LineaTransporte> lineas){
 		ArrayList<LineaTransporteDTO> lineasDTO=new ArrayList<LineaTransporteDTO>();
 		
@@ -206,13 +174,7 @@ public class GestorLineaTransporte {
 			dto.setIdLinea(c.getIdLinea());
 			lineasDTO.add(dto);
 		}
-	
-		
 		return lineasDTO;
 	}
 	
-
-	
-	
-
 }

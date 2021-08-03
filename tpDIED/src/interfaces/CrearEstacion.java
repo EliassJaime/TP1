@@ -238,15 +238,10 @@ public class CrearEstacion {
 						});
 						frame.dispose();}
 					}
-					}
-					
-				
-				
-			
+					}	
 		});
 	
-		
-		
+
 	}
 	public JFrame getFrame() {
 		return frame;

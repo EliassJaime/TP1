@@ -4,14 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import dominio.Cliente;
-import dominio.Estacion;
 import dto.ClienteDTO;
-import dto.EstacionDTO;
-import enums.EstadoEstacion;
 
 public class ClienteDAO {
 	public static void guardarCliente(ClienteDTO cliente) {
@@ -20,7 +14,6 @@ public class ClienteDAO {
 		Connection con = AccesoBDD.getConn();
 		String consulta = null;
 	System.out.println("ojo el try");
-	
 		try {
 				consulta = "insert into cliente(id,nombre,correo) "
 					+ "values ("+cliente.getId() 
@@ -39,28 +32,18 @@ public class ClienteDAO {
 		
 	}
 	
-	
-	
-	
-	
-	
 	public static Cliente obtenerClienteByID(Integer idCliente) {
 		
 		Connection con = AccesoBDD.getConn();
 		ResultSet rs=null;
-		
 		Cliente cliente=null;
-		
 		String consulta = "select * from cliente where id='"+idCliente+"'";
-		
 		Statement st;
-		
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(consulta);
 			
-			while(rs.next()) {
-					
+			while(rs.next()) {	
 				 cliente = new Cliente(rs.getInt("id"),rs.getString("nombre"), rs.getString("correo"));
 			}
 			
@@ -74,17 +57,11 @@ public class ClienteDAO {
 	return cliente;
 	}
 	
-	
-	
 	public static int obtenerId() {
-		
-		
-		
+
 		Connection con = AccesoBDD.getConn();
 		String consulta = "SELECT max(id) from cliente";
-		
 		Statement st;
-
 		int id=0;
 		ResultSet rs;
 		
@@ -102,13 +79,5 @@ public class ClienteDAO {
 		
 	return (id+1);		
 	
-	
-	
-	
-	
 	}
-	
-	
-	
-
 }

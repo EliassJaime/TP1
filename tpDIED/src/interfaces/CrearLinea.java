@@ -22,9 +22,6 @@ public class CrearLinea {
 
 	JFrame frmCrearLineaTransporte;
 	private JTextField textField;
-	/**
-	 * Launch the application.
-	 */
 
 	/**
 	 * Create the application.

@@ -3,16 +3,10 @@ package dao;
 
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
-
-
 import dominio.Estacion;
 import dominio.Mantenimiento;
 import dto.EstacionDTO;
@@ -34,7 +28,6 @@ public class EstacionDAO {
 		} catch (SQLException e) {
 			e.getMessage();
 		}
-		
 	}
 	
 public static void guardarEstacion(EstacionDTO estacion) {
@@ -44,9 +37,7 @@ public static void guardarEstacion(EstacionDTO estacion) {
 		String consulta = null;
 	System.out.println("ojo el try");
 		try {
-			
-			
-			
+
 			if(estacion.getId()==0) {
 				
 				estacion.setId(obtenerIdEstacion());
@@ -74,40 +65,23 @@ public static void guardarEstacion(EstacionDTO estacion) {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		
 	}
 
 public static ArrayList<Estacion> buscarTodasLasEstaciones(){
 	
-
-	
 	Connection con = AccesoBDD.getConn();
 	ResultSet tablaEstacion=null;
-	
 	ArrayList<Estacion> listaEstacion=new ArrayList<Estacion>();
-	
 	String consulta = "select * from estacion";
-
-	
 	Statement st;
 	
 	try {
 		st = con.createStatement();
 		tablaEstacion = st.executeQuery(consulta);
-	
-		
 		while(tablaEstacion.next()) {
-			
-		    
-			
-			
-		
-			
 			listaEstacion.add(EstacionDAO.buscarEstacionPorId(tablaEstacion.getInt("id")));		
 		}
-		
-		
-		
+
 		st.close();
 		con.close();
 		
@@ -115,7 +89,6 @@ public static ArrayList<Estacion> buscarTodasLasEstaciones(){
 		// TODO Auto-genera202 catch block
 		ex.printStackTrace();
 	}
-	
 	return listaEstacion;
 }
 
@@ -123,21 +96,14 @@ public static Estacion buscarEstacionPorId(int idEstacion) {
 	
 	Connection con = AccesoBDD.getConn();
 	ResultSet tablaEstacion=null;
-	
 	Estacion estacion=null;
-	
 	String consulta = "select * from estacion where id='"+idEstacion+"'";
-	
 	Statement st;
 
 	try {
 		st = con.createStatement();
 		tablaEstacion = st.executeQuery(consulta);
-		
 		while(tablaEstacion.next()) {
-	
-		    
-			
 			 estacion = new Estacion(tablaEstacion.getInt("id")
 					,tablaEstacion.getString("nombre"),tablaEstacion.getString("horarioApertura"),tablaEstacion.getString("horarioCierre")
 					,null);
@@ -151,7 +117,6 @@ public static Estacion buscarEstacionPorId(int idEstacion) {
 			 
 			 for(Mantenimiento m:estacion.getMantenimientos()) {
 				 m.setEstacion(estacion);
-				 
 			 }
 		}
 		
@@ -162,8 +127,6 @@ public static Estacion buscarEstacionPorId(int idEstacion) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	
-	
 	return estacion;
 }
 
@@ -173,9 +136,7 @@ public static boolean ExisteEstacion(Integer idEstacion) {
 	Connection con = AccesoBDD.getConn();
 	ResultSet estaciones=null;
 	Boolean existe=false;
-	
 	String consulta = "select * from estacion where nombre='"+idEstacion+"'";
-	
 	Statement st;
 	
 	try {
@@ -193,22 +154,15 @@ public static boolean ExisteEstacion(Integer idEstacion) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	
 	return existe;
 }
 
 public static int getIdEstacion(String nombreEstacion) {
-	
 	Connection con = AccesoBDD.getConn();
-	
 	ResultSet tablaEstacion=null;
-	
 	Integer id=null;
-	
 	String consulta = "select id from estacion where nombre ='"+nombreEstacion+"'";
-	
 	Statement st;
-	
 	try {
 		st = con.createStatement();
 		tablaEstacion = st.executeQuery(consulta);
@@ -224,28 +178,22 @@ public static int getIdEstacion(String nombreEstacion) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	
-	
 	return id;
 }
 
 
 
 public static String getNombreEstacion (int idEstacion) { 
-	
 	String nombreEstacion = null;
 	Connection con = AccesoBDD.getConn();
 	ResultSet tablaEstacion=null;
 	String consulta = "select nombre from estacion where id='"+idEstacion+"'";
-	
 	Statement st;
 	
 	try {
 		st = con.createStatement();
 		tablaEstacion = st.executeQuery(consulta);
-		
 		while(tablaEstacion.next()) {
-			
 			nombreEstacion = tablaEstacion.getString("nombre");
 		}
 		
@@ -256,20 +204,15 @@ public static String getNombreEstacion (int idEstacion) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	
 	return nombreEstacion;
 	
 }
 
 public static int obtenerIdEstacion() {
-	
-	
-	
+
 	Connection con = AccesoBDD.getConn();
 	String consulta = "SELECT max(id) from estacion";
-	
 	Statement st;
-
 	int id=0;
 	ResultSet rs;
 	
@@ -287,7 +230,4 @@ public static int obtenerIdEstacion() {
 	
 return (id+1);	
 }
-
-
-
 }

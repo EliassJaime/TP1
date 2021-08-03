@@ -33,22 +33,6 @@ public class Estaciones {
 	private JTextField textFieldHORACIERRE;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Estaciones window = new Estaciones();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public Estaciones() {
@@ -179,7 +163,7 @@ public class Estaciones {
 				}
 				
 			     if(estado.getSelectedItem()!=null) {
-			    	 es=estado.getSelectedItem().toString().toLowerCase();                 //VER, NO FILTRA ESTADO
+			    	 es=estado.getSelectedItem().toString().toLowerCase();               
 			     }
 			     
 			     if(!textFieldHORAAPERTURA.getText().isEmpty()) {
@@ -194,11 +178,8 @@ public class Estaciones {
 				
 				System.out.println("-"+id+n+"-"+es+"-"+horarioapertura+"-"+horariocierre+"-");
 
-estaciones=GestorEstacion.buscarEstaciones(id,n,es,horarioapertura,horariocierre);       
+				estaciones=GestorEstacion.buscarEstaciones(id,n,es,horarioapertura,horariocierre);       
 		
-		
-		
-				
 				// TODO Auto-generated method stub
 				int cantidad=estaciones.size(); //Setear la cantidad de resultados encontrados en la busqueda
 				int contador=0;
@@ -246,7 +227,7 @@ estaciones=GestorEstacion.buscarEstaciones(id,n,es,horarioapertura,horariocierre
 				while(cantidad>contador) {
 					int contadorAux=contador;
 					
-					//agregar settext del id de la estacion del resultado de busqueda, igual con nombre, horaapertura,etc/
+				
 					ID2.add(new JTextField());
 					ID2.get(contador).setBounds(10, 41+agregadoY, 20, 20);
 					ID2.get(contador).setEditable(false);
@@ -339,7 +320,7 @@ estaciones=GestorEstacion.buscarEstaciones(id,n,es,horarioapertura,horariocierre
 				public void run() {
 					try {
 						CrearEstacion window = new CrearEstacion();
-							window.getFrame().setVisible(true);     //LLAMO CU Crear estacion
+							window.getFrame().setVisible(true);     
 						} catch (Exception e) {
 					e.printStackTrace();
 						}

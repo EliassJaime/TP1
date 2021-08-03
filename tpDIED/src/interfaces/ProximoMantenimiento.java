@@ -10,10 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import dominio.Estacion;
-import dominio.Mantenimiento;
-import dto.EstacionDTO;
 import estructuras.MonticuloMantenimiento;
-import gestores.GestorEstacion;
 import gestores.GestorMantenimiento;
 
 import javax.swing.JTextPane;
@@ -32,10 +29,6 @@ import javax.swing.JTextField;
 public class ProximoMantenimiento {
 
 	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
 
 	/**
 	 * Create the application.

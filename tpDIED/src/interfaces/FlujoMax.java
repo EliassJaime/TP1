@@ -4,24 +4,17 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 
 import dominio.Estacion;
-import dominio.LineaTransporte;
-import estructuras.Grafo;
 import gestores.GestorEstacion;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,9 +28,6 @@ public class FlujoMax {
 
 	JFrame frameFlujoMax;
 
-	/**
-	 * Launch the application.
-	 */
 	/**
 	 * Create the application.
 	 */
@@ -177,9 +167,6 @@ public class FlujoMax {
 					agregadoY=agregadoY+30;
 					nro1++;
 				}}
-				
-			
-
 		});
 	
 	}

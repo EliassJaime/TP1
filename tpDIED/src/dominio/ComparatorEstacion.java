@@ -56,10 +56,5 @@ public class ComparatorEstacion implements Comparator<Estacion> {
 			
 			return 0;
 		}
-		
-		
-		
-	
 	}
-	
 }

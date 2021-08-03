@@ -97,8 +97,6 @@ public class RegistrarLinea {
 					}
 				}
 			}});
-	
-		
 		}
 		
 		
@@ -216,7 +214,7 @@ public class RegistrarLinea {
 						agregar.setEstado((Estado.get(i).getSelectedItem().toString()));
 						} 
 						if(ok) {
-							agregar.setIdOrigenE(trayecto.get(i));       //Posible error
+							agregar.setIdOrigenE(trayecto.get(i));       
 							agregar.setIdDestinoE(trayecto.get(i+1));
 							agregar.setIdLineaTransporte(idLinea);
 							dto.add(agregar);

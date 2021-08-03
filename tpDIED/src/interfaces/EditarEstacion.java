@@ -34,9 +34,6 @@ public class EditarEstacion {
 	 private JTextField horarioCierreBD;
 	 private JTextField estadoBD;
 	 private JTextPane txtpnDatosCargadosEn;
-	/**
-	 * Launch the application.
-	 */
 
 
 	/**
@@ -330,10 +327,6 @@ public class EditarEstacion {
 						frame.dispose();}
 					}
 					}
-					
-				
-				
-			
 		});
 	
 		

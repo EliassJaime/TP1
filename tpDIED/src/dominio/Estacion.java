@@ -1,12 +1,7 @@
 package dominio;
 
-import java.time.Instant;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Comparator;
-
 import enums.EstadoEstacion;
-import estructuras.Ruta;
 
 public class Estacion {
 
@@ -17,8 +12,6 @@ public class Estacion {
     private EstadoEstacion estado;
     private ArrayList<Mantenimiento> mantenimientos;
  
-    
-    
 	public Estacion(Integer id, String nombre, String horarioApertura, String horarioCierre, EstadoEstacion estado) {
 		super();
 		this.id = id;

@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import dominio.Boleto;
-import dominio.Cliente;
 import dto.BoletoDTO;
 import dto.RutaDTO;
 
@@ -16,8 +15,6 @@ public class BoletoDAO {
 	
 	
 	public static void guardarBoleto(BoletoDTO boleto) {
-		
-		
 		
 		Connection con = AccesoBDD.getConn();
 		String consulta = null;
@@ -43,12 +40,7 @@ public class BoletoDAO {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		
-		
-		
-		
 	}
-
 	
 public static ArrayList<Boleto>  obtenerBoletos( ) {
 		
@@ -65,19 +57,12 @@ public static ArrayList<Boleto>  obtenerBoletos( ) {
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(consulta);
-			
 			while(rs.next()) {
-				
-				
-				boletos.add(new Boleto(rs.getInt("idBoleto"), ClienteDAO.obtenerClienteByID(rs.getInt("idCliente"))
-						
+				boletos.add(new Boleto(rs.getInt("idBoleto"), ClienteDAO.obtenerClienteByID(rs.getInt("idCliente"))	
 						, (formato.parse(rs.getString("fechaVenta")).toInstant())
 						, EstacionDAO.buscarEstacionPorId(rs.getInt("idOrigen"))
 						, EstacionDAO.buscarEstacionPorId(rs.getInt("idDestino")), 
 						null, rs.getDouble("costoBol")));
-				
-				
-				
 			}
 			
 			st.close();
@@ -89,7 +74,6 @@ public static ArrayList<Boleto>  obtenerBoletos( ) {
 		}
 	return boletos;
 	}
-
    
    public static void guardarRutaBoleto(ArrayList<RutaDTO> rutas,Integer idBoleto) {
 	
@@ -116,22 +100,15 @@ public static ArrayList<Boleto>  obtenerBoletos( ) {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		
-		
-	
-	 
-	
+
 }
    public static int obtenerId() {
 
 		Connection con = AccesoBDD.getConn();
 		String consulta = "SELECT max(idBoleto) from boleto";
-
 		Statement st;
-
 		int id = 0;
 		ResultSet rs;
-
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(consulta);
@@ -143,10 +120,6 @@ public static ArrayList<Boleto>  obtenerBoletos( ) {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return (id + 1);
 	}
-	
-	
-	
 }

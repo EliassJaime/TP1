@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.util.List;
 
 import estructuras.Ruta;
-import estructuras.Vertice;
 
 public class Boleto {
 	
@@ -15,9 +14,6 @@ public class Boleto {
 	private Estacion destino;
 	private List<Ruta<Estacion>> camino;
 	private Double costoBol;
-	
-	
-	
 	
 	public Boleto(Integer idBoleto, Cliente cliente, Instant fechaDeVenta, Estacion origen, Estacion destino,
 			List<Ruta<Estacion>> camino, Double costoBol) {

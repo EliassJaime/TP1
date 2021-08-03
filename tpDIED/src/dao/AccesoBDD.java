@@ -16,33 +16,22 @@ public class AccesoBDD {
 	
 	private AccesoBDD() {
 		AccesoBDD.conn = AccesoBDD.getConn();
-		
 	}
 	
 	public static AccesoBDD getInstance() { 
 		if ( DBM == null) {
 			DBM = new AccesoBDD();
 		}
-		
 		try {
-			
 			if (conn.isClosed()) {
-				
 				conn = getConn();
-
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return DBM;
 	}
-	
-
-//	public static Connection getConn() {
-//		return conn;
-//	}
 
 	public static Connection getConn(){
 	    try{
@@ -54,18 +43,4 @@ public class AccesoBDD {
 	        throw new RuntimeException(ex);
 	    }
 	}
-//	private static Connection crearConexion() throws ClassNotFoundException, SQLException{
-//
-//		Class.forName("com.mysql.cj.jdbc.Driver");
-//
-//		Connection conexion = DriverManager.getConnection(URL, USER, PASS);
-//		if (conexion != null){
-//			System.out.print("Conexion establecida...");
-//			return conexion;
-//
-//		}
-//		return null;
-//
-//	}
-
 }

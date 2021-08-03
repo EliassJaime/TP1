@@ -7,7 +7,6 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
@@ -24,7 +23,6 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
 import dominio.Estacion;
-import dominio.LineaTransporte;
 import dto.LineaTransporteDTO;
 import estructuras.Ruta;
 import gestores.GestorEstacion;
@@ -38,21 +36,6 @@ public class LineasDeTransporte {
 	private JTextField textFieldID;
 	private JTextField textFieldNOMBRE;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LineasDeTransporte window = new LineasDeTransporte();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -152,8 +135,6 @@ public class LineasDeTransporte {
 					}
 				}
 			}});
-	
-		
 		}
 		
 		JTextPane txtpnTrayectoria = new JTextPane();
@@ -253,7 +234,7 @@ public class LineasDeTransporte {
 				
 				System.out.println("-"+id+"-"+n+"-"+es+"-"+col+"-");
 
-                lineas=GestorLineaTransporte.buscarlineast(n, es, col, id,trayecto);   // falta filtrar por trayecto
+                lineas=GestorLineaTransporte.buscarlineast(n, es, col, id,trayecto); 
             	
 			
 				int cantidad=lineas.size(); //Setear la cantidad de resultados encontrados en la busqueda

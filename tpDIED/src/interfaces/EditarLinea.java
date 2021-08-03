@@ -4,40 +4,25 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 import javax.swing.JFrame;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.text.JTextComponent;
 
-import dominio.Estacion;
 import dominio.LineaTransporte;
 import enums.EstadoRuta;
-import gestores.GestorEstacion;
 import gestores.GestorLineaTransporte;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-import javax.swing.JTextArea;
-import javax.swing.JCheckBox;
-import javax.swing.JScrollPane;
 
 public class EditarLinea {
 
 	JFrame frmEditarLineaTransporte;
-	private JTextField textField;
 	private JTextField textFieldColorNuevo;
 	private JTextField textFieldNombreNuevo;
-
-	/**
-	 * Launch the application.
-	 */
 
 	/**
 	 * Create the application.
@@ -145,8 +130,6 @@ public class EditarLinea {
 			public void actionPerformed(ActionEvent e) {
 
 				Boolean ok=true;
-				
-				
 				if(textFieldNombreNuevo.getText().length()==0 || textFieldNombreNuevo.getText().length()>50 || textFieldColorNuevo.getText().length()==0 
 						|| textFieldColorNuevo.getText().length()>50 || comboBox.getSelectedItem()==null) {
 					lblNewNombreLinea.setForeground(Color.RED);

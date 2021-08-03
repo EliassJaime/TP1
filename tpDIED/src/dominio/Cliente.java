@@ -6,7 +6,6 @@ public class Cliente {
     private String nombre;
     private String correo;
     
-    
 	public Cliente(Integer id, String nombre, String correo) {
 		this.id= id;
 		this.nombre = nombre;

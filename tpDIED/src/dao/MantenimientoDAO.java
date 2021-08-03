@@ -8,17 +8,13 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 
-import dominio.Boleto;
 import dominio.Mantenimiento;
-import dto.BoletoDTO;
 import dto.MantenimientoDTO;
 
 public class MantenimientoDAO {
 	
 public static void guardarMantenimiento(MantenimientoDTO mantenimiento) {
-		
-		
-		
+
 		Connection con = AccesoBDD.getConn();
 		String consulta = null;
 	System.out.println("ojo el try");
@@ -36,15 +32,10 @@ public static void guardarMantenimiento(MantenimientoDTO mantenimiento) {
 				consulta = "update mantenimiento set fechaFin='" +mantenimiento.getFechaFin() + "',observaciones='" +mantenimiento.getObservaciones()
 						+ "' WHERE idMantenimiento=" + mantenimiento.getIdMantenimiento()
 						+ ";";
-
 			}
-						
-			
-    
 
 			Statement st = con.createStatement();
 			st.executeUpdate(consulta);
-			
 			st.close();
 			con.close();
 			System.out.println("paso cabeza");
@@ -52,45 +43,29 @@ public static void guardarMantenimiento(MantenimientoDTO mantenimiento) {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		
-		
-		
-		
 	}
 
-	
 public static ArrayList<Mantenimiento>  obtenerMantenimientosByIdEstacion(Integer idEstacion ) {
 		
 		Connection con = AccesoBDD.getConn();
 		ResultSet rs=null;
-		
 		ArrayList<Mantenimiento> mantenimientos= new ArrayList<>();
-		
 		String consulta = "select * from mantenimiento where idEstacion="+idEstacion;
-		
 		SimpleDateFormat formato=new SimpleDateFormat("dd/MM/yyyy");
 		Statement st;
 		
 		try {
 			st = con.createStatement();
 			rs = st.executeQuery(consulta);
-			
 			while(rs.next()) {
-				
 				Instant fecha = null;
-				
 				if(!rs.getString("fechaFin").equals("No finalizado")) {
-					
 					fecha = (formato.parse(rs.getString("fechaFin")).toInstant());
-					
 				}
 				mantenimientos.add(new Mantenimiento(rs.getInt("idMantenimiento"),
 						null,
 						(formato.parse(rs.getString("fechaInicio")).toInstant())
 						,fecha, rs.getString("observaciones")));
-				
-				
-				
 			}
 			
 			st.close();
@@ -107,29 +82,20 @@ public static ArrayList<Mantenimiento>  obtenerMantenimientos() {
 	
 	Connection con = AccesoBDD.getConn();
 	ResultSet rs=null;
-	
 	ArrayList<Mantenimiento> mantenimientos= new ArrayList<>();
-	
 	String consulta = "select * from mantenimiento";
-	
 	SimpleDateFormat formato=new SimpleDateFormat("dd/MM/yyyy");
 	Statement st;
 	
 	try {
 		st = con.createStatement();
 		rs = st.executeQuery(consulta);
-		
 		while(rs.next()) {
-			
-			
 			mantenimientos.add(new Mantenimiento(rs.getInt("idMantenimiento"),
 					EstacionDAO.buscarEstacionPorId(rs.getInt("idEstacion")),
 					(formato.parse(rs.getString("fechaInicio")).toInstant())
 					, (formato.parse(rs.getString("fechaFin")).toInstant())
 					, rs.getString("observaciones")));
-			
-			
-			
 		}
 		
 		st.close();
@@ -142,24 +108,17 @@ public static ArrayList<Mantenimiento>  obtenerMantenimientos() {
 return mantenimientos;
 }
 
-
-
 public static int obtenerId() {
-	
-	
-	
+
 	Connection con = AccesoBDD.getConn();
 	String consulta = "SELECT max(idMantenimiento) from mantenimiento";
-	
 	Statement st;
-
 	int id=0;
 	ResultSet rs;
 	
 		try {
 			st=con.createStatement();
 			rs=st.executeQuery(consulta);
-			
 			while(rs.next()) {
 				id=rs.getInt("max(idMantenimiento)");
 			}
@@ -170,9 +129,4 @@ public static int obtenerId() {
 	
 return (id+1);	
 }
-
-	
-	
-	
-
 }

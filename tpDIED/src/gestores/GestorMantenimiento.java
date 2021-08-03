@@ -12,11 +12,10 @@ import dto.MantenimientoDTO;
 public class GestorMantenimiento {
 	
 	public static void crearMantenimiento(Integer idEstacion) {
-		
 		 Mantenimiento m = new Mantenimiento(0, EstacionDAO.buscarEstacionPorId(idEstacion), Instant.now(), null, null);
 		 MantenimientoDAO.guardarMantenimiento(GestorMantenimiento.crearDTO(m)); 
-		
 	} 
+	
     public static void terminarMantenimiento(Integer idEstacion,String observaciones) {
     	Mantenimiento m = MantenimientoDAO.obtenerMantenimientosByIdEstacion(idEstacion).get(EstacionDAO.buscarEstacionPorId(idEstacion).getMantenimientos().size()-1);
 		m.setFechaFinMan(Instant.now());
@@ -24,13 +23,8 @@ public class GestorMantenimiento {
 		m.setEstacion(EstacionDAO.buscarEstacionPorId(idEstacion));
 		MantenimientoDAO.guardarMantenimiento(GestorMantenimiento.crearDTO(m));
 	} 
-    
-    
-    
-	
-	
+
 	public static MantenimientoDTO crearDTO(Mantenimiento m) {
-		
 		SimpleDateFormat f= new SimpleDateFormat("dd/MM/yyyy");
 		
 		String fechaInicio=f.format(Date.from(m.getFechaInicioMan()));
@@ -48,18 +42,10 @@ public class GestorMantenimiento {
 			m.setObservaciones("");
 		}
 		
-		
 		System.out.println(m.getEstacion());
 MantenimientoDTO mdto= new MantenimientoDTO(m.getId(), m.getEstacion().getId()
 				,fechaInicio,fechaFin	
 				, m.getObservaciones());
-
 return mdto;
-		
-		
-		
-		
-		
 	} 
-
 }

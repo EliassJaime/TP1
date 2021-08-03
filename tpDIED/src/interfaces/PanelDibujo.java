@@ -8,8 +8,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-
 import javax.swing.*;
 
 import dominio.Estacion;
@@ -17,18 +15,16 @@ import estructuras.Grafo;
 import estructuras.Ruta;
 import estructuras.Vertice;
 
+@SuppressWarnings("serial")
 public class PanelDibujo extends JPanel {
  
- 
- private ArrayList<Integer> xvs;
- private ArrayList<Integer> yvs;
+private ArrayList<Integer> xvs;
+private ArrayList<Integer> yvs;
 
 private List<Ruta<Estacion>> agrafos;
 private List<Estacion> vgrafos;
 private Color Color;
- int indice=0;
-
- 
+int indice=0;
 
 public PanelDibujo(){
   vgrafos=new ArrayList<>();
@@ -38,7 +34,8 @@ public PanelDibujo(){
   setDoubleBuffered(true);
  }
  
- public void paintComponent(Graphics grafico){
+ @SuppressWarnings("unchecked")
+public void paintComponent(Graphics grafico){
 	 Integer x=270;
 	 Integer y=0;
 	 if(vgrafos.size()>5) {
@@ -51,9 +48,9 @@ public PanelDibujo(){
   super.paintComponents(grafico);
   Graphics2D g=(Graphics2D)grafico;
   if(vgrafos.size()!=0){
-   g.setColor(Color.WHITE);
+   g.setColor(java.awt.Color.WHITE);
    g.fillRect(0, 0, getWidth(), getHeight());
-   g.setColor(Color.BLACK);
+   g.setColor(java.awt.Color.BLACK);
    int radio=0;
    if(vgrafos.size()>5) {
    radio = 21*vgrafos.size();}
@@ -84,14 +81,14 @@ public PanelDibujo(){
 	  g.drawLine(xvs.get(i)+15,yvs.get(i)+15,xvs.get(j)+15,yvs.get(j)+15);
   }
 	  
-	  g.setColor(Color.WHITE);
+	  g.setColor(java.awt.Color.WHITE);
     g.fillOval(xvs.get(i), yvs.get(i), ancho, alto);
-    g.setColor(Color.BLACK);
+    g.setColor(java.awt.Color.BLACK);
     g.drawOval(xvs.get(i),yvs.get(i), ancho, alto);
     g.drawString(""+vgrafos.get(i), xvs.get(i)+((ancho/2)-20), yvs.get(i)+((alto/2)+3));
-    g.setColor(Color.WHITE);
+    g.setColor(java.awt.Color.WHITE);
     g.fillOval(xvs.get(j), yvs.get(j), ancho, alto);
-    g.setColor(Color.BLACK);
+    g.setColor(java.awt.Color.BLACK);
     g.drawOval(xvs.get(j),yvs.get(j), ancho, alto);
     
   g.drawString(""+vgrafos.get(j), xvs.get(j)+((ancho/2)-20), yvs.get(j)+((alto/2)+3));
