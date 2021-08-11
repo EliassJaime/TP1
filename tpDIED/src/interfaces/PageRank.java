@@ -13,6 +13,8 @@ import gestores.GestorEstacion;
 import javax.swing.JTextPane;
 import javax.swing.border.MatteBorder;
 
+import dominio.Estacion;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,6 +58,8 @@ public class PageRank {
 		scrollPane.setBounds(140, 40, 300, 299);
 		frame.getContentPane().add(scrollPane);
 		
+		ArrayList<Estacion> estaciones = GestorEstacion.buscarTodasLasEstaciones();
+		
 	ArrayList<EstacionDTO> page=GestorEstacion.obtenerPageRank();
 		Integer contador=0;
 		int cantidad=page.size();
@@ -66,6 +70,7 @@ public class PageRank {
 		panelResultados.setAutoscrolls(true);
 		scrollPane.setViewportView(panelResultados);
 		
+		ArrayList<JLabel> labelsPage=new ArrayList<JLabel>();
 		ArrayList<JLabel> labelsPosicion=new ArrayList<JLabel>();
 		ArrayList<JLabel> labelsNombre=new ArrayList<JLabel>();
 		labelsPosicion.add(new JLabel("Posicion"));
@@ -74,21 +79,31 @@ public class PageRank {
 		labelsNombre.add(new JLabel("Nombre Estacion"));
 		labelsNombre.get(contador).setBounds(100,5,120,23);
 		panelResultados.add(labelsNombre.get(contador));
+		labelsPage.add(new JLabel("PageRank"));
+		labelsPage.get(contador).setBounds(235,5,120,23);
+		panelResultados.add(labelsPage.get(contador));
 		ArrayList<JTextField> Posicion=new ArrayList<JTextField>();
 		ArrayList<JTextField> Nombre=new ArrayList<JTextField>();
+		ArrayList<JTextField> NumeroPage=new ArrayList<JTextField>();
 		
 		int agregadoY=0;
 		while(contador<cantidad) {
 			
 		Posicion.add(new JTextField());
-		Posicion.get(contador).setBounds(45, 30+agregadoY, 20, 20);
+		Posicion.get(contador).setBounds(40, 30+agregadoY, 20, 20);
 		Posicion.get(contador).setEditable(false);
 		Integer mostrar=contador+1;
 		Posicion.get(contador).setText(mostrar.toString());
 		panelResultados.add(Posicion.get(contador));
 		
+		NumeroPage.add(new JTextField());
+		NumeroPage.get(contador).setBounds(240, 30+agregadoY, 50, 20);
+		NumeroPage.get(contador).setEditable(false);
+		NumeroPage.get(contador).setText(GestorEstacion.obtenerPageRankNumero(estaciones.get(contador)).toString());
+		panelResultados.add(NumeroPage.get(contador));
+		
 		Nombre.add(new JTextField());
-		Nombre.get(contador).setBounds(100, 30+agregadoY, 180, 20);
+		Nombre.get(contador).setBounds(100, 30+agregadoY, 100, 20);
 		Nombre.get(contador).setEditable(false);
 		Nombre.get(contador).setText(page.get(contador).getNombre());
 		panelResultados.add(Nombre.get(contador));

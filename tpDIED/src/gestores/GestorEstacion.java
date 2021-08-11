@@ -49,6 +49,12 @@ public class GestorEstacion {
 		 return Grafo.getInstance().getEstacionPagerank();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static Integer obtenerPageRankNumero(Estacion e){
+		 return Grafo.getInstance().getPageRank(e);
+	}
+	
+	
     public static void eliminarEstacion(Estacion estacion) {
 		EstacionDAO.EliminarEstacion(estacion.getId());
 	}
